@@ -8,10 +8,11 @@ const INITIAL_USER = {
     name: 'Иванов Иван Иванович',
     email: 'ivan2001@mail.ru',
     university: 'НИУ ВШЭ Московский Институт Электроники и Математики',
-    isVip: true,
+    isVip: false,
+    isTgConnected: false,
 };
 
-export const CURRENT_WEEK = 1;
+export const CURRENT_WEEK = 2;
 
 const INITIAL_STATE = {
     screen: SCREENS.INTRO,
@@ -20,10 +21,6 @@ const INITIAL_STATE = {
     weekPoints: 0,
     user: INITIAL_USER,
     passedWeeks: [],
-    isPassed1Week: false,
-    isPassed2Week: false,
-    isPassed3Week: false,
-    isPassed4Week: false,
 }
 
 const ProgressContext = createContext(INITIAL_STATE)

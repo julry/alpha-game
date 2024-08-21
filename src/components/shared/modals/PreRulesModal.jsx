@@ -41,8 +41,8 @@ export const PreRulesModal = () => {
             <Content hasCloseIcon>
                 <Text>Про что хочешь узнать?</Text>
                 <ButtonWrapper $ratio={ratio}>
-                    <Button color="pink" onClick={() => setModal('movement')}>Управление</Button>
-                    <Button color="red" onClick={() => setModal('prizes')}>Призы</Button>
+                    <Button color="pink" onClick={() => setModal({type: 'movement', visible: true})}>Управление</Button>
+                    <Button color="red" onClick={() => setModal({type: 'prizes', visible: true})}>Призы</Button>
                 </ButtonWrapper>
             </Content>
         </Modal>

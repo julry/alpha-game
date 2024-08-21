@@ -53,7 +53,7 @@ const ProgressCircle  = styled.div`
 export const InfoModal = (props) => {
     const ratio = useSizeRatio();
     const [part, setPart] = useState(0);
-    const { user, setVipPoints, } = useProgress();
+    const { user, setVipPoints, setModal, setUserInfo } = useProgress();
     const amount = user?.isVip ? 4 : 3;
     const progress = Array.from({length: amount}, (v, i) => i);
 
@@ -65,6 +65,10 @@ export const InfoModal = (props) => {
         </ProgressWrapper>
     );
 
+    const handleGoLobby = () => {
+        setUserInfo({seenRules: true});
+        setModal({visible: true, type: 'tg'});
+    }
     const LastPart = (
             <Content>
                 <p>
@@ -72,7 +76,7 @@ export const InfoModal = (props) => {
                 </p>
                 <ButtonsWrapper>
                     <Button color="pink" onClick={() => setPart(prev => prev - 1)}>Назад</Button>
-                    <Button color="red" onClick={props.onClose}>На опушку</Button>
+                    <Button color="red" onClick={handleGoLobby}>На опушку</Button>
                 </ButtonsWrapper>
                 <Progress />
             </Content>
@@ -82,6 +86,7 @@ export const InfoModal = (props) => {
         if (user.isVip) setVipPoints(prev => prev + 1);
         setPart(prev => prev + 1)
     }
+    
     const getContent = () => {
         switch (part) {
             case 0:
@@ -150,7 +155,7 @@ export const InfoModal = (props) => {
     }
 
     return (
-        <Modal isDarken>
+        <Modal isDarken isDisabledAnimation>
             {getContent()}
         </Modal>
     )

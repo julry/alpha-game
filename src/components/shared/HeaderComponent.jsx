@@ -10,7 +10,7 @@ const Content = styled.div`
     ${({$isBlurred}) => $isBlurred ? 'filter: blur(3px)' : ''};
 `;
 
-export const HeaderComponent = ({children, isGame, isCards}) => {
+export const HeaderComponent = ({children, isGame, isCards, isFirstTime, isNoGames}) => {
     const { modal, setModal,  } = useProgress();
 
     const handleCloseModal = () => {
@@ -24,6 +24,8 @@ export const HeaderComponent = ({children, isGame, isCards}) => {
                     onClickModalButton={(args) => setModal({visible: true, isCloseIcon: true, ...args})} 
                     isGame={isGame} 
                     isCards={isCards}
+                    isFirstTime={isFirstTime}
+                    isNoGames={isNoGames}
                 />
                 {children}
             </Content>

@@ -87,7 +87,7 @@ const Warning = styled.p`
     pointer-events: none;
 `;
 
-export function Game({ className, level, isPaused }) {
+export function Game({ className, level, isPaused, customText }) {
     const sizeRatio = useSizeRatio();
     const { addGamePoint, setModal, modal, setPassedWeeks, setHasPassedThisTry } = useProgress();
     const wrapperRef = useRef();
@@ -126,6 +126,9 @@ export function Game({ className, level, isPaused }) {
         [star.id]: [star.position[0] * sizeRatio, star.position[1] * sizeRatio],
     }), {}));
     
+    useLayoutEffect(() => {
+        setModal({visible: true, type: 'movement'});
+    }, [])
 
     const characterDelta = useTransform(
         characterPosition,
@@ -247,13 +250,13 @@ export function Game({ className, level, isPaused }) {
             setStarsCollected(prev => prev + 1);
             collidedStarRef.current = null;
         }
-        if (stars.length === 9) {
-            setPassedWeeks(prev => [...prev, level]);
+        if (stars.length === 0) {
+            setPassedWeeks(prev => !prev.includes(level) ? [...prev, level] : prev);
             setHasPassedThisTry(level === CURRENT_WEEK);
             setModal({
                 visible: true,
                 type: 'win', 
-                customText: 'Ура, победа! Тьма Леса Негибкого графика рассеялась благодаря тебе.', 
+                customText, 
                 isDarken: true,
                 additionalPoints: MAX_LIVES - collidedSnakesAmount > 0 ? MAX_LIVES - collidedSnakesAmount : 0
             })
@@ -373,7 +376,7 @@ export function Game({ className, level, isPaused }) {
         }
         
         if (!collidedSnakeRef.current) {
-            const collidedSnake = SNAKE_SIZE_BY_LEVEL[level].find(({ id }) => {
+            const collidedSnake = SNAKES_BY_LEVEL[level].find(({ id }) => {
                 const snakeData = {
                     x: nextSnakesPosition[id][0] + SNAKE_SIZE_BY_LEVEL[level][0]/2 * sizeRatio,
                     y: nextSnakesPosition[id][1] + SNAKE_SIZE_BY_LEVEL[level][1]/2 * sizeRatio,

@@ -40,6 +40,8 @@ import tree from '../assets/images/tree.png';
 import tree2 from '../assets/images/tree2.png';
 import tree3 from '../assets/images/tree3.png';
 import tree4 from '../assets/images/tree4.png';
+import { Game2 } from "../components/screens/Game2";
+import { PostGame2 } from "../components/screens/PostGame2";
 
 export const screens = {
     [SCREENS.INTRO]: Intro,
@@ -49,7 +51,9 @@ export const screens = {
     [SCREENS.GAME1]: Game1,
     [SCREENS.LOBBY]: Lobby,
     [SCREENS.POST_GAME1]: PostGame1,
-    [SCREENS.LIBRARY]: Library
+    [SCREENS.LIBRARY]: Library,
+    [SCREENS.GAME2]: Game2,
+    [SCREENS.POST_GAME2]: PostGame2,
 }
 
 export const preloadImages = [

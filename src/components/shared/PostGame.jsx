@@ -109,12 +109,12 @@ const CARDS_BY_LEVEL = {
     4: cardsLevel4,
 };
 
-export const PostGame = ({cards, finishText, level }) => {
-    const { setModal, modal, next, addGamePoint, passedWeeks, setGamePoints, user } = useProgress();
+export const PostGame = ({finishText, level }) => {
+    const { setModal, modal, next, addGamePoint, passedWeeks, gamePoints, setGamePoints, user, setPoints, setWeekPoints } = useProgress();
     const isFirstTime = passedWeeks.length < 1;
     const [isFlip, setFlip] = useState(false);
     const [isFlipped, setFlipped] = useState(false);
-    const [points, setPoints] = useState(0);
+    const [cardPoints, setCardPoints] = useState(0);
     const [isCorrect, setIsCorrect] = useState(false);
     const [activeButton, setActiveButton] = useState();
     const [isShownFirst, setIsShownFirst] = useState(isFirstTime);
@@ -145,7 +145,7 @@ export const PostGame = ({cards, finishText, level }) => {
         setActiveButton(+isAlpha);
         setIsCorrect(card.isAlpha === isAlpha);
         if (card.isAlpha === isAlpha) {
-            setPoints(prev => prev + 1);
+            setCardPoints(prev => prev + 1);
             addGamePoint();
         }
 
@@ -168,6 +168,13 @@ export const PostGame = ({cards, finishText, level }) => {
             return;
         } 
 
+        if (!user?.isVip) {
+            setPoints(prev => prev + gamePoints);
+        } else setWeekPoints(prev => prev + gamePoints);
+        //в этом месте обновлять инфу по пойнтам
+
+        setGamePoints(0);
+
         next(SCREENS.LIBRARY);
     };
     
@@ -177,7 +184,7 @@ export const PostGame = ({cards, finishText, level }) => {
                 <Text $ratio={ratio}>Скорее жми на карточки!</Text>
             )}
             <Wrapper $isFlip={isFlip} $ratio={ratio}>
-                {[...cards].reverse().map(({id}) => (
+                {[...CARDS_BY_LEVEL[level]].reverse().map(({id}) => (
                     id === 1 ? (
                         <StarBackCard 
                             key={id} 
@@ -203,7 +210,7 @@ export const PostGame = ({cards, finishText, level }) => {
                 >
                     {isFinished ? (
                         <Block>
-                            {isFirstTime ? 'Молодец! ' : ''}Ты получил {points} баллов.{'\n\n'}
+                            {isFirstTime ? 'Молодец! ' : ''}Ты получил {cardPoints} баллов.{'\n\n'}
                             {finishText}
                             {'\n\n'}А теперь давай посмотрим на твои карточки.
                             <ButtonStyled color="red" onClick={handleContinue}>Далее</ButtonStyled>
@@ -226,7 +233,7 @@ export const PostGame = ({cards, finishText, level }) => {
                                     </svg>
                                 </AnswerIcon>
                             )}
-                            <StarCard text={cards.find(({id}) => id === shownId)?.text} />
+                            <StarCard text={CARDS_BY_LEVEL[level].find(({id}) => id === shownId)?.text} />
                             <ButtonsBlock $ratio={ratio}>
                                 <AnswerButtonStyled color="white" onClick={() => onClickCard(false)} $darken={activeButton === 1}>Тёмный лес</AnswerButtonStyled>
                                 <AnswerButtonStyled color="green" onClick={() => onClickCard(true)} $darken={activeButton === 0}>Альфа-банк</AnswerButtonStyled>
