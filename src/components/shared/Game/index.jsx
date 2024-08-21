@@ -45,9 +45,9 @@ const CharacterStyled = styled(Character)`
     left: 0;
     z-index: 3;
 
-    /* img {
+    img {
         animation: ${({$isImun}) => $isImun ? test : ''} infinite 0.5s backwards;
-    } */
+    }
 `;
 
 const test = keyframes`
@@ -56,7 +56,7 @@ const test = keyframes`
     }
 
     50% {
-        opacity: 0;
+        opacity: 0.7;
     }
 
     100% {
@@ -107,13 +107,24 @@ export function Game({ className, level, isPaused, customText }) {
     const [collidedSnakesAmount, setCollidedSnakesAmount] = useState(0);
     const [direction, setDirection] = useState([0, 0]);
     const [stars, setStars] = useState(STARS_BY_LEVEL[level]);
-    const snakesDirection = useMotionValue(SNAKES_BY_LEVEL[level].reduce((acc, task) => ({
-        ...acc,
-        [task.id]: [
-            random(-1, 1, true),
-            random(-1, 1, true),
-        ],
-    }), {}));
+    const snakesDirection = useMotionValue(SNAKES_BY_LEVEL[level].reduce((acc, task) => {
+        let x = random(-1, 1, true);
+        let y = random(-1, 1, true);
+
+        if (x >= 0 && x < 0.4) x = x + 0.4;
+        if (x < 0 && x > -0.4) x = x - 0.4;
+
+        if (y >= 0 && y < 0.4) y = y + 0.4;
+        if (y < 0 && y > -0.4) y = y - 0.4;
+
+        return ({
+            ...acc,
+            [task.id]: [
+                x,
+                y,
+            ],
+        })
+    }, {}));
     const collidedStarRef = useRef(null);
     const collidedSnakeRef = useRef(null);
     const controlExistsRef = useRef(false);
@@ -125,7 +136,6 @@ export function Game({ className, level, isPaused, customText }) {
         (HEIGHT/2 - CHARACTER_SIZE[1]/2) * sizeRatio,
     ], [sizeRatio]);
     const characterPosition = useMotionValue({});
-    const darkenPosition = useMotionValue([0, 0]);
     const snakesPosition = useMotionValue(SNAKES_BY_LEVEL[level].reduce((acc, snake) => ({
         ...acc,
         [snake.id]: [snake.position[0] * sizeRatio, snake.position[1] * sizeRatio],
@@ -191,12 +201,7 @@ export function Game({ className, level, isPaused, customText }) {
     );
     const boardPositionX = useTransform(
         [characterPosition, characterDelta],
-        ([prevPosition, prevDelta]) => {
-            console.log(prevPosition, prevDelta);
-            console.log(-prevPosition[0] + wrapperRect?.width/2 - CHARACTER_SIZE[0]/2 * sizeRatio + prevDelta[0]);
-            console.log(-(WIDTH/2 - CHARACTER_SIZE[0]/2) * sizeRatio + wrapperRect?.width/2 - CHARACTER_SIZE[0]/2 * sizeRatio);
-            return `${-prevPosition[0] + wrapperRect?.width/2 - CHARACTER_SIZE[0]/2 * sizeRatio + prevDelta[0]}px`
-        },
+        ([prevPosition, prevDelta]) => `${-prevPosition[0] + wrapperRect?.width/2 - CHARACTER_SIZE[0]/2 * sizeRatio + prevDelta[0]}px`,
     );
 
     const boardPositionY = useTransform(
@@ -474,27 +479,18 @@ export function Game({ className, level, isPaused, customText }) {
                 direction={direction[0] || direction[1]}
                 ratio={sizeRatio}
                 style={{x: characterPositionX, y: characterPositionY}}
-                // collectedStars={starsCollected}
-                // $isImun={isImun}
+                $isImun={isImun}
             />
             <Darken 
                 $ratio={sizeRatio}
-                initial={{
-                   
-                }}
-                
                 $collectedStars={starsCollected}
                 style={{
                         x: testX, 
                         y: testY,
-                        // top: boardPositionY, 
-                        // left: boardPositionX,
                         left: `${-(WIDTH/2 - CHARACTER_SIZE[0]/2) * sizeRatio + wrapperRect?.width/2 - CHARACTER_SIZE[0]/2 * sizeRatio}px`,
                         top: `${-(HEIGHT/2 - CHARACTER_SIZE[1]/2) * sizeRatio + wrapperRect?.height/2 - CHARACTER_SIZE[1]/2 * sizeRatio}px`,
                     }
                 }
-                // $width={characterDelta[0]}
-                // $height={characterDelta[0]}
             />
             {warn && (
                 <Warning $ratio={sizeRatio}>
