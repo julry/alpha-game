@@ -123,6 +123,7 @@ const TipStyled = styled.div`
     height: ${({$ratio}) => $ratio * 78}px;
     background: url(${dialog}) no-repeat 0 center;
     width: ${({$ratio}) => $ratio * 277}px;
+    background-size: contain;
 
     & p {
         font-size: var(--font_md);

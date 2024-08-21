@@ -60,6 +60,7 @@ const RulesTipStyled = styled(TipStyled)`
     height: ${({$ratio}) => $ratio * 78}px;
     background: url(${dialog}) no-repeat 0 center;
     width: ${({$ratio}) => $ratio * 219}px;
+    background-size: contain;
 
     & p {
         text-align: center;
@@ -72,6 +73,7 @@ const LibTipStyled = styled(TipStyled)`
     height: ${({$ratio}) => $ratio * 119}px;
     background: url(${dialog2}) no-repeat 0 center;
     width: ${({$ratio}) => $ratio * 277}px;
+    background-size: contain;
 `;
 
 const CloseIcon = styled.button`

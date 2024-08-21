@@ -3,7 +3,7 @@ import {motion, useMotionValue} from "framer-motion";
 import {forwardRef} from "react";
 import {useSizeRatio} from "../../../hooks/useSizeRatio";
 import { Subject } from './Subject';
-import { subjects1 } from '../../../constants/subjects';
+import { subjects1, subjects2 } from '../../../constants/subjects';
 
 export const WIDTH = 1500;
 export const HEIGHT = 1334;
@@ -23,6 +23,11 @@ const BackgroundStyled = styled(motion.div)`
     background-color: black;
 `;
 
+const SUBJECTS_TO_LEVEL = {
+    1: subjects1,
+    2: subjects2
+}
+
 const BoardComponent = ({level, imageProps, children, ...rest}, ref) => {
     const sizeRatio = useSizeRatio();
 
@@ -34,7 +39,7 @@ const BoardComponent = ({level, imageProps, children, ...rest}, ref) => {
     return (
         <WrapperStyled ref={ref} {...rest}>
             <BackgroundStyled level={level} $ratio={sizeRatio} {...imageProps}>
-                {subjects1.map(subject => (
+                {SUBJECTS_TO_LEVEL.map(subject => (
                     <Subject key={subject.id} subjectPosition={subjectPosition} subject={subject} $transform={subject.transform}/>
                 ))}
                 {children}
