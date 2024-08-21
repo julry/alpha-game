@@ -153,12 +153,12 @@ export const PostGame = ({finishText, level }) => {
         setTimeout(() => {
             setIsCorrect();
             setActiveButton();
-            // if (unshownCards.length > 1) {
-            //     setUnshownCards(prev => prev.filter(({id}) => id !== shownId));
-            //     setShownId(prev => prev + 1);
-            // } else {
+            if (unshownCards.length > 1) {
+                setUnshownCards(prev => prev.filter(({id}) => id !== shownId));
+                setShownId(prev => prev + 1);
+            } else {
                 setIsFinished(true);
-            // }
+            }
         }, 1500)
     }
 

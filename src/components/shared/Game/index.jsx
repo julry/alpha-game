@@ -291,7 +291,7 @@ export function Game({ className, level, isPaused, customText }) {
             setStarsCollected(prev => prev + 1);
             collidedStarRef.current = null;
         }
-        if (stars.length === 9) {
+        if (stars.length === 0) {
             setPassedWeeks(prev => !prev.includes(level) ? [...prev, level] : prev);
             setHasPassedThisTry(level === CURRENT_WEEK);
             setModal({
