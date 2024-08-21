@@ -9,11 +9,11 @@ import { useSizeRatio } from "../../../hooks/useSizeRatio";
 import { Board, WIDTH, HEIGHT} from "./Board";
 import { Control } from "./Control";
 import {Character, CHARACTER_SIZE} from "../Character";
-import { stars1, stars2 } from "../../../constants/stars";
+import { stars1, stars2, stars3 } from "../../../constants/stars";
 import { Star } from "./Star";
 import { StarBoard } from "./StarBoard";
 import { CURRENT_WEEK, useProgress } from "../../../contexts/ProgressContext";
-import { snakes1, snakes2 } from "../../../constants/snakes";
+import { snakes1, snakes2, snakes3 } from "../../../constants/snakes";
 import { Snake, SNAKE_SIZE_BY_LEVEL } from "./Snake";
 
 const MAX_LIVES = 3;
@@ -22,11 +22,13 @@ export const CHARACTER_STEP = 2;
 const STARS_BY_LEVEL = {
     1: stars1,
     2: stars2,
+    3: stars3,
 }
 
 const SNAKES_BY_LEVEL = {
     1: snakes1,
     2: snakes2,
+    3: snakes3,
 }
 
 const STAR_WIDTH = 44;
@@ -289,7 +291,7 @@ export function Game({ className, level, isPaused, customText }) {
             setStarsCollected(prev => prev + 1);
             collidedStarRef.current = null;
         }
-        if (stars.length === 0) {
+        if (stars.length === 9) {
             setPassedWeeks(prev => !prev.includes(level) ? [...prev, level] : prev);
             setHasPassedThisTry(level === CURRENT_WEEK);
             setModal({

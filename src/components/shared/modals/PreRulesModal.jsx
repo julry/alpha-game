@@ -36,7 +36,7 @@ export const PreRulesModal = () => {
 
     return (
         <Modal isDarken>
-            <Content hasCloseIcon>
+            <Content hasCloseIcon onClose={() => setModal({visible: false})}>
                 <Text>Про что хочешь узнать?</Text>
                 <ButtonWrapper $ratio={ratio}>
                     <Button color="pink" onClick={() => setModal({type: 'movement', visible: true})}>Управление</Button>

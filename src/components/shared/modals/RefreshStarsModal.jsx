@@ -21,9 +21,10 @@ const ButtonStyled = styled(Button)`
 `;
 
 export const RefreshStarsModal = () => {
-    const { next } = useProgress();
+    const { next, setModal } = useProgress();
 
     const handleClose = () => {
+        setModal({visible: false});
         next(SCREENS.LIBRARY);
     }
 

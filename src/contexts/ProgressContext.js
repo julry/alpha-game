@@ -8,11 +8,12 @@ const INITIAL_USER = {
     name: 'Иванов Иван Иванович',
     email: 'ivan2001@mail.ru',
     university: 'НИУ ВШЭ Московский Институт Электроники и Математики',
-    isVip: false,
+    isVip: true,
+    seenRules: true,
     isTgConnected: false,
 };
 
-export const CURRENT_WEEK = 2;
+export const CURRENT_WEEK = 3;
 
 const INITIAL_STATE = {
     screen: SCREENS.INTRO,
@@ -21,6 +22,7 @@ const INITIAL_STATE = {
     weekPoints: 0,
     user: INITIAL_USER,
     passedWeeks: [],
+    cardsSeen: [],
 }
 
 const ProgressContext = createContext(INITIAL_STATE)
@@ -38,6 +40,8 @@ export function ProgressProvider(props) {
     const [gamePoints, setGamePoints] = useState(0);
     const [user, setUser] = useState(INITIAL_STATE.user);
     const [passedWeeks, setPassedWeeks] = useState(INITIAL_STATE.passedWeeks);
+    // заполнять после того как посмотрели карточки, в библ по нему показывать
+    const [cardsSeen, setCardsSeen] = useState(INITIAL_STATE.cardsSeen);
     const [hasPassedThisTry, setHasPassedThisTry] = useState(false); 
     const screen = screens[currentScreen];
     const $whiteStarRef = useRef();

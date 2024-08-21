@@ -1,26 +1,31 @@
 import bag from '../assets/images/bag.png';
-// import bubble from '../assets/images/bubble.svg';
+import bubble from '../assets/images/bubble.png';
 import cat from '../assets/images/cat.png';
 import chair from '../assets/images/chair.png';
-// import clock from '../assets/images/clock.png';
-// import cup from '../assets/images/cup.png';
+import clock from '../assets/images/clock.png';
+import cup from '../assets/images/cup.png';
 import lamp from '../assets/images/lamp.png';
 import laptop from '../assets/images/laptop.png';
 import notebook from '../assets/images/notebook.png';
-// import pencil from '../assets/images/pencil.png';
+import pencil from '../assets/images/pencil.png';
 import sofa from '../assets/images/sofa.png';
 import stone from '../assets/images/stone.png';
 import star from '../assets/images/starGray.png';
+import shirt from '../assets/images/shirt.png';
 import text1 from '../assets/images/text1.svg';
 import text2 from '../assets/images/text2.svg';
 import text3 from '../assets/images/text3.svg';
 import text4 from '../assets/images/text4.svg';
 import text5 from '../assets/images/text5.svg';
 import text6 from '../assets/images/text6.svg';
+import text7 from '../assets/images/text7.svg';
+import text8 from '../assets/images/text8.svg';
+import text9 from '../assets/images/text9.svg';
+import text10 from '../assets/images/text10.svg';
 import tree1 from '../assets/images/tree1.png';
 import tree from '../assets/images/tree.png';
 import tree2 from '../assets/images/tree2.png';
-// import tree3 from '../assets/images/tree3.png';
+import tree3 from '../assets/images/tree3.png';
 import tree4 from '../assets/images/tree4.png';
 
 //ID OF START Left -> right; top => bottom; 1 2 3 4
@@ -610,5 +615,289 @@ export const subjects2 = [
         width: 44,
         height: 47,
         position: [1281, 1171],
+    },
+];
+
+export const subjects3 = [
+    {
+        id: '3-1',
+        image: shirt,
+        width: 175,
+        height: 139,
+        position: [-10, 177],
+    },
+    {
+        id: '3-2',
+        image: text7,
+        width: 305,
+        height: 48,
+        position: [176, 225],
+    },
+    {
+        id: '3-3',
+        image: bubble,
+        width: 139,
+        height: 118,
+        position: [570, 213],
+    },
+    {
+        id: '3-4',
+        image: tree2,
+        width: 148,
+        height: 195,
+        position: [762, -88],
+    },
+    {
+        id: '3-5',
+        image: text8,
+        width: 307,
+        height: 49,
+        position: [833, 101],
+    },
+    {
+        id: '3-6',
+        image: shirt,
+        width: 175,
+        height: 139,
+        position: [1095, 136],
+    },
+    {
+        id: '3-7',
+        image: shirt,
+        width: 175,
+        height: 139,
+        position: [770, 218],
+    },
+    {
+        id: '3-8',
+        image: cat,
+        width: 116,
+        height: 135,
+        position: [1354, 275],
+    },
+    {
+        id: '3-9',
+        image: bubble,
+        width: 139,
+        height: 118,
+        position: [78, 338],
+    },
+    {
+        id: '3-10',
+        image: stone,
+        width: 125,
+        height: 101,
+        position: [421, 326],
+    },
+    {
+        id: '3-11',
+        image: lamp,
+        width: 126,
+        height: 128,
+        position: [618, 392],
+    },
+    {
+        id: '3-12',
+        image: text9,
+        width: 306,
+        height: 82,
+        position: [950, 456],
+    },
+    {
+        id: '3-13',
+        image: cat,
+        width: 116,
+        height: 135,
+        position: [169, 523],
+    },
+    {
+        id: '3-14',
+        image: stone,
+        width: 125,
+        height: 101,
+        position: [34, 627],
+    },
+    {
+        id: '3-15',
+        image: text9,
+        width: 306,
+        height: 82,
+        position: [233, 744],
+    },
+    {
+        id: '3-16',
+        image: tree2,
+        width: 148,
+        height: 195,
+        position: [605, 564],
+    },
+    {
+        id: '3-17',
+        image: stone,
+        width: 125,
+        height: 101,
+        position: [784, 607],
+    },
+    {
+        id: '3-18',
+        image: bubble,
+        width: 139,
+        height: 118,
+        position: [996, 607],
+    },
+    {
+        id: '3-19',
+        image: shirt,
+        width: 175,
+        height: 139,
+        position: [1328, 570],
+    },
+    {
+        id: '3-20',
+        image: tree1,
+        width: 124,
+        height: 206,
+        position: [36, 947],
+    },
+    {
+        id: '3-21',
+        image: tree,
+        width: 123,
+        height: 195,
+        position: [275, 854],
+    },
+    {
+        id: '3-22',
+        image: stone,
+        width: 125,
+        height: 101,
+        position: [527, 1036],
+    },
+    {
+        id: '3-23',
+        image: text7,
+        width: 305,
+        height: 48,
+        position: [817, 1087],
+    },
+    {
+        id: '3-24',
+        image: lamp,
+        width: 126,
+        height: 128,
+        position: [887, 812],
+    },
+    {
+        id: '3-25',
+        image: tree4,
+        width: 131,
+        height: 197,
+        position: [1239, 678],
+    },
+    {
+        id: '3-26',
+        image: lamp,
+        width: 126,
+        height: 128,
+        position: [-13, 1193],
+    },
+
+    {
+        id: '3-27',
+        image: text9,
+        width: 306,
+        height: 82,
+        position: [83, 1127],
+    },
+    {
+        id: '3-28',
+        image: shirt,
+        width: 175,
+        height: 139,
+        position: [425, 1182],
+    },
+    {
+        id: '3-29',
+        image: lamp,
+        width: 126,
+        height: 128,
+        position: [1010, 1132],
+    },
+    {
+        id: '3-30',
+        image: bubble,
+        width: 139,
+        height: 118,
+        position: [1354, 1095],
+    },
+    {
+        id: 'picked-star-3--1',
+        image: star,
+        width: 44,
+        height: 47,
+        position: [200, 77],
+    },
+    {
+        id: 'picked-star-3--2',
+        image: star,
+        width: 44,
+        height: 47,
+        position: [1285, 77],
+    },
+    {
+        id: 'picked-star-3--3',
+        image: star,
+        width: 44,
+        height: 47,
+        position: [325, 416],
+    },
+    {
+        id: 'picked-star-3--4',
+        image: star,
+        width: 44,
+        height: 47,
+        position: [1028, 353],
+    },
+    {
+        id: 'picked-star-3--5',
+        image: star,
+        width: 44,
+        height: 47,
+        position: [1193, 603],
+    },
+    {
+        id: 'picked-star-3--6',
+        image: star,
+        width: 44,
+        height: 47,
+        position: [64, 825],
+    },
+    {
+        id: 'picked-star-3--7',
+        image: star,
+        width: 44,
+        height: 47,
+        position: [466, 983],
+    },
+    {
+        id: 'picked-star-3--8',
+        image: star,
+        width: 44,
+        height: 47,
+        position: [1137, 943],
+    },
+    {
+        id: 'picked-star-3--9',
+        image: star,
+        width: 44,
+        height: 47,
+        position: [817, 1213],
+    },
+    {
+        id: 'picked-star-3--10',
+        image: star,
+        width: 44,
+        height: 47,
+        position: [1285, 1186],
     },
 ]

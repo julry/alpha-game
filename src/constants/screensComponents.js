@@ -12,7 +12,7 @@ import { SCREENS } from "./screens";
 import alexL from '../assets/images/alex-left.png';
 import alex from '../assets/images/alex.png';
 import bag from '../assets/images/bag.png';
-import bubble from '../assets/images/bubble.svg';
+import bubble from '../assets/images/bubble.png';
 import cat from '../assets/images/cat.png';
 import chair from '../assets/images/chair.png';
 import clock from '../assets/images/clock.png';
@@ -29,7 +29,7 @@ import loginPic from '../assets/images/login-pic.png';
 import notebook from '../assets/images/notebook.png';
 import pencil from '../assets/images/pencil.png';
 import profile from '../assets/images/profile.svg';
-import shirt from '../assets/images/shirt.svg';
+import shirt from '../assets/images/shirt.png';
 import snakeD from '../assets/images/snake-down.png';
 import snakeUp from '../assets/images/snake-up.png';
 import sofa from '../assets/images/sofa.png';
@@ -42,6 +42,8 @@ import tree3 from '../assets/images/tree3.png';
 import tree4 from '../assets/images/tree4.png';
 import { Game2 } from "../components/screens/Game2";
 import { PostGame2 } from "../components/screens/PostGame2";
+import { Game3 } from "../components/screens/Game3";
+import { PostGame3 } from "../components/screens/PostGame3";
 
 export const screens = {
     [SCREENS.INTRO]: Intro,
@@ -54,6 +56,8 @@ export const screens = {
     [SCREENS.LIBRARY]: Library,
     [SCREENS.GAME2]: Game2,
     [SCREENS.POST_GAME2]: PostGame2,
+    [SCREENS.GAME3]: Game3,
+    [SCREENS.POST_GAME3]: PostGame3,
 }
 
 export const preloadImages = [

@@ -3,7 +3,7 @@ import {motion, useMotionValue} from "framer-motion";
 import {forwardRef, useEffect} from "react";
 import {useSizeRatio} from "../../../hooks/useSizeRatio";
 import { Subject } from './Subject';
-import { subjects1, subjects2 } from '../../../constants/subjects';
+import { subjects1, subjects2, subjects3 } from '../../../constants/subjects';
 
 export const WIDTH = 1500;
 export const HEIGHT = 1334;
@@ -26,6 +26,7 @@ const BackgroundStyled = styled(motion.div)`
 const SUBJECTS_TO_LEVEL = {
     1: subjects1,
     2: subjects2,
+    3: subjects3,
 }
 
 const BoardComponent = ({level, imageProps, children, ...rest}, ref) => {

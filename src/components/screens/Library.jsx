@@ -261,7 +261,6 @@ export const Library = () => {
                         <ButtonStyled color="red" onClick={() => setIsModal(false)}>Понятно</ButtonStyled>
                     </ModalContent>
                 </Modal>
-
             )}
         </Wrapper>
     )

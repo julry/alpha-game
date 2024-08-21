@@ -105,7 +105,7 @@ export const Registration2 = () => {
         <Wrapper>
             <IntroHeader 
                 onBack={() => next(SCREENS.REG_1)}
-                text={'Прежде чем помочь Алексу выбраться из леса, давай познакомимся?'}
+                text={'Прежде чем помочь Алексу выбраться из леса, давай познакомимся!'}
             />
             <Content>
                 <Label>

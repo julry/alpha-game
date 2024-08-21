@@ -144,6 +144,7 @@ export const PostGame = ({finishText, level }) => {
         if (!card) return;
         setActiveButton(+isAlpha);
         setIsCorrect(card.isAlpha === isAlpha);
+
         if (card.isAlpha === isAlpha) {
             setCardPoints(prev => prev + 1);
             addGamePoint();
@@ -152,12 +153,12 @@ export const PostGame = ({finishText, level }) => {
         setTimeout(() => {
             setIsCorrect();
             setActiveButton();
-            if (unshownCards.length > 1) {
-                setUnshownCards(prev => prev.filter(({id}) => id !== shownId));
-                setShownId(prev => prev + 1);
-            } else {
+            // if (unshownCards.length > 1) {
+            //     setUnshownCards(prev => prev.filter(({id}) => id !== shownId));
+            //     setShownId(prev => prev + 1);
+            // } else {
                 setIsFinished(true);
-            }
+            // }
         }, 1500)
     }
 
@@ -165,6 +166,7 @@ export const PostGame = ({finishText, level }) => {
         if (level !== CURRENT_WEEK && user?.isVip) {
             setGamePoints(0);
             setModal({type: 'refreshStars', visible: true,});
+            
             return;
         } 
 
@@ -177,6 +179,12 @@ export const PostGame = ({finishText, level }) => {
 
         next(SCREENS.LIBRARY);
     };
+    
+    const getText = (p) => {
+        if (p === 1) return 'балл';
+        if ([2, 3, 4].includes(p)) return 'балла';
+        if (p >= 5 || p === 0) return 'баллов';
+    }
     
     return (
         <HeaderComponent isGame isCards>
@@ -210,7 +218,7 @@ export const PostGame = ({finishText, level }) => {
                 >
                     {isFinished ? (
                         <Block>
-                            {isFirstTime ? 'Молодец! ' : ''}Ты получил {cardPoints} баллов.{'\n\n'}
+                            {level === 1 ? 'Молодец! ' : ''}Ты получил {cardPoints} {getText(+cardPoints)}.{'\n\n'}
                             {finishText}
                             {'\n\n'}А теперь давай посмотрим на твои карточки.
                             <ButtonStyled color="red" onClick={handleContinue}>Далее</ButtonStyled>

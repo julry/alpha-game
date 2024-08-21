@@ -66,12 +66,14 @@ const WeekCircle = styled.div`
     border-radius: 50%;
     color: var(--color-pink-text);
     opacity: ${({$unavailable}) => $unavailable ? 0.35 : 1};
+    cursor: ${({$unavailable, $notClickable}) => $unavailable || $notClickable ? 'auto' : 'pointer'};
     font-weight: 700;
     font-size: ${({$ratio}) => $ratio * 20}px;
     z-index: 4;
 
     & p {
         margin-top: ${({$ratio}) => $ratio * 2}px;
+        pointer-events: none;
     }
 `;
 
@@ -164,8 +166,9 @@ const WEEK_TO_POSITION = {
 export const Lobby = () => {
     const ratio = useSizeRatio();
     const { passedWeeks, next, points, vipPoints, user, hasPassedThisTry, setModal, modal } = useProgress();
-    const [week, setWeek] = useState(CURRENT_WEEK);
-    const [isAvailableFirst, setIsAvailableFirst] = useState(!passedWeeks.includes(1) && CURRENT_WEEK > 1);
+    const shownWeek = (passedWeeks[passedWeeks.length - 1] ?? 0) + 1;
+    const [week, setWeek] = useState(shownWeek > CURRENT_WEEK ? CURRENT_WEEK : shownWeek);
+    const [isAvailableFirst, setIsAvailableFirst] = useState(passedWeeks.length < CURRENT_WEEK - 1);
 
     const weeks = Array.from({length: 4}, (v, i) => i + 1);
 
@@ -177,7 +180,7 @@ export const Lobby = () => {
     const isFirstTime = (!passedWeeks.length && ((!user.isVip && points === 0) || (user.isVip && vipPoints === 0)));
 
     useLayoutEffect(() => {
-        if (!user.seenRules || isFirstTime) {
+        if (!user.seenRules && isFirstTime) {
             setModal({type: 'info', visible: true, isDisabledAnimation: true, isDarken: true})
         }
     }, []);
@@ -199,18 +202,19 @@ export const Lobby = () => {
                                 onClick={() => changeWeek(w)}
                                 $ind={w} 
                                 key={`week_${w}`} 
-                                $unavailable={w > CURRENT_WEEK}
+                                $notClickable={passedWeeks.includes(w) || w === CURRENT_WEEK}
+                                $unavailable={(w !== 1 && !passedWeeks.includes(w - 1)) || w > CURRENT_WEEK}
                             >
                                <p>{w}</p>
                               { w === 1 && isAvailableFirst && (
                                 <TipStyled $ratio={ratio}>
-                                    <p>Тебе доступен уровень{'\n'}первой недели. Жми сюда.</p>
+                                    <p>Проходи недели{'\n'}по‑порядку, чтоб открыть{'\n'}текущую</p>
                                     <CloseIcon $ratio={ratio} onClick={handleCloseTip}/>
                                 </TipStyled>
                               )}
                             </WeekCircle>
                             {w > 1 && (
-                                <Divider $ratio={ratio} $unavailable={w > CURRENT_WEEK} $left={w - 1}/>
+                                <Divider $ratio={ratio} $unavailable={(w !== 1 && !passedWeeks.includes(w - 1)) || w > CURRENT_WEEK} $left={w - 1}/>
                             )}
                         </>
                     )}
