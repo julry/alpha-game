@@ -147,14 +147,16 @@ const Info = styled.div`
 
 const CloseIcon = styled.button`
     position: absolute;
-    top: ${({$ratio}) => $ratio * 187}px;
-    right: var(--spacing_x4);
+    top: ${({$ratio}) => $ratio * 167}px;
+    right: calc(var(--spacing_x4) + var(--spacing_x5));
     background: transparent;
     outline: none;
     border: none;
-    width: ${({$ratio}) => $ratio * 25}px;
-    height: ${({$ratio}) => $ratio * 25}px;
+    padding: 20px;
+    width: ${({$ratio}) => $ratio * 65}px;
+    height: ${({$ratio}) => $ratio * 65}px;
     cursor: pointer;
+    z-index: 100;
 `;
 
 const ModalContent = styled(Block)`
@@ -172,7 +174,6 @@ const ButtonStyled = styled(Button)`
 export const Library = () => {
     const ratio = useSizeRatio();
     const { next, passedWeeks } = useProgress();
-
     const [openedCards, setOpenedCards] = useState([]);
     const [isModal, setIsModal] = useState(false); 
 

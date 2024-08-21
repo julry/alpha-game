@@ -1,12 +1,8 @@
 import styled from "styled-components";
 import { useProgress } from "../../../contexts/ProgressContext";
-import { useSizeRatio } from "../../../hooks/useSizeRatio";
 import { Block } from "../Block";
 import { Modal } from "./Modal";
 import { Button } from "../Button";
-import { WhiteStarPart } from "./WhiteStarPart";
-import { RedStarPart } from "./RedStarPart";
-import { useState } from "react";
 
 const Content = styled(Block)`
     position: absolute;
@@ -14,17 +10,6 @@ const Content = styled(Block)`
     left: 50%;
     transform: translate(-50%, -50%);
     padding: var(--spacing_x5);
-`;
-
-const ButtonsWrapper = styled.div`
-    display: flex;
-    justify-content: space-between;
-    margin: var(--spacing_x4) 0 var(--spacing_x5);
-    align-items: center;
-
-    & button {
-        width: calc((100% - var(--spacing_x3) + (var(--spacing_x1) / 2))/2);
-    }
 `;
 
 const ButtonStyled = styled(Button)`

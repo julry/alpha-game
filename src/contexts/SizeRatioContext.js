@@ -1,4 +1,4 @@
-import {createContext, useCallback, useContext, useLayoutEffect, useState} from 'react';
+import {createContext, useCallback, useLayoutEffect, useState} from 'react';
 import useResizeObserver from "use-resize-observer";
 import {getSizeRatio} from "../utils/getSizeRatio";
 

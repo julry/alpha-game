@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import {motion, useMotionValue} from "framer-motion";
-import {forwardRef} from "react";
+import {forwardRef, useEffect} from "react";
 import {useSizeRatio} from "../../../hooks/useSizeRatio";
 import { Subject } from './Subject';
 import { subjects1, subjects2 } from '../../../constants/subjects';
@@ -25,21 +25,27 @@ const BackgroundStyled = styled(motion.div)`
 
 const SUBJECTS_TO_LEVEL = {
     1: subjects1,
-    2: subjects2
+    2: subjects2,
 }
 
 const BoardComponent = ({level, imageProps, children, ...rest}, ref) => {
     const sizeRatio = useSizeRatio();
 
-    const subjectPosition = useMotionValue(subjects1.reduce((acc, subject) => ({
-        ...acc,
-        [subject.id]: [subject.position[0] * sizeRatio, subject.position[1] * sizeRatio],
-    }), {}));
+    const subjectPosition = useMotionValue({});
+
+    useEffect(() => {
+        subjectPosition.set(SUBJECTS_TO_LEVEL[level].reduce((acc, subject) => {
+            return ({
+                ...acc,
+                [subject.id]: [subject.position[0] * sizeRatio, subject.position[1] * sizeRatio],
+            })
+        }, {}));
+    }, [sizeRatio])
 
     return (
         <WrapperStyled ref={ref} {...rest}>
             <BackgroundStyled level={level} $ratio={sizeRatio} {...imageProps}>
-                {SUBJECTS_TO_LEVEL.map(subject => (
+                {SUBJECTS_TO_LEVEL[level].map(subject => (
                     <Subject key={subject.id} subjectPosition={subjectPosition} subject={subject} $transform={subject.transform}/>
                 ))}
                 {children}

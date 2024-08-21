@@ -1,4 +1,4 @@
-import {useCallback, useContext, useEffect, useLayoutEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState} from "react";
 import useResizeObserver from "use-resize-observer";
 import {AnimatePresence, motion, useDragControls, useMotionValue, useAnimationFrame, useTransform} from "framer-motion";
 import throttle from "lodash/throttle";
@@ -18,7 +18,6 @@ import { Snake, SNAKE_SIZE_BY_LEVEL } from "./Snake";
 
 const MAX_LIVES = 3;
 export const CHARACTER_STEP = 2;
-
 
 const STARS_BY_LEVEL = {
     1: stars1,
@@ -44,9 +43,11 @@ const CharacterStyled = styled(Character)`
     position: absolute;
     top: 0;
     left: 0;
-    img {
+    z-index: 3;
+
+    /* img {
         animation: ${({$isImun}) => $isImun ? test : ''} infinite 0.5s backwards;
-    }
+    } */
 `;
 
 const test = keyframes`
@@ -87,6 +88,14 @@ const Warning = styled.p`
     pointer-events: none;
 `;
 
+const Darken = styled(motion.div)`
+    position: absolute;
+    width: ${({$ratio}) => $ratio * WIDTH}px;
+    height: ${({$ratio}) => $ratio * HEIGHT}px;
+    z-index: 2;
+    background: radial-gradient(circle, rgba(167,255,65, 1) 0, rgba(167,255,65, 0.5) ${({$ratio}) => $ratio * 40}px,rgba(0,0,0, 0.85) ${({$ratio, $collectedStars}) => $ratio * (130 + $collectedStars * 30)}px);
+`;
+
 export function Game({ className, level, isPaused, customText }) {
     const sizeRatio = useSizeRatio();
     const { addGamePoint, setModal, modal, setPassedWeeks, setHasPassedThisTry } = useProgress();
@@ -111,24 +120,32 @@ export function Game({ className, level, isPaused, customText }) {
     const [controlEvent, setControlEvent] = useState(null);
     const [controlPosition, setControlPosition] = useState(null);
     const dragControls = useDragControls();
-    const initialCharacterPosition = [
+    const initialCharacterPosition = useMemo(() => [
         (WIDTH/2 - CHARACTER_SIZE[0]/2) * sizeRatio,
         (HEIGHT/2 - CHARACTER_SIZE[1]/2) * sizeRatio,
-    ];
-    const characterPosition = useMotionValue(initialCharacterPosition);
+    ], [sizeRatio]);
+    const characterPosition = useMotionValue({});
+    const darkenPosition = useMotionValue([0, 0]);
     const snakesPosition = useMotionValue(SNAKES_BY_LEVEL[level].reduce((acc, snake) => ({
         ...acc,
         [snake.id]: [snake.position[0] * sizeRatio, snake.position[1] * sizeRatio],
     }), {}));
 
-    const starsPosition = useMotionValue(STARS_BY_LEVEL[level].reduce((acc, star) => ({
-        ...acc,
-        [star.id]: [star.position[0] * sizeRatio, star.position[1] * sizeRatio],
-    }), {}));
+    const starsPosition = useMotionValue({});
     
     useLayoutEffect(() => {
         setModal({visible: true, type: 'movement'});
     }, [])
+
+    useEffect(() => {
+        starsPosition.set(
+            STARS_BY_LEVEL[level].reduce((acc, star) => ({
+                ...acc,
+                [star.id]: [star.position[0] * sizeRatio, star.position[1] * sizeRatio],
+            }), {})
+        );
+        characterPosition.set(initialCharacterPosition);
+    }, [sizeRatio]);
 
     const characterDelta = useTransform(
         characterPosition,
@@ -174,12 +191,29 @@ export function Game({ className, level, isPaused, customText }) {
     );
     const boardPositionX = useTransform(
         [characterPosition, characterDelta],
-        ([prevPosition, prevDelta]) => `${-prevPosition[0] + wrapperRect?.width/2 - CHARACTER_SIZE[0]/2 * sizeRatio + prevDelta[0]}px`,
+        ([prevPosition, prevDelta]) => {
+            console.log(prevPosition, prevDelta);
+            console.log(-prevPosition[0] + wrapperRect?.width/2 - CHARACTER_SIZE[0]/2 * sizeRatio + prevDelta[0]);
+            console.log(-(WIDTH/2 - CHARACTER_SIZE[0]/2) * sizeRatio + wrapperRect?.width/2 - CHARACTER_SIZE[0]/2 * sizeRatio);
+            return `${-prevPosition[0] + wrapperRect?.width/2 - CHARACTER_SIZE[0]/2 * sizeRatio + prevDelta[0]}px`
+        },
     );
+
     const boardPositionY = useTransform(
         [characterPosition, characterDelta],
         ([prevPosition, prevDelta]) => `${-prevPosition[1] + wrapperRect?.height/2 - CHARACTER_SIZE[1]/2 * sizeRatio + prevDelta[1]}px`,
     );
+
+    const testX = useTransform(
+        [characterDelta],
+        ([prevDelta]) => `${prevDelta[0]}px`,
+    );
+
+    const testY = useTransform(
+        [characterDelta],
+        ([prevDelta]) => `${prevDelta[1]}px`,
+    );
+
     const characterPositionX = useTransform(
         characterDelta,
         prev => `${wrapperRect?.width/2 - CHARACTER_SIZE[0]/2 * sizeRatio + prev[0]}px`,
@@ -234,7 +268,7 @@ export function Game({ className, level, isPaused, customText }) {
 
     useLayoutEffect(() => {
         updateWrapperRect();
-    }, [])
+    }, [sizeRatio])
 
     useResizeObserver({ onResize: updateWrapperRect, ref: wrapperRef })
 
@@ -355,15 +389,16 @@ export function Game({ className, level, isPaused, customText }) {
         if (!collidedStarRef.current) {
             const collidedStar = stars.find(({ position }) => {
                 const starData = {
-                    x: position[0] + STAR_WIDTH/2 * sizeRatio,
-                    y: position[1] + STAR_HEIGHT/2 * sizeRatio,
-                    r: STAR_WIDTH/2 * sizeRatio,
+                    x: position[0] * sizeRatio + STAR_WIDTH * sizeRatio /2 ,
+                    y: position[1] * sizeRatio + STAR_HEIGHT * sizeRatio/2 ,
+                    r: STAR_WIDTH * sizeRatio /2 ,
                 };
+
                 const characterData = {
-                    x: nextX + CHARACTER_SIZE[0]/2 * sizeRatio,
-                    y: nextY + CHARACTER_SIZE[1]/2 * sizeRatio,
-                    rx: CHARACTER_SIZE[0]/2 * sizeRatio,
-                    ry: CHARACTER_SIZE[1]/2 * sizeRatio,
+                    x: nextX + CHARACTER_SIZE[0] * sizeRatio / 2,
+                    y: nextY + CHARACTER_SIZE[1] * sizeRatio / 2,
+                    rx: CHARACTER_SIZE[0] * sizeRatio / 2,
+                    ry: CHARACTER_SIZE[1] * sizeRatio / 2 ,
                 };
 
                 return Math.hypot(starData.x - characterData.x, starData.y - characterData.y) <= starData.r + Math.max(characterData.rx, characterData.ry);
@@ -439,8 +474,27 @@ export function Game({ className, level, isPaused, customText }) {
                 direction={direction[0] || direction[1]}
                 ratio={sizeRatio}
                 style={{x: characterPositionX, y: characterPositionY}}
-                collectedStars={starsCollected}
-                $isImun={isImun}
+                // collectedStars={starsCollected}
+                // $isImun={isImun}
+            />
+            <Darken 
+                $ratio={sizeRatio}
+                initial={{
+                   
+                }}
+                
+                $collectedStars={starsCollected}
+                style={{
+                        x: testX, 
+                        y: testY,
+                        // top: boardPositionY, 
+                        // left: boardPositionX,
+                        left: `${-(WIDTH/2 - CHARACTER_SIZE[0]/2) * sizeRatio + wrapperRect?.width/2 - CHARACTER_SIZE[0]/2 * sizeRatio}px`,
+                        top: `${-(HEIGHT/2 - CHARACTER_SIZE[1]/2) * sizeRatio + wrapperRect?.height/2 - CHARACTER_SIZE[1]/2 * sizeRatio}px`,
+                    }
+                }
+                // $width={characterDelta[0]}
+                // $height={characterDelta[0]}
             />
             {warn && (
                 <Warning $ratio={sizeRatio}>

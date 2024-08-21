@@ -1,7 +1,4 @@
-import { useLayoutEffect, useState } from "react";
 import styled from "styled-components";
-import { useProgress } from "../../../contexts/ProgressContext";
-import { Block } from "../Block";
 import { WhiteStarModalWrapper } from "./WhiteStarModalWrapper";
 
 const Text = styled.p`

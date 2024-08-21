@@ -127,7 +127,7 @@ export const PostGame = ({finishText, level }) => {
     useLayoutEffect(() => {
         if (!isFirstTime) return;
         setModal({type: 'cardRules', visible: true, isDisabledAnimation: true});
-    }, []);
+    }, [isFirstTime, setModal]);
 
     const handleClick = () => {
         if (isFlip) return;

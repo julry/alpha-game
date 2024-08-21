@@ -1,13 +1,13 @@
 import bag from '../assets/images/bag.png';
-import bubble from '../assets/images/bubble.svg';
+// import bubble from '../assets/images/bubble.svg';
 import cat from '../assets/images/cat.png';
 import chair from '../assets/images/chair.png';
-import clock from '../assets/images/clock.png';
-import cup from '../assets/images/cup.png';
+// import clock from '../assets/images/clock.png';
+// import cup from '../assets/images/cup.png';
 import lamp from '../assets/images/lamp.png';
 import laptop from '../assets/images/laptop.png';
 import notebook from '../assets/images/notebook.png';
-import pencil from '../assets/images/pencil.png';
+// import pencil from '../assets/images/pencil.png';
 import sofa from '../assets/images/sofa.png';
 import stone from '../assets/images/stone.png';
 import star from '../assets/images/starGray.png';
@@ -20,7 +20,7 @@ import text6 from '../assets/images/text6.svg';
 import tree1 from '../assets/images/tree1.png';
 import tree from '../assets/images/tree.png';
 import tree2 from '../assets/images/tree2.png';
-import tree3 from '../assets/images/tree3.png';
+// import tree3 from '../assets/images/tree3.png';
 import tree4 from '../assets/images/tree4.png';
 
 //ID OF START Left -> right; top => bottom; 1 2 3 4
@@ -341,14 +341,14 @@ export const subjects2 = [
         id: '2-2',
         image: text3,
         width: 358,
-        height: 62,
+        height: 100,
         position: [272, 39],
     },
     {
         id: '2-3',
         image: text4,
         width: 358,
-        height: 31,
+        height: 87,
         position: [1006, 46],
     },
     {
@@ -397,7 +397,7 @@ export const subjects2 = [
         id: '2-10',
         image: text5,
         width: 357,
-        height: 62,
+        height: 107,
         position: [780, 425],
     },
     {
@@ -411,7 +411,7 @@ export const subjects2 = [
         id: '2-12',
         image: text4,
         width: 358,
-        height: 31,
+        height: 87,
         position: [183, 595],
     },
     {
@@ -467,7 +467,7 @@ export const subjects2 = [
         id: '2-20',
         image: text6,
         width: 357,
-        height: 31,
+        height: 69,
         position: [729, 853],
     },
     {
@@ -495,7 +495,7 @@ export const subjects2 = [
         id: '2-24',
         image: text4,
         width: 358,
-        height: 31,
+        height: 87,
         position: [169, 1020],
     },
     {
@@ -514,9 +514,9 @@ export const subjects2 = [
     },
     {
         id: '2-27',
-        image: sofa,
-        width: 187,
-        height: 130,
+        image: chair,
+        width: 151,
+        height: 159,
         position: [1104, 1012],
     },
     {

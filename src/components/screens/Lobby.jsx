@@ -178,7 +178,7 @@ export const Lobby = () => {
 
     useLayoutEffect(() => {
         if (!user.seenRules || isFirstTime) {
-            // setModal({type: 'info', visible: true, isDisabledAnimation: true, isDarken: true})
+            setModal({type: 'info', visible: true, isDisabledAnimation: true, isDarken: true})
         }
     }, []);
 

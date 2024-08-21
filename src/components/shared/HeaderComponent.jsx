@@ -1,4 +1,3 @@
-import { useRef, useState } from "react";
 import styled from "styled-components"
 import { useProgress } from "../../contexts/ProgressContext";
 import { getModalByType } from "../../utils/getModalByType";
