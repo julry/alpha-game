@@ -83,7 +83,10 @@ export const InfoModal = (props) => {
     );
 
     const handleSetRedStarPart = () => {
-        if (user.isVip) setVipPoints(prev => prev + 1);
+        if (user.isVip && !user.weekStars.includes(1)) {
+            setVipPoints(prev => prev + 1);
+            setUserInfo({weekStars: [...user.weekStars, 1]})
+        }
         setPart(prev => prev + 1)
     }
     

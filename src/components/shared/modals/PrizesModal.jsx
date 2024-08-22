@@ -36,6 +36,7 @@ const ProgressWrapper = styled.div`
     width: 100%;
     justify-content: center;
     align-items: center;
+    margin-top: var(--spacing_x5);
 `;
 
 const ProgressCircle  = styled.div`
@@ -73,7 +74,7 @@ export const PrizesModal = () => {
         switch (part) {
             case 0: 
                 return (
-                    <WhiteStarPart>
+                    <WhiteStarPart hasCloseIcon onClose={() => setModal({visible: false})}>
                         <p>
                             За прохождение уровней и за правильные ответы на вопросы после них,{' '}
                             ты получаешь <b>белые звёзды</b>. Собирай каждую неделю больше 15 звёзд и участвуй{' '}
@@ -90,7 +91,7 @@ export const PrizesModal = () => {
                 );
             case 1: 
                 return (
-                    <RedStarPart>
+                    <RedStarPart hasCloseIcon onClose={() => setModal({visible: false})}>
                         <ButtonsWrapper>
                             <Button color="pink" onClick={() => setPart(prev => prev - 1)}>Назад</Button>
                             <Button color="red" onClick={() => setModal({visible: false})}>Далее</Button>
@@ -105,7 +106,7 @@ export const PrizesModal = () => {
     return (
         <Modal isDarken isDisabledAnimation>
             {user?.isVip ? getContent() : (
-                <Content>
+                <Content hasCloseIcon onClose={() => setModal({visible: false})}>
                     <p>
                         За прохождение уровней и за правильные ответы на вопросы после них, ты получаешь белые{' '}
                         звёзды.{'\n'}Собирай каждую неделю больше <b>15 звёзд</b> и участвуй в розыгрыше.{' '}

@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import styled from "styled-components";
 import top from '../../assets/images/lobby-top.png';
 import bot from '../../assets/images/lobby-bot.png';
@@ -169,7 +169,7 @@ export const Lobby = () => {
     const shownWeek = (passedWeeks[passedWeeks.length - 1] ?? 0) + 1;
     const [week, setWeek] = useState(shownWeek > CURRENT_WEEK ? CURRENT_WEEK : shownWeek);
     const [isAvailableFirst, setIsAvailableFirst] = useState(passedWeeks.length < CURRENT_WEEK - 1);
-
+    const { isJustEntered, isVip, weekStars } = user;
     const weeks = Array.from({length: 4}, (v, i) => i + 1);
 
     const changeWeek = (w) => {
@@ -182,6 +182,9 @@ export const Lobby = () => {
     useLayoutEffect(() => {
         if (!user.seenRules && isFirstTime) {
             setModal({type: 'info', visible: true, isDisabledAnimation: true, isDarken: true})
+        }
+        if (CURRENT_WEEK !== 1 && !isJustEntered && isVip && !weekStars.includes(CURRENT_WEEK) && week === CURRENT_WEEK) {
+           //podumat'
         }
     }, []);
 
@@ -196,12 +199,11 @@ export const Lobby = () => {
                 <Path $ratio={ratio}>
                     <Character $ratio={ratio} $left={WEEK_TO_POSITION[week]}/>
                     {weeks.map((w) => 
-                        <>
+                        <React.Fragment key={`week_${w}`}>
                             <WeekCircle 
                                 $ratio={ratio} 
                                 onClick={() => changeWeek(w)}
                                 $ind={w} 
-                                key={`week_${w}`} 
                                 $notClickable={passedWeeks.includes(w) || w === CURRENT_WEEK}
                                 $unavailable={(w !== 1 && !passedWeeks.includes(w - 1)) || w > CURRENT_WEEK}
                             >
@@ -216,7 +218,7 @@ export const Lobby = () => {
                             {w > 1 && (
                                 <Divider $ratio={ratio} $unavailable={(w !== 1 && !passedWeeks.includes(w - 1)) || w > CURRENT_WEEK} $left={w - 1}/>
                             )}
-                        </>
+                        </React.Fragment>
                     )}
                 </Path>
                 {

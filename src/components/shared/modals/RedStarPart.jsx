@@ -41,7 +41,7 @@ export const RedStarPart = (props) => {
             >
                 <StarButton color="red" />
             </ButtonWrapper>
-            <Content>
+            <Content hasCloseIcon={props.hasCloseIcon} onClose={props.onClose}>
                 <p>
                     Для того, чтобы выиграть супер-приз — iPhone 16 Pro Max, копи красные звезды.{' '}
                     Они даются за еженедельный заход в игру и другие действия.{'\n\n'}

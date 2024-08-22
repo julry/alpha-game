@@ -22,6 +22,11 @@ const ButtonWrapper = styled.div`
     left: ${({ left }) => left}px;
 `;
 
+const ListWrapper = styled.div`
+    margin-top: var(--spacing_x2);
+    padding-left: var(--spacing_x1);
+`;
+
 export const RedStarModal = (props) => {
     const { $redStarRef } = useProgress();
     const [starCoor, setStarCoor] = useState({x: 0, y: 0});
@@ -48,8 +53,15 @@ export const RedStarModal = (props) => {
             </ButtonWrapper>
             <Content onClose={props.onClose} hasCloseIcon>
                 <Text>
-                    <b>Красные звезды</b> помогают выиграть главный приз!{'\n'}Ты можешь их получить за прохождение уровня с 1–3 попытки, за верные ответы на карточки-звёзды, за подписку на tg-канал и за вход в игру на каждой неделе. Также здесь суммируются твои результаты за игру.
+                    <b>Красные звезды</b> помогают выиграть главный приз. Ты можешь получить их за:
                 </Text>
+                <ListWrapper>
+                    <ul>
+                        <li>прохождение уровня с 1–3 попытки — от 3 до 1 звезды. Чем меньше попыток, тем больше звёзд</li>
+                        <li>подписку на tg-канал — 1 звезда</li>    
+                        <li>вход в игру на каждой неделе после появления нового уровня — 1 звезда</li>     
+                    </ul>
+                </ListWrapper>
             </Content>
         </Modal>
     )

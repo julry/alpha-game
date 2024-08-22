@@ -132,7 +132,7 @@ export const MovementModal = () => {
             case 0:
                 return (
                     <>
-                        <Content>
+                        <Content hasCloseIcon onClose={() => setModal({visible: false})}>
                             <p>
                                 Используй джойстик, чтобы управлять Алексом.{'\n\n'}
                                 Вперёд к Альфа-сити!
@@ -165,7 +165,7 @@ export const MovementModal = () => {
             case 1: 
                 return (
                     <>
-                        <Content>
+                        <Content hasCloseIcon onClose={() => setModal({visible: false})}>
                             <p>
                                 Собери <b>10 белых Альфа-звёзд</b>, они осветят путь Алексу.{' '}
                                 Чем больше звёзд, тем светлее лес. <b>Не попадайся змейкам</b> — столкнёшься с ними{' '}

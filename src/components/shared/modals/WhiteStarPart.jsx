@@ -41,7 +41,7 @@ export const WhiteStarPart = (props) => {
             >
                 <StarButton color="white" />
             </ButtonWrapper>
-            <Content onClose={props.onClose} hasCloseIcon={modal.isCloseIcon}>
+            <Content onClose={props.onClose} hasCloseIcon={props.hasCloseIcon || modal.isCloseIcon}>
                 {props.children}
             </Content>
         </>

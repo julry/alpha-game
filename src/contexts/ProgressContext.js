@@ -11,6 +11,9 @@ const INITIAL_USER = {
     isVip: true,
     seenRules: false,
     isTgConnected: false,
+    weekStars: [],
+    //ubrat' posle api
+    isJustEntered: true,
 };
 
 export const CURRENT_WEEK = 3;
@@ -41,7 +44,6 @@ export function ProgressProvider(props) {
     const [user, setUser] = useState(INITIAL_STATE.user);
     const [passedWeeks, setPassedWeeks] = useState(INITIAL_STATE.passedWeeks);
     // заполнять после того как посмотрели карточки, в библ по нему показывать
-    const [cardsSeen, setCardsSeen] = useState(INITIAL_STATE.cardsSeen);
     const [hasPassedThisTry, setHasPassedThisTry] = useState(false); 
     const screen = screens[currentScreen];
     const $whiteStarRef = useRef();

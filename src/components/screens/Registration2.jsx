@@ -92,11 +92,12 @@ const Link = styled.a`
 export const Registration2 = () => {
     const { next, setUserInfo, user } = useProgress();
     const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
     const [isAgreed, setIsAgreed] = useState('');
 
     const handleClick = () => {
-        setUserInfo({name, email});
+        setUserInfo({name: `${name} ${surname}`, email, isJustEntered: true});
         //send data to serv => user + name, email
         next();
     }
@@ -109,14 +110,26 @@ export const Registration2 = () => {
             />
             <Content>
                 <Label>
-                    Укажи свои ФИО
+                    Укажи своё имя
                 </Label>
                 <Input 
                     type="text" 
                     value={name} 
                     onChange={(e) => setName(e.target.value)} 
-                    placeholder="Иванов Иван Иванович"
+                    placeholder="Иван"
                 />
+
+                <InputWrapper>
+                    <Label>
+                        Укажи свою фамилию
+                    </Label>
+                    <Input 
+                        type="text" 
+                        value={surname} 
+                        onChange={(e) => setSurname(e.target.value)} 
+                        placeholder="Иванов"
+                    />
+                </InputWrapper>
 
                 <InputWrapper>
                     <Label>
