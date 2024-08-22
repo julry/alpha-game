@@ -9,7 +9,7 @@ const INITIAL_USER = {
     email: 'ivan2001@mail.ru',
     university: 'НИУ ВШЭ Московский Институт Электроники и Математики',
     isVip: true,
-    seenRules: true,
+    seenRules: false,
     isTgConnected: false,
 };
 
