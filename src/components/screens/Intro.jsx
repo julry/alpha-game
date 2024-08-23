@@ -31,6 +31,7 @@ const Face = styled.div`
     margin-top: -1px;
     height: 58.9vw;
     background: url(${face}) no-repeat 0 0 / cover;
+    flex-shrink: 0;
 
     @media screen and (min-width: 450px){
         max-height: ${({$ratio}) => $ratio * 221}px;
@@ -41,7 +42,6 @@ const Content = styled.div`
     padding: var(--spacing_x4);
     display: flex;
     flex-direction: column;
-    flex-shrink: 0;
     flex-grow: 1;
     background: var(--color-white);
     color: var(--color-white-text);
@@ -58,6 +58,11 @@ const TextBlock = styled.div`
     padding-bottom: 0;
     margin-bottom: ${({$ratio}) => $ratio * 36}px;
     font-size: var(--font_sm);
+
+    @media screen and (min-width: 450px) and (max-height: 700px){
+        padding-top: ${({$ratio}) => $ratio * 13}px;
+        margin-bottom: ${({$ratio}) => $ratio * 13}px;
+    }
 `;
 
 const ButtonWrapper = styled.div`

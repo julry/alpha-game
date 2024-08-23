@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "./static/css/main.8bcc833b.css",
-    "main.js": "./static/js/main.d1a4710c.js",
+    "main.js": "./static/js/main.81778093.js",
     "static/media/StyreneALC-Bold.otf": "./static/media/StyreneALC-Bold.e0bfa5ee6e6532117573.otf",
     "static/media/StyreneALC-Black.otf": "./static/media/StyreneALC-Black.15eb00502b0f9bd64ba8.otf",
     "static/media/StyreneALC-Regular.otf": "./static/media/StyreneALC-Regular.7a999447d564875a5680.otf",
@@ -54,14 +54,14 @@
     "static/media/dialog2.svg": "./static/media/dialog2.f5455dd7954a71025189abe3e27afddf.svg",
     "static/media/dialog.svg": "./static/media/dialog.8750eabc4eede60d607546ddfbd950d0.svg",
     "static/media/dialog1.svg": "./static/media/dialog1.0007703ec98b987c6a6ff08fc4c2fcfb.svg",
-    "static/media/dialog3.svg": "./static/media/dialog3.c32217d52f6425836671ecc6e8ed27d9.svg",
+    "static/media/dialog3.svg": "./static/media/dialog3.b89b0a929edcd6f07d5cf17bfdf997bc.svg",
     "static/media/close.svg": "./static/media/close.ebf199d9d5a716c551388c7cc05b2aa4.svg",
     "static/media/icon-arrow.svg": "./static/media/icon-arrow.82cc7e86a1954c8826f5d5a99fbeaecf.svg",
     "main.8bcc833b.css.map": "./static/css/main.8bcc833b.css.map",
-    "main.d1a4710c.js.map": "./static/js/main.d1a4710c.js.map"
+    "main.81778093.js.map": "./static/js/main.81778093.js.map"
   },
   "entrypoints": [
     "static/css/main.8bcc833b.css",
-    "static/js/main.d1a4710c.js"
+    "static/js/main.81778093.js"
   ]
 }

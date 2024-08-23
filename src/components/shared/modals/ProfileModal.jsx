@@ -52,7 +52,7 @@ export const ProfileModal = (props) => {
                     </div>
                 </IdBlock>
                 <InfoBlock>
-                    <Subtitle>ФИО</Subtitle>
+                    <Subtitle>ФИ</Subtitle>
                     <Text>{user.name}</Text>
                 </InfoBlock>
                 <InfoBlock>

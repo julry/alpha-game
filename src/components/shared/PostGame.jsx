@@ -243,9 +243,9 @@ export const PostGame = ({finishText, level }) => {
                             <StarCard text={CARDS_BY_LEVEL[level].find(({id}) => id === shownId)?.text} />
                             <ButtonsBlock $ratio={ratio}>
                                 <AnswerButtonStyled color="white" onClick={() => onClickCard(false)} $darken={activeButton === 1}>Тёмный лес</AnswerButtonStyled>
-                                <AnswerButtonStyled color="green" onClick={() => onClickCard(true)} $darken={activeButton === 0}>Альфа-банк</AnswerButtonStyled>
+                                <AnswerButtonStyled color="green" onClick={() => onClickCard(true)} $darken={activeButton === 0}>Альфа-Банк</AnswerButtonStyled>
                                 {
-                                    level === 1 && (
+                                    [1,2].includes(level) && (
                                         <>
                                             <TipStyled $ratio={ratio}>
                                                 <p>Жми, если карточка{'\n'}не про Альфа-Банк</p>

@@ -74,6 +74,11 @@ const LibTipStyled = styled(TipStyled)`
     background: url(${dialog2}) no-repeat 0 center;
     width: ${({$ratio}) => $ratio * 277}px;
     background-size: contain;
+    text-align: left;
+
+    & p {
+        margin-top: ${({$ratio}) => $ratio * 10}px;
+    }
 `;
 
 const CloseIcon = styled.button`

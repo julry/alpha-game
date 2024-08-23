@@ -247,7 +247,7 @@ export const Library = () => {
                             {openedCards.map(({text, id, isAlpha}) => (
                                 <StarWrapper key={id} $ratio={ratio}>
                                     <StarCard text={text} />
-                                    <Info>{isAlpha ? 'Альфа-банк' : 'Тёмный лес'}</Info>
+                                    <Info>{isAlpha ? 'Альфа-Банк' : 'Тёмный лес'}</Info>
                                 </StarWrapper>
                             ))}
                         </Slider>

@@ -53,7 +53,7 @@ export const RedStarModal = (props) => {
             </ButtonWrapper>
             <Content onClose={props.onClose} hasCloseIcon>
                 <Text>
-                    <b>Красные звезды</b> помогают выиграть главный приз. Ты можешь получить их за:
+                    <b>Красные звёзды</b> помогают выиграть главный приз. Ты можешь получить их за:
                 </Text>
                 <ListWrapper>
                     <ul>

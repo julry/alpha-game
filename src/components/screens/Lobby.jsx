@@ -120,9 +120,9 @@ const TipStyled = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    bottom: calc(0px - var(--spacing_x2) - ${({$ratio}) => $ratio * 70}px);
-    left: ${({$ratio}) => $ratio * -15}px;
-    height: ${({$ratio}) => $ratio * 78}px;
+    bottom: calc(0px - var(--spacing_x2) - ${({$ratio}) => $ratio * 93}px);
+    left: ${({$ratio}) => $ratio * -19}px;
+    height: ${({$ratio}) => $ratio * 96}px;
     background: url(${dialog}) no-repeat 0 center;
     width: ${({$ratio}) => $ratio * 277}px;
     background-size: contain;
@@ -180,10 +180,10 @@ export const Lobby = () => {
     const isFirstTime = (!passedWeeks.length && ((!user.isVip && points === 0) || (user.isVip && vipPoints === 0)));
 
     useLayoutEffect(() => {
-        if (!user.seenRules && isFirstTime) {
+        if (!user.seenRules && !weekStars.includes(1)) {
             setModal({type: 'info', visible: true, isDisabledAnimation: true, isDarken: true})
         }
-        if (CURRENT_WEEK !== 1 && !isJustEntered && isVip && !weekStars.includes(CURRENT_WEEK) && week === CURRENT_WEEK) {
+        if (CURRENT_WEEK !== 1 && !isJustEntered && isVip && !weekStars.includes(CURRENT_WEEK)) {
            //podumat'
         }
     }, []);
@@ -210,7 +210,7 @@ export const Lobby = () => {
                                <p>{w}</p>
                               { w === 1 && isAvailableFirst && (
                                 <TipStyled $ratio={ratio}>
-                                    <p>Проходи недели{'\n'}по‑порядку, чтоб открыть{'\n'}текущую</p>
+                                    <p>Проходи недели{'\n'}попорядку, чтобы открыть{'\n'}текущую</p>
                                     <CloseIcon $ratio={ratio} onClick={handleCloseTip}/>
                                 </TipStyled>
                               )}
