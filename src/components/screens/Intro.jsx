@@ -51,6 +51,10 @@ const Title = styled.h2`
     width: 100%;
     text-align: center;
     font-size: var(--font_xl);
+
+    @media screen and (max-height: 700px) {
+        font-size: calc(var(--font_xl) - var(--spacing_x1));
+    }
 `;
 
 const TextBlock = styled.div`
@@ -59,7 +63,7 @@ const TextBlock = styled.div`
     margin-bottom: ${({$ratio}) => $ratio * 36}px;
     font-size: var(--font_sm);
 
-    @media screen and (min-width: 450px) and (max-height: 700px){
+    @media screen and (max-height: 700px){
         padding-top: ${({$ratio}) => $ratio * 13}px;
         margin-bottom: ${({$ratio}) => $ratio * 13}px;
     }

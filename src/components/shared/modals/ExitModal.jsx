@@ -31,14 +31,17 @@ const ButtonWrapper = styled.div`
 
 export const ExitModal = (props) => {
     const ratio = useSizeRatio();
-    const { next, modal } = useProgress();
+    const { next, modal, setGamePoints } = useProgress();
 
     const { isLobby } = modal;
 
     const handleQuit = () => {
         props?.onClose();
 
-        if (isLobby) next(SCREENS.LOBBY);
+        if (isLobby) {
+            setGamePoints(0);
+            next(SCREENS.LOBBY);
+        }
 
         else next(SCREENS.LIBRARY);
     }

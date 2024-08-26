@@ -4,6 +4,7 @@ import { Button } from "../shared/Button";
 import { Input } from "../shared/Input";
 import { IntroHeader } from "../shared/IntroHeader";
 import { useProgress } from "../../contexts/ProgressContext";
+import {emailRegExp} from '../../constants/regexp';
 import { useState } from "react";
 
 const Wrapper = styled.div`
@@ -15,6 +16,10 @@ const Wrapper = styled.div`
 const Content = styled.div`
     margin-top: var(--spacing_x5);
     /* padding-right: var(--spacing_x6); */
+`;
+
+const InputStyled = styled(Input)`
+    ${({$isError}) => $isError ? 'box-shadow: 0 0 0 1px var(--color-red); color: var(--color-red)' : ''};
 `;
 
 const InputWrapper = styled.div`
@@ -94,7 +99,23 @@ export const Registration2 = () => {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
+    const [isSending, setIsSending] = useState(false);
     const [isAgreed, setIsAgreed] = useState('');
+    const [isCorrect, setIsCorrect] = useState(true);
+    
+    const handleBlur = () => {
+        if (email.match(emailRegExp) || !email) {
+            setIsCorrect(true);
+        } else {
+            setIsCorrect(false);
+        }
+    };
+
+    const handleChange = (e) => {
+        if (isSending) return;
+        setIsCorrect(true);
+        setEmail(e.target.value);
+    };
 
     const handleClick = () => {
         setUserInfo({name: `${name} ${surname}`, email, isJustEntered: true});
@@ -135,11 +156,13 @@ export const Registration2 = () => {
                     <Label>
                         Укажи свою почту
                     </Label>
-                    <Input 
+                    <InputStyled 
+                        $isError={!isCorrect}
                         type="email" 
                         placeholder="user@mail.ru"
                         value={email} 
-                        onChange={(e) => setEmail(e.target.value)} 
+                        onChange={handleChange}
+                        onBlur={handleBlur}
                     />
                 </InputWrapper>
                 <RadioButtonLabel>
@@ -162,7 +185,7 @@ export const Registration2 = () => {
                     </span>
                 </RadioButtonLabel>
             </Content>
-            <ButtonStyled color="red" onClick={handleClick} disabled={!name || !email || !surname || !isAgreed}>Далее</ButtonStyled>
+            <ButtonStyled color="red" onClick={handleClick} disabled={!name || !email || !surname || !isAgreed || !isCorrect}>Далее</ButtonStyled>
         </Wrapper>
     )
 }

@@ -66,7 +66,6 @@ const WeekCircle = styled.div`
     border-radius: 50%;
     color: var(--color-pink-text);
     opacity: ${({$unavailable}) => $unavailable ? 0.35 : 1};
-    cursor: ${({$unavailable, $notClickable}) => $unavailable || $notClickable ? 'auto' : 'pointer'};
     font-weight: 700;
     font-size: ${({$ratio}) => $ratio * 20}px;
     z-index: 4;
@@ -107,6 +106,7 @@ const NextWeekInfo = styled.div`
     color: var(--color-white-text);
     border-radius: var(--border-radius-sm);
     opacity: ${({$hidden}) => $hidden ? 0 : 1};
+    text-align: center;
 `;
 
 const TgButton = styled(IconButton)`
@@ -165,17 +165,12 @@ const WEEK_TO_POSITION = {
 
 export const Lobby = () => {
     const ratio = useSizeRatio();
-    const { passedWeeks, next, points, vipPoints, user, hasPassedThisTry, setModal, modal } = useProgress();
+    const { passedWeeks, next, points, vipPoints, user, hasPassedThisTry, setModal, modal, setUserInfo } = useProgress();
     const shownWeek = (passedWeeks[passedWeeks.length - 1] ?? 0) + 1;
     const [week, setWeek] = useState(shownWeek > CURRENT_WEEK ? CURRENT_WEEK : shownWeek);
     const [isAvailableFirst, setIsAvailableFirst] = useState(passedWeeks.length < CURRENT_WEEK - 1);
     const { isJustEntered, isVip, weekStars } = user;
     const weeks = Array.from({length: 4}, (v, i) => i + 1);
-
-    const changeWeek = (w) => {
-        if (w > CURRENT_WEEK || passedWeeks.includes(w)) return;
-        setWeek(w);
-    };
 
     const isFirstTime = (!passedWeeks.length && ((!user.isVip && points === 0) || (user.isVip && vipPoints === 0)));
 
@@ -193,6 +188,11 @@ export const Lobby = () => {
         setIsAvailableFirst(false);
     }
 
+    const handleNext = () => {
+        setUserInfo({seenWeekInfo: true});
+        next(WEEK_TO_NEXT_SCREEN[week]);
+    }
+
     return (
         <HeaderComponent isFirstTime={isFirstTime && !modal.visible} isNoGames={passedWeeks.length === CURRENT_WEEK}>
             <Wrapper $ratio={ratio}>
@@ -202,15 +202,14 @@ export const Lobby = () => {
                         <React.Fragment key={`week_${w}`}>
                             <WeekCircle 
                                 $ratio={ratio} 
-                                onClick={() => changeWeek(w)}
                                 $ind={w} 
                                 $notClickable={passedWeeks.includes(w) || w === CURRENT_WEEK}
                                 $unavailable={(w !== 1 && !passedWeeks.includes(w - 1)) || w > CURRENT_WEEK}
                             >
                                <p>{w}</p>
-                              { w === 1 && isAvailableFirst && (
+                              { w === 1 && isAvailableFirst && !user.seenWeekInfo && (
                                 <TipStyled $ratio={ratio}>
-                                    <p>Проходи недели{'\n'}попорядку, чтобы открыть{'\n'}текущую</p>
+                                    <p>Проходи недели{'\n'}по порядку, чтобы открыть{'\n'}текущую</p>
                                     <CloseIcon $ratio={ratio} onClick={handleCloseTip}/>
                                 </TipStyled>
                               )}
@@ -227,7 +226,7 @@ export const Lobby = () => {
                             Увидимся на следующей неделе!
                         </NextWeekInfo>
                     ) : (
-                        <Button color="red" onClick={() => next(WEEK_TO_NEXT_SCREEN[week])}>В лес!</Button>
+                        <Button color="red" onClick={handleNext}>В лес!</Button>
                     )
                 }
                 <TgButton color="white" icon={{width: 18, height: 16}} onClick={() => setModal({type: 'tg', visible: true})}> 

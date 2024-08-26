@@ -7,6 +7,7 @@ import { useProgress } from "../../contexts/ProgressContext";
 import picture from "../../assets/images/login-pic.png";
 import { useState } from "react";
 import { useSizeRatio } from "../../hooks/useSizeRatio";
+import { emailRegExp } from "../../constants/regexp";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -56,12 +57,19 @@ const WrongText = styled.p`
 
 export const Login = () => {
     const [isWrongEmail, setWrongEmail] = useState(false);
+    const [email, setEmail] = useState('');
+
     const ratio = useSizeRatio();
     const { next } = useProgress();
 
     const handleClick = () => {
-        if (!isWrongEmail) setWrongEmail(true);
-        else next();
+        if (!!email && !email.match(emailRegExp)) {
+            setWrongEmail(true);
+
+            return;
+        }
+        
+        next();
     }
     return (
         <Wrapper>
@@ -73,7 +81,7 @@ export const Login = () => {
                 <Text>
                     Введи свою почту,{'\n'}чтобы продолжить играть.
                 </Text>
-                <Input placeholder="user@mail.com"/>
+                <Input placeholder="user@mail.com" value={email} onChange={(e) => setEmail(e.target.value)}/>
                 {isWrongEmail && (
                     <WrongText>Ой! Такой почты нет. Попробуй ввести снова или зарегистрируйся, чтобы начать играть.</WrongText>
                 )}

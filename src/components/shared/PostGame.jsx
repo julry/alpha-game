@@ -74,6 +74,7 @@ const TipStyled = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    background-size: cover;
 
     & p {
         font-size: ${({$ratio}) => $ratio * 13}px;
@@ -245,7 +246,7 @@ export const PostGame = ({finishText, level }) => {
                                 <AnswerButtonStyled color="white" onClick={() => onClickCard(false)} $darken={activeButton === 1}>Тёмный лес</AnswerButtonStyled>
                                 <AnswerButtonStyled color="green" onClick={() => onClickCard(true)} $darken={activeButton === 0}>Альфа-Банк</AnswerButtonStyled>
                                 {
-                                    [1,2].includes(level) && (
+                                    [1,2].includes(level) && [1,2].includes(shownId) && (
                                         <>
                                             <TipStyled $ratio={ratio}>
                                                 <p>Жми, если карточка{'\n'}не про Альфа-Банк</p>

@@ -14,6 +14,7 @@ const INITIAL_USER = {
     weekStars: [],
     //ubrat' posle api
     isJustEntered: true,
+    seenWeekInfo: false,
 };
 
 export const CURRENT_WEEK = 3;
