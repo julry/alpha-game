@@ -15,9 +15,10 @@ const INITIAL_USER = {
     //ubrat' posle api
     isJustEntered: true,
     seenWeekInfo: false,
+    registerWeek: 1,
 };
 
-export const CURRENT_WEEK = 3;
+export const CURRENT_WEEK = 1;
 
 const INITIAL_STATE = {
     screen: SCREENS.INTRO,

@@ -52,20 +52,19 @@ const Title = styled.h2`
     text-align: center;
     font-size: var(--font_xl);
 
-    @media screen and (max-height: 700px) {
-        font-size: calc(var(--font_xl) - var(--spacing_x1));
+    @media screen and (min-width: 640px) and (max-height: 760px) {
+        font-size: calc(var(--font_xl) - var(--spacing_x2));
     }
 `;
 
 const TextBlock = styled.div`
     padding: var(--spacing_x4);
     padding-bottom: 0;
-    margin-bottom: ${({$ratio}) => $ratio * 36}px;
+    margin-bottom: ${({$ratio}) => $ratio * 10}px;
     font-size: var(--font_sm);
 
-    @media screen and (max-height: 700px){
+    @media screen and (min-width: 640px) and (max-height: 760px){
         padding-top: ${({$ratio}) => $ratio * 13}px;
-        margin-bottom: ${({$ratio}) => $ratio * 13}px;
     }
 `;
 

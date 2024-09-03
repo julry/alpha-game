@@ -3,7 +3,7 @@ import { SCREENS } from "../../constants/screens";
 import { Button } from "../shared/Button";
 import { Input } from "../shared/Input";
 import { IntroHeader } from "../shared/IntroHeader";
-import { useProgress } from "../../contexts/ProgressContext";
+import { CURRENT_WEEK, useProgress } from "../../contexts/ProgressContext";
 import {emailRegExp} from '../../constants/regexp';
 import { useState } from "react";
 
@@ -118,7 +118,7 @@ export const Registration2 = () => {
     };
 
     const handleClick = () => {
-        setUserInfo({name: `${name} ${surname}`, email, isJustEntered: true});
+        setUserInfo({name: `${name} ${surname}`, email, registerWeek: CURRENT_WEEK});
         //send data to serv => user + name, email
         next();
     }

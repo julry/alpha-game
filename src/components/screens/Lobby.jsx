@@ -169,7 +169,7 @@ export const Lobby = () => {
     const shownWeek = (passedWeeks[passedWeeks.length - 1] ?? 0) + 1;
     const [week, setWeek] = useState(shownWeek > CURRENT_WEEK ? CURRENT_WEEK : shownWeek);
     const [isAvailableFirst, setIsAvailableFirst] = useState(passedWeeks.length < CURRENT_WEEK - 1);
-    const { isJustEntered, isVip, weekStars } = user;
+    const { registerWeek, isVip, weekStars } = user;
     const weeks = Array.from({length: 4}, (v, i) => i + 1);
 
     const isFirstTime = (!passedWeeks.length && ((!user.isVip && points === 0) || (user.isVip && vipPoints === 0)));
@@ -178,8 +178,8 @@ export const Lobby = () => {
         if (!user.seenRules && !weekStars.includes(1)) {
             setModal({type: 'info', visible: true, isDisabledAnimation: true, isDarken: true})
         }
-        if (CURRENT_WEEK !== 1 && !isJustEntered && isVip && !weekStars.includes(CURRENT_WEEK)) {
-           //podumat'
+        if (CURRENT_WEEK !== registerWeek && isVip && !weekStars.includes(CURRENT_WEEK)) {
+            setModal({type: 'newWeek', visible: true})
         }
     }, []);
 
