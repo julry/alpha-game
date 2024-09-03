@@ -7,6 +7,7 @@ import { Button } from "../Button";
 import { WhiteStarPart } from "./WhiteStarPart";
 import { RedStarPart } from "./RedStarPart";
 import { useState } from "react";
+import { updateUser } from "../../../utils/updateUser";
 
 const Content = styled(Block)`
     position: absolute;
@@ -50,10 +51,10 @@ const ProgressCircle  = styled.div`
     }
 `;
 
-export const InfoModal = (props) => {
+export const InfoModal = () => {
     const ratio = useSizeRatio();
     const [part, setPart] = useState(0);
-    const { user, setVipPoints, setModal, setUserInfo } = useProgress();
+    const { user, setVipPoints, setModal, setUserInfo, vipPoints } = useProgress();
     const amount = user?.isVip ? 4 : 3;
     const progress = Array.from({length: amount}, (v, i) => i);
 
@@ -66,6 +67,15 @@ export const InfoModal = (props) => {
     );
 
     const handleGoLobby = () => {
+        const info = {};
+        if (user.isVip) {
+            info.targetPoints = vipPoints + 1;
+            info.weekStars = user.weekStars.join(',');
+        }
+
+        info.seenRules = true;
+
+        updateUser(user.recordId, info);
         setUserInfo({seenRules: true});
         setModal({visible: true, type: 'tg'});
     }

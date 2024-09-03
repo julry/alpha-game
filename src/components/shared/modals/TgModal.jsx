@@ -3,6 +3,8 @@ import { useProgress } from "../../../contexts/ProgressContext";
 import { Block } from "../Block";
 import { Modal } from "./Modal";
 import { Button } from "../Button";
+import { useEffect, useState } from "react";
+import { getUserInfo } from "../../../utils/getUserInfo";
 
 const Content = styled(Block)`
     position: absolute;
@@ -16,17 +18,36 @@ const ButtonStyled = styled(Button)`
     margin: var(--spacing_x4) 0 0;
 `;
 
-export const TgModal = (props) => {
+export const TgModal = () => {
     const { user, setVipPoints, setPoints, modal, setModal, setUserInfo } = useProgress();
+    const [checkTg, setCheckTg] = useState(false);
 
     const handleClick = () => {
-        if (!user.isTgConnected) {
-            if (user.isVip) setVipPoints(prev => prev + 1);
-            else setPoints(prev => prev + 1);
-            setUserInfo({isTgConnected: true});
-        }
+        if (checkTg) return;
+        window.open('', '_blank');
         setModal({visible: false});
     }
+
+    useEffect(() => {
+        const handleCheck = () => {
+            if (checkTg) return;
+            setCheckTg(true);
+
+            getUserInfo().then((res) => {
+                if (!res || !res.userInfo) return;
+                setUserInfo({isTgConnected: res?.userInfo?.isTgConnected});
+                if (user.isVip) {
+                    setVipPoints(prev => res?.vipPoints ?? prev);
+                } else setPoints(prev => res?.points ?? prev);
+            }).finally(() => {
+                setCheckTg(false);
+            });
+        }
+
+        window.addEventListener('focus', handleCheck);
+
+        return () => window.removeEventListener('focus', handleCheck);
+    },[]);
 
     return (
         <Modal isDarken isDisabledAnimation={modal.isDisabledAnimation}>
@@ -36,7 +57,7 @@ export const TgModal = (props) => {
                     Переходи в <b>бот</b>, чтобы получить ссылку, и заработай ещё одну{' '}
                     <b>{user?.isVip ? 'красную ' : 'белую '}звезду</b> — так ты будешь на шаг ближе к главному призу.
                 </p>
-                <ButtonStyled color="red" onClick={handleClick}>Перейти</ButtonStyled>
+                <ButtonStyled color="red" onClick={handleClick} disabled={checkTg}>Перейти</ButtonStyled>
             </Content>
         </Modal>
     )

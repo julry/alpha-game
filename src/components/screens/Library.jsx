@@ -3,9 +3,12 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
+import dialogL from '../../assets/images/library-left.svg';
+import dialogR from '../../assets/images/library-right.svg';
+import closeIcon from '../../assets/images/close.svg';
 import { cardsLevel1, cardsLevel2, cardsLevel3, cardsLevel4 } from "../../constants/cards";
 import { SCREENS } from "../../constants/screens";
-import { useProgress } from "../../contexts/ProgressContext";
+import { CURRENT_WEEK, useProgress } from "../../contexts/ProgressContext";
 import { useSizeRatio } from "../../hooks/useSizeRatio";
 import { BackButton, Button } from "../shared/Button";
 import { Arrow, TreeIcon } from "../shared/icons";
@@ -80,6 +83,7 @@ const Cards = styled.div`
 `;
 
 const CardWrapper = styled.div`
+    position: relative;
     background: var(--color-black);
     display: flex;
     flex-direction: column;
@@ -89,6 +93,45 @@ const CardWrapper = styled.div`
     width: ${({$ratio}) => $ratio * 142}px;
     height: ${({$ratio}) => $ratio * 142}px;
     border-radius: ${({$ind, $ratio}) => $ind === 0 ? $ratio * 15 : 0}px ${({$ind, $ratio}) => $ind === 1 ? $ratio * 15 : 0}px 0 0;
+`;
+
+const WeekDialog = styled.div`
+    position: absolute;
+    width: ${({$ratio}) => $ratio * 297}px;
+    height: ${({$ratio}) => $ratio * 96}px;
+    top: ${({$ratio}) => $ratio * -48}px;
+    padding: var(--spacing_x4) var(--spacing_x3) var(--spacing_x6) var(--spacing_x5);
+    background-size: cover;
+    z-index: 3;
+
+
+    & p {
+        color: var(--color-black);
+    }
+
+    & button {
+        position: absolute;
+        top: ${({$ratio}) => $ratio * 10}px;
+        right: ${({$ratio}) => $ratio * 10}px;
+        background: transparent;
+        outline: none;
+        border: none;
+        width: ${({$ratio}) => $ratio * 16}px;
+        height: ${({$ratio}) => $ratio * 16}px;
+        background: url(${closeIcon}) no-repeat center center;
+        background-size: cover;
+        cursor: pointer;
+    }
+`;
+
+const LeftDialog = styled(WeekDialog)`
+    left: 0;
+    background: url(${dialogL}) no-repeat center center;
+`;
+
+const RightDialog = styled(WeekDialog)`
+    right: -4px;
+    background: url(${dialogR}) no-repeat center center;
 `;
 
 const Text = styled.div`
@@ -173,7 +216,7 @@ const ButtonStyled = styled(Button)`
 
 export const Library = () => {
     const ratio = useSizeRatio();
-    const { next, passedWeeks } = useProgress();
+    const { next, passedWeeks, cardsSeen } = useProgress();
     const [openedCards, setOpenedCards] = useState([]);
     const [isModal, setIsModal] = useState(false); 
 
@@ -200,15 +243,41 @@ export const Library = () => {
         }
     ];
 
+    const dialogs = weeks.map(({id}) => !cardsSeen.includes(id) && passedWeeks.includes(id));
+
+    const [shownDialogs, setShownDialogs] = useState(dialogs);
+
     const handleClick = (id, cards) => {
         if (!passedWeeks.includes(id)) {
             setIsModal(true);
             return;
         }
+
+        if (!cardsSeen.includes(id)) {
+            next(SCREENS[`POST_GAME${id}`]);
+        }
     
-        setOpenedCards(cards)
+        setOpenedCards(cards);
     };
 
+    const getDialog = (id) => {
+        if (!shownDialogs[id - 1]) return;
+
+        const Component = id % 2 === 0 ? RightDialog : LeftDialog;
+
+        const handleDialogClose = (e) => {
+            e.stopPropagation();
+            setShownDialogs(prev => prev.map((d, ind) => ind === id - 1 ? false : d));
+        };
+
+        return (
+            <Component $ratio={ratio}>
+                <p>У тебя остались неоткрытые звёзды с {id === CURRENT_WEEK ? 'этой' : 'прошлой'} недели, кликни, чтобы посмотреть их.</p>
+                <button onClick={handleDialogClose}/>
+            </Component>
+        )
+    };
+    
     return (
         <Wrapper>
             <BackBtnStyled onClick={() => next(SCREENS.LOBBY)}>
@@ -219,8 +288,9 @@ export const Library = () => {
                 <Cards  $ratio={ratio}>
                     {weeks.map(({id, name, cards}, ind) =>(
                         <CardWrapper $ratio={ratio} key={name + id} $ind={ind} onClick={() => handleClick(id, cards)}>
-                            <Text $ratio={ratio} $unknown={!passedWeeks.includes(id)}>{passedWeeks.includes(id) ? name : "?"}</Text>
-                            <BackCardStyled $ratio={ratio} $unknown={!passedWeeks.includes(id)}/>
+                            <Text $ratio={ratio} $unknown={!cardsSeen.includes(id)}>{cardsSeen.includes(id) ? name : "?"}</Text>
+                            <BackCardStyled $ratio={ratio} $unknown={!cardsSeen.includes(id)}/>
+                            {getDialog(id)}
                         </CardWrapper>
                     ))}
                 </Cards>

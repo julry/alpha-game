@@ -24,6 +24,13 @@ export function ScreenContent() {
         return () => document.body.removeEventListener('touchmove', preventDefault);
     }, [])
 
+    // useEffect(() => {
+    //     ftClient.init({
+    //         apiURL: 'https://ft-admin-api.sjuksin.ru/',
+    //         projectId: 'ALPHA_GAME'
+    //       });
+    // }, []);
+
     return Screen && (
         <Wrapper>
             <Screen />

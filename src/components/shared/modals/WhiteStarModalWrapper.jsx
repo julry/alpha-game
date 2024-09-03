@@ -6,8 +6,6 @@ export const WhiteStarModalWrapper = (props) => {
     const { modal } = useProgress();
     const { isDarken, isCloseIcon } = modal;
 
-    console.log(modal);
-    console.log(isCloseIcon);
     return (
         <Modal isDarken={isDarken}>
             <WhiteStarPart hasCloseIcon={isCloseIcon} onClose={props.onClose}>

@@ -135,7 +135,7 @@ export const MovementModal = () => {
                         <Content hasCloseIcon onClose={() => setModal({visible: false})}>
                             <p>
                                 Используй джойстик, чтобы управлять Алексом.{'\n\n'}
-                                Вперёд к Альфа-сити!
+                                Вперёд к Альфа-Сити!
                             </p>
                             <ButtonStyled color="red" onClick={() => setPart(prev => prev + 1)}>Далее</ButtonStyled>
                         </Content>

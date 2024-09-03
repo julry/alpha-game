@@ -15,6 +15,7 @@ import { StarBoard } from "./StarBoard";
 import { CURRENT_WEEK, useProgress } from "../../../contexts/ProgressContext";
 import { snakes1, snakes2, snakes3 } from "../../../constants/snakes";
 import { Snake, SNAKE_SIZE_BY_LEVEL } from "./Snake";
+import { updateUser } from "../../../utils/updateUser";
 
 const MAX_LIVES = 3;
 export const CHARACTER_STEP = 2;
@@ -100,7 +101,7 @@ const Darken = styled(motion.div)`
 
 export function Game({ className, level, isPaused, customText }) {
     const sizeRatio = useSizeRatio();
-    const { addGamePoint, setModal, modal, setPassedWeeks, setHasPassedThisTry } = useProgress();
+    const { addGamePoint, setModal, modal, setPassedWeeks, setHasPassedThisTry, endGame } = useProgress();
     const wrapperRef = useRef();
     const [wrapperRect, setWrapperRect] = useState(null);
     const [starsCollected, setStarsCollected] = useState(0);
@@ -294,6 +295,8 @@ export function Game({ className, level, isPaused, customText }) {
         if (stars.length === 0) {
             setPassedWeeks(prev => !prev.includes(level) ? [...prev, level] : prev);
             setHasPassedThisTry(level === CURRENT_WEEK);
+            const additionalPoints = MAX_LIVES - collidedSnakesAmount > 0 ? MAX_LIVES - collidedSnakesAmount : 0;
+            endGame(level === CURRENT_WEEK, additionalPoints);
             setModal({
                 visible: true,
                 type: 'win', 

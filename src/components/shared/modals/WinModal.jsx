@@ -20,7 +20,7 @@ const StarButtonStyled = styled(StarButton)`
 `;
 
 export const WinModal = (props) => {
-    const { modal, setVipPoints, next, user } = useProgress();
+    const { modal, next, user } = useProgress();
     const { additionalPoints, customText } = modal;
 
     const getSnakeText = () => {
@@ -53,7 +53,6 @@ export const WinModal = (props) => {
     };
 
     const handleClick = () => {
-        if (user.isVip) setVipPoints(prev => prev + additionalPoints);
         next();
         props.onClose();
     }

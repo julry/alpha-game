@@ -2,6 +2,7 @@ import {createContext, useContext, useRef, useState} from 'react'
 import {SCREENS, NEXT_SCREENS} from "../constants/screens";
 import {screens} from "../constants/screensComponents";
 import {getUrlParam} from "../utils/getUrlParam";
+import { updateUser } from '../utils/updateUser';
 
 const INITIAL_USER = {
     id: '13526413',
@@ -12,13 +13,40 @@ const INITIAL_USER = {
     seenRules: false,
     isTgConnected: false,
     weekStars: [],
-    //ubrat' posle api
-    isJustEntered: true,
     seenWeekInfo: false,
     registerWeek: 1,
 };
 
-export const CURRENT_WEEK = 1;
+// const USER = {
+//     id: '13526413',
+//     name: 'Иванов Иван',
+//     email: 'ivan2001@mail.ru',
+//     university: 'ННГУ им. Лобачевского',
+//     fac: 'Факультет химических технологий, промышленной экологии и биотехнологий',
+//     isTarget: true,
+//     seenRules: false,
+//     isTgConnected: false,
+//     weekStars: '1, 2, 3',
+//     seenWeekInfo: false,
+//     registerWeek: 1,
+//     points: 0,
+//     weekPoints: 0,
+//     targetPoints: 0,
+//     passedWeeks: '1, 2, 3',
+//     cardsSeen: '1, 2, 3'
+// };
+
+const getCurrentWeek = () => {
+    const today = new Date();
+
+    if (today < new Date(2024, 8, 16)) return 1;
+    if (today < new Date(2024, 8, 23)) return 2;
+    if (today < new Date(2024, 8, 30)) return 3;
+
+    return 4;
+}
+
+export const CURRENT_WEEK = getCurrentWeek();
 
 const INITIAL_STATE = {
     screen: SCREENS.INTRO,
@@ -30,7 +58,7 @@ const INITIAL_STATE = {
     cardsSeen: [],
 }
 
-const ProgressContext = createContext(INITIAL_STATE)
+const ProgressContext = createContext(INITIAL_STATE);
 
 export function ProgressProvider(props) {
     const {children} = props
@@ -43,9 +71,9 @@ export function ProgressProvider(props) {
     // points za неделю, сюда добавляем набранные белые звезды для випов
     const [weekPoints, setWeekPoints] = useState(INITIAL_STATE.weekPoints);
     const [gamePoints, setGamePoints] = useState(0);
+    const [cardsSeen, setCardsSeen] = useState(INITIAL_STATE.cardsSeen);
     const [user, setUser] = useState(INITIAL_STATE.user);
     const [passedWeeks, setPassedWeeks] = useState(INITIAL_STATE.passedWeeks);
-    // заполнять после того как посмотрели карточки, в библ по нему показывать
     const [hasPassedThisTry, setHasPassedThisTry] = useState(false); 
     const screen = screens[currentScreen];
     const $whiteStarRef = useRef();
@@ -66,6 +94,22 @@ export function ProgressProvider(props) {
     }
 
     const addGamePoint = () => setGamePoints(prev => prev + 1);
+
+    const endGame = (isAddWeek, additionalPoints) => {
+        const data = {};
+        if (user.isVip) {
+            if (isAddWeek) data.weekPoints = weekPoints + 10;
+
+            data.targetPoints = vipPoints + additionalPoints;
+            setVipPoints(prev => prev = prev + additionalPoints);
+        } else {
+            data.points = points + 10;
+            setPoints(prev => prev + 10);
+            setGamePoints(0);
+        }
+
+        updateUser(user.recordId, data);
+    };
 
     const state = {
         screen,
@@ -89,7 +133,10 @@ export function ProgressProvider(props) {
         $whiteStarRef,
         $redStarRef,
         hasPassedThisTry,
-        setHasPassedThisTry
+        setHasPassedThisTry,
+        setCardsSeen,
+        cardsSeen,
+        endGame
     }
 
     return (

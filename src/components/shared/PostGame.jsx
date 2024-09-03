@@ -11,6 +11,7 @@ import { Button } from "./Button";
 import { CURRENT_WEEK, useProgress } from "../../contexts/ProgressContext";
 import { SCREENS } from "../../constants/screens";
 import { cardsLevel1, cardsLevel2, cardsLevel3, cardsLevel4 } from "../../constants/cards";
+import { updateUser } from "../../utils/updateUser";
 
 
 const Wrapper = styled.div`
@@ -111,7 +112,7 @@ const CARDS_BY_LEVEL = {
 };
 
 export const PostGame = ({finishText, level }) => {
-    const { setModal, modal, next, addGamePoint, gamePoints, setGamePoints, user, setPoints, setWeekPoints } = useProgress();
+    const { setModal, modal, next, addGamePoint, gamePoints, setGamePoints, user, setPoints, setWeekPoints, setCardsSeen } = useProgress();
     const [isFlip, setFlip] = useState(false);
     const [isFlipped, setFlipped] = useState(false);
     const [cardPoints, setCardPoints] = useState(0);
@@ -163,6 +164,10 @@ export const PostGame = ({finishText, level }) => {
     }
 
     const handleContinue = () => {
+        setCardsSeen(prev => [...prev, level]);
+
+        const data = {};
+
         if (level !== CURRENT_WEEK && user?.isVip) {
             setGamePoints(0);
             setModal({type: 'refreshStars', visible: true,});
@@ -171,12 +176,16 @@ export const PostGame = ({finishText, level }) => {
         } 
 
         if (!user?.isVip) {
-            setPoints(prev => prev + gamePoints);
-        } else setWeekPoints(prev => prev + gamePoints);
-        //в этом месте обновлять инфу по пойнтам
-
+            setPoints(prev => {
+                data.points = prev + gamePoints;
+                return prev + gamePoints
+            });
+        } else setWeekPoints(prev => {
+            data.weekPoints = prev + gamePoints;
+            return prev + gamePoints;
+        });
+        updateUser(user.recordId, data);
         setGamePoints(0);
-
         next(SCREENS.LIBRARY);
     };
     

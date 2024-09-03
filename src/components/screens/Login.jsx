@@ -8,6 +8,7 @@ import picture from "../../assets/images/login-pic.png";
 import { useState } from "react";
 import { useSizeRatio } from "../../hooks/useSizeRatio";
 import { emailRegExp } from "../../constants/regexp";
+import { getUserInfo } from "../../utils/getUserInfo";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -60,15 +61,28 @@ export const Login = () => {
     const [email, setEmail] = useState('');
 
     const ratio = useSizeRatio();
-    const { next } = useProgress();
+    const { next, setUserInfo, setPassedWeeks, setPoints, setWeekPoints, setVipPoints, setCardsSeen } = useProgress();
 
-    const handleClick = () => {
+    const handleClick = async () => {
         if (!!email && !email.match(emailRegExp)) {
             setWrongEmail(true);
-
             return;
         }
         
+        const info = await getUserInfo(email);
+
+        if (info.isError) {
+            setWrongEmail(true);
+            return;
+        }
+        const { userInfo, passedWeeks, cardsSeen, points, weekPoints, vipPoints } = info;
+
+        setUserInfo({...userInfo});
+        setPassedWeeks(passedWeeks);
+        setPoints(points);
+        setWeekPoints(weekPoints);
+        setVipPoints(vipPoints);
+        setCardsSeen(cardsSeen);
         next();
     }
     return (

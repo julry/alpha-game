@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { uid } from "uid";
 import { SCREENS } from "../../constants/screens";
 import { Button } from "../shared/Button";
 import { Input } from "../shared/Input";
@@ -6,6 +7,7 @@ import { IntroHeader } from "../shared/IntroHeader";
 import { CURRENT_WEEK, useProgress } from "../../contexts/ProgressContext";
 import {emailRegExp} from '../../constants/regexp';
 import { useState } from "react";
+import { updateUser } from "../../utils/updateUser";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -15,7 +17,6 @@ const Wrapper = styled.div`
 
 const Content = styled.div`
     margin-top: var(--spacing_x5);
-    /* padding-right: var(--spacing_x6); */
 `;
 
 const InputStyled = styled(Input)`
@@ -117,8 +118,15 @@ export const Registration2 = () => {
         setEmail(e.target.value);
     };
 
-    const handleClick = () => {
-        setUserInfo({name: `${name} ${surname}`, email, registerWeek: CURRENT_WEEK});
+    const handleClick = async () => {
+        if (isSending) return;
+
+        const id = uid(7);
+
+        setUserInfo({name: `${name} ${surname}`, email, registerWeek: CURRENT_WEEK, id});
+        setIsSending(true);
+        // await ftClient.addRecord({...user, name: `${name} ${surname}`, email, registerWeek: CURRENT_WEEK, id, weekStars: ''});
+        setIsSending(false);
         //send data to serv => user + name, email
         next();
     }
