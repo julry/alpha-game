@@ -33,7 +33,7 @@ const Face = styled.div`
     background: url(${face}) no-repeat 0 0 / cover;
     flex-shrink: 0;
 
-    @media screen and (min-width: 450px){
+    @media screen and (min-width: 450px) {
         max-height: ${({$ratio}) => $ratio * 221}px;
     }
 `;
@@ -52,7 +52,7 @@ const Title = styled.h2`
     text-align: center;
     font-size: var(--font_xl);
 
-    @media screen and (min-width: 640px) and (max-height: 760px) {
+    @media screen and (min-width: 450px) and (max-height: 760px) {
         font-size: calc(var(--font_xl) - var(--spacing_x2));
     }
 `;
@@ -62,8 +62,9 @@ const TextBlock = styled.div`
     padding-bottom: 0;
     margin-bottom: ${({$ratio}) => $ratio * 10}px;
     font-size: var(--font_sm);
+    line-height: 111%;
 
-    @media screen and (min-width: 640px) and (max-height: 760px){
+    @media screen and (min-width: 450px) and (max-height: 760px){
         padding-top: ${({$ratio}) => $ratio * 13}px;
     }
 `;
@@ -73,6 +74,12 @@ const ButtonWrapper = styled.div`
 
     & button + button {
         margin-top: var(--spacing_x3);
+    }
+
+    @media screen and (min-width: 450px) and (max-height: 760px){
+        & button + button {
+            margin-top: var(--spacing_x2);
+        }
     }
 `;
 
@@ -88,8 +95,10 @@ export const Intro = () => {
                     Добро пожаловать{'\n'}в игру!
                 </Title>
                 <TextBlock $ratio={ratio}>
-                    Алекс шёл в Альфа-сити — город карьерных успехов. Дорога через него лежит через лес страхов и сомнений. Помоги ему выбраться, чтобы построить успешную карьеру в Альфа-Банке.
-                    {'\n\n'} Заглядывай в игру каждую неделю и получай за это призы!
+                    <p>
+                        Алекс шёл в Альфа-сити — город карьерных успехов. Дорога через него лежит через лес страхов и сомнений. Помоги ему выбраться, чтобы построить успешную карьеру в Альфа-Банке.
+                        {'\n\n'} Заглядывай в игру каждую неделю и получай за это призы!
+                    </p>
                 </TextBlock>
                 <ButtonWrapper>
                     <Button color="pink" onClick={() => next(SCREENS.REG_1)}>Регистрация</Button>
