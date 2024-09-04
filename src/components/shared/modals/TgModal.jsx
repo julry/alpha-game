@@ -33,7 +33,7 @@ export const TgModal = () => {
             if (checkTg) return;
             setCheckTg(true);
 
-            getUserInfo().then((res) => {
+            getUserInfo(user.email).then((res) => {
                 if (!res || !res.userInfo) return;
                 setUserInfo({isTgConnected: res?.userInfo?.isTgConnected});
                 if (user.isVip) {

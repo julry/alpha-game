@@ -95,8 +95,12 @@ export function ProgressProvider(props) {
 
     const addGamePoint = () => setGamePoints(prev => prev + 1);
 
-    const endGame = (isAddWeek, additionalPoints) => {
-        const data = {};
+    const endGame = (level, additionalPoints) => {
+        const data = {
+            passedWeeks: [...passedWeeks, level].join(',')
+        };
+        
+        const isAddWeek = level === CURRENT_WEEK;
         if (user.isVip) {
             if (isAddWeek) data.weekPoints = weekPoints + 10;
 

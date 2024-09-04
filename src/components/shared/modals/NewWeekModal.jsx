@@ -33,6 +33,7 @@ export const NewWeekModal = () => {
             });
 
             setUserInfo({weekStars: [...user.weekStars, CURRENT_WEEK]});
+            updateUser(user.recordId, data);
         }
         if (!user.isTgConnected) setTimeout(() => setModal({visible: true, type: 'tg'}), 0);
 

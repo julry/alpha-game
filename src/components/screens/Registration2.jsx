@@ -7,7 +7,6 @@ import { IntroHeader } from "../shared/IntroHeader";
 import { CURRENT_WEEK, useProgress } from "../../contexts/ProgressContext";
 import {emailRegExp} from '../../constants/regexp';
 import { useState } from "react";
-import { updateUser } from "../../utils/updateUser";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -121,12 +120,18 @@ export const Registration2 = () => {
     const handleClick = async () => {
         if (isSending) return;
 
+        const { isVip, ...userProps } = user;
         const id = uid(7);
 
-        setUserInfo({name: `${name} ${surname}`, email, registerWeek: CURRENT_WEEK, id});
         setIsSending(true);
-        // await ftClient.addRecord({...user, name: `${name} ${surname}`, email, registerWeek: CURRENT_WEEK, id, weekStars: ''});
+        //const recordId = await ftClient.addRecord({
+            // ...userProps, isTarget: isVip, name: `${name} ${surname}`, email, registerWeek: CURRENT_WEEK,
+            // id, weekStars: '', points: 0, weekPoints: 0, targetPoints: 0, passedWeeks: '', cardsSeen: ''
+        // });
+        // setUserInfo({recordId, name: `${name} ${surname}`, email, registerWeek: CURRENT_WEEK, id});
         setIsSending(false);
+        setUserInfo({name: `${name} ${surname}`, email, registerWeek: CURRENT_WEEK, id});
+
         //send data to serv => user + name, email
         next();
     }
