@@ -6,8 +6,9 @@ import { Modal } from "./Modal";
 import { Button } from "../Button";
 import { WhiteStarPart } from "./WhiteStarPart";
 import { RedStarPart } from "./RedStarPart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { updateUser } from "../../../utils/updateUser";
+import { getUserInfo } from "../../../utils/getUserInfo";
 
 const Content = styled(Block)`
     position: absolute;
@@ -54,7 +55,8 @@ const ProgressCircle  = styled.div`
 export const InfoModal = () => {
     const ratio = useSizeRatio();
     const [part, setPart] = useState(0);
-    const { user, setVipPoints, setModal, setUserInfo, vipPoints } = useProgress();
+    const [checkTg, setCheckTg] = useState(false);
+    const { user, setVipPoints, setModal, setUserInfo, vipPoints, setPoints } = useProgress();
     const amount = user?.isVip ? 4 : 3;
     const progress = Array.from({length: amount}, (v, i) => i);
 
@@ -69,7 +71,7 @@ export const InfoModal = () => {
     const handleGoLobby = () => {
         const info = {};
         if (user.isVip) {
-            info.targetPoints = vipPoints + 1;
+            info.targetPoints = vipPoints;
             info.weekStars = user.weekStars.join(',');
         }
 
@@ -80,16 +82,16 @@ export const InfoModal = () => {
         setModal({visible: true, type: 'tg'});
     }
     const LastPart = (
-            <Content>
-                <p>
-                    Изучи опушку Альфа-леса: на ней есть твой профиль и правила игры.
-                </p>
-                <ButtonsWrapper>
-                    <Button color="pink" onClick={() => setPart(prev => prev - 1)}>Назад</Button>
-                    <Button color="red" onClick={handleGoLobby}>На опушку</Button>
-                </ButtonsWrapper>
-                <Progress />
-            </Content>
+        <Content>
+            <p>
+                Изучи опушку Альфа-леса: на ней есть твой профиль и правила игры.
+            </p>
+            <ButtonsWrapper>
+                <Button color="pink" onClick={() => setPart(prev => prev - 1)}>Назад</Button>
+                <Button color="red" onClick={handleGoLobby}>На опушку</Button>
+            </ButtonsWrapper>
+            <Progress />
+        </Content>
     );
 
     const handleSetRedStarPart = () => {
@@ -99,6 +101,28 @@ export const InfoModal = () => {
         }
         setPart(prev => prev + 1)
     }
+
+    useEffect(() => {
+        const handleCheck = () => {
+            if (user.isTgConnected || checkTg) return;
+
+            setCheckTg(true);
+            
+            getUserInfo(user.email).then((res) => {
+                if (!res || !res.userInfo) return;
+                setUserInfo({isTgConnected: res?.userInfo?.isTgConnected});
+                if (user.isVip) {
+                    setVipPoints(prev => res?.vipPoints ?? prev);
+                } else setPoints(prev => res?.points ?? prev);
+            }).finally(() => {
+                setCheckTg(false);
+            });
+        }
+
+        window.addEventListener('focus', handleCheck);
+
+        return () => window.removeEventListener('focus', handleCheck);
+    }, []);
     
     const getContent = () => {
         switch (part) {
@@ -126,7 +150,7 @@ export const InfoModal = () => {
                                     ты получаешь белые звёзды. Собирай каждую неделю больше <b>15 звёзд</b> и участвуй{' '}
                                     в <b>еженедельном розыгрыше</b>.
                                     {'\n\n'}
-                                    Жди каждый понедельник письмо на почту или следи за уведомлениями от tg-бота. 
+                                    Жди каждый понедельник письмо на почту или следи за уведомлениями от <a href="https://t.me/Alfajourney_bot" target={"_blank"}>tg-бота</a>. 
                                     {'\n\n'}
                                     Призы можно будет забрать на стойке Альфа-Банка в твоём вузе{' '}
                                     до пятницы следующей недели. Не забудь студенческий.
@@ -136,7 +160,7 @@ export const InfoModal = () => {
                                     За прохождение уровней и за правильные ответы на вопросы после них ты получаешь белые{' '}
                                     звёзды.{'\n'}Собери больше <b>60 звёзд</b> и участвуй в розыгрыше.{' '}
                                     В конце всех недель игры мы направим письма на почты победителей, а также пришлём{' '}
-                                    список ID счастливчиков в <b>tg-бот</b>!{'\n\n'}
+                                    список ID счастливчиков в <a href="https://t.me/Alfajourney_bot" target={"_blank"}><b>tg-бот</b></a>!{'\n\n'}
                                     Призы можно будет забрать на стойке Альфа-Банка в твоём вузе до <b>10 октября</b>.{' '}
                                     Главное — показать студенческий.
                                 </p>

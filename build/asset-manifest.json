@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.0d2a7789.css",
-    "main.js": "./static/js/main.533b4640.js",
+    "main.css": "./static/css/main.c6e0852b.css",
+    "main.js": "./static/js/main.09b47b61.js",
     "static/media/StyreneALC-Bold.otf": "./static/media/StyreneALC-Bold.e0bfa5ee6e6532117573.otf",
     "static/media/StyreneALC-Black.otf": "./static/media/StyreneALC-Black.15eb00502b0f9bd64ba8.otf",
     "static/media/StyreneALC-Regular.otf": "./static/media/StyreneALC-Regular.7a999447d564875a5680.otf",
@@ -55,13 +55,15 @@
     "static/media/dialog.svg": "./static/media/dialog.8750eabc4eede60d607546ddfbd950d0.svg",
     "static/media/dialog1.svg": "./static/media/dialog1.0007703ec98b987c6a6ff08fc4c2fcfb.svg",
     "static/media/dialog3.svg": "./static/media/dialog3.b89b0a929edcd6f07d5cf17bfdf997bc.svg",
+    "static/media/library-right.svg": "./static/media/library-right.7d8a3f9973b71bb1294d88e05ce1422d.svg",
+    "static/media/library-left.svg": "./static/media/library-left.da879d44ee04affaab602b821b1f5237.svg",
     "static/media/close.svg": "./static/media/close.ebf199d9d5a716c551388c7cc05b2aa4.svg",
     "static/media/icon-arrow.svg": "./static/media/icon-arrow.82cc7e86a1954c8826f5d5a99fbeaecf.svg",
-    "main.0d2a7789.css.map": "./static/css/main.0d2a7789.css.map",
-    "main.533b4640.js.map": "./static/js/main.533b4640.js.map"
+    "main.c6e0852b.css.map": "./static/css/main.c6e0852b.css.map",
+    "main.09b47b61.js.map": "./static/js/main.09b47b61.js.map"
   },
   "entrypoints": [
-    "static/css/main.0d2a7789.css",
-    "static/js/main.533b4640.js"
+    "static/css/main.c6e0852b.css",
+    "static/js/main.09b47b61.js"
   ]
 }

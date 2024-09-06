@@ -24,14 +24,14 @@ export const TgModal = () => {
 
     const handleClick = () => {
         if (checkTg) return;
-        window.open('', '_blank');
-        setModal({visible: false});
+        window.open('https://t.me/Alfajourney_bot', '_blank');
     }
 
     useEffect(() => {
         const handleCheck = () => {
-            if (checkTg) return;
+            if (user.isTgConnected || checkTg) return;
             setCheckTg(true);
+            setModal({visible: false});
 
             getUserInfo(user.email).then((res) => {
                 if (!res || !res.userInfo) return;

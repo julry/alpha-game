@@ -42,3 +42,7 @@ p {
   line-height: 111%;
   letter-spacing: -0.01em;
 }
+
+a:visited {
+  color: inherit;
+}

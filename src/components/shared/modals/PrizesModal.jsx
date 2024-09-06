@@ -6,7 +6,8 @@ import { Modal } from "./Modal";
 import { Button } from "../Button";
 import { WhiteStarPart } from "./WhiteStarPart";
 import { RedStarPart } from "./RedStarPart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getUserInfo } from "../../../utils/getUserInfo";
 
 const Content = styled(Block)`
     position: absolute;
@@ -54,7 +55,8 @@ const ProgressCircle  = styled.div`
 export const PrizesModal = () => {
     const ratio = useSizeRatio();
     const [part, setPart] = useState(0);
-    const { user, setModal } = useProgress();
+    const [checkTg, setCheckTg] = useState(false);
+    const { user, setModal, setUserInfo, setVipPoints, setPoints } = useProgress();
     const amount = 2;
     const progress = Array.from({length: amount}, (v, i) => i);
 
@@ -65,6 +67,29 @@ export const PrizesModal = () => {
             ))}
         </ProgressWrapper>
     );
+
+    useEffect(() => {
+        const handleCheck = () => {
+            if (user.isTgConnected || checkTg) return;
+
+            setCheckTg(true);
+            
+            getUserInfo(user.email).then((res) => {
+                if (!res || !res.userInfo) return;
+                setUserInfo({isTgConnected: res?.userInfo?.isTgConnected});
+                if (user.isVip) {
+                    setVipPoints(prev => res?.vipPoints ?? prev);
+                } else setPoints(prev => res?.points ?? prev);
+            }).finally(() => {
+                setCheckTg(false);
+            });
+        }
+
+        window.addEventListener('focus', handleCheck);
+
+        return () => window.removeEventListener('focus', handleCheck);
+    }, []);
+    
 
     const handleSetRedStarPart = () => {
         setPart(prev => prev + 1)
@@ -80,7 +105,7 @@ export const PrizesModal = () => {
                             ты получаешь <b>белые звёзды</b>. Собирай каждую неделю больше 15 звёзд и участвуй{' '}
                             в <b>еженедельном розыгрыше</b>.
                             {'\n\n'}
-                            Жди каждый понедельник письмо на почту или следи за уведомлениями от tg-бота. 
+                            Жди каждый понедельник письмо на почту или следи за уведомлениями от <a>tg-бота</a>. 
                             {'\n\n'}
                             Призы можно будет забрать на стойке Альфа-Банка в твоём вузе{' '}
                             до пятницы следующей недели. Не забудь студенческий.
@@ -91,7 +116,7 @@ export const PrizesModal = () => {
                 );
             case 1: 
                 return (
-                    <RedStarPart hasCloseIcon onClose={() => setModal({visible: false})}>
+                    <RedStarPart hasCloseIcon onClose={() => setModal({visible: false})} isRepeat>
                         <ButtonsWrapper>
                             <Button color="pink" onClick={() => setPart(prev => prev - 1)}>Назад</Button>
                             <Button color="red" onClick={() => setModal({visible: false})}>Далее</Button>
@@ -111,7 +136,7 @@ export const PrizesModal = () => {
                         За прохождение уровней и за правильные ответы на вопросы после них ты получаешь белые{' '}
                         звёзды.{'\n'}Собирай каждую неделю больше <b>15 звёзд</b> и участвуй в розыгрыше.{' '}
                         В конце всех недель игры мы направим письма на почты победителей, а также пришлём{' '}
-                        список ID счастливчиков в <b>tg-бот</b>!{'\n\n'}
+                        список ID счастливчиков в <a><b>tg-бот</b></a>!{'\n\n'}
                         Призы можно будет забрать на стойке Альфа-Банка в твоём вузе до <b>10 октября</b>.{' '}
                         Главное — показать студенческий.
                     </p>

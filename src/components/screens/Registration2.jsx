@@ -117,6 +117,8 @@ export const Registration2 = () => {
         setEmail(e.target.value);
     };
 
+    const actionLink = user?.isVip ? 'https://alfajourney.fut.ru/agreement_ff.pdf ' : 'https://alfajourney.fut.ru/agreement.pdf'; 
+
     const handleClick = async () => {
         if (isSending) return;
 
@@ -188,13 +190,19 @@ export const Registration2 = () => {
                     <RadioIconStyled/>
                     <span>
                         Я согласен(а) на{"\u00A0"}
-                        {/* <Link
-                        href={"https://fut.ru/personal_data_policy/"}
-                        target="_blank"
-                        > */}
+                        <Link
+                            href={"https://doc.fut.ru/personal_data_policy.pdf"}
+                            target="_blank"
+                        >
                         обработку персональных данных
-                        {/* </Link>{" "} */}
-                        и получение информационных сообщений, а также с правилами проведения акции.
+                        </Link>{" "}
+                        и получение информационных сообщений, а также с{' '} 
+                        <Link
+                            href={actionLink}
+                            target="_blank"
+                        >
+                        правилами проведения акции
+                        </Link>.
                     </span>
                 </RadioButtonLabel>
             </Content>

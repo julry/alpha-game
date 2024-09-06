@@ -1,3 +1,5 @@
+import { CURRENT_WEEK } from "../contexts/ProgressContext";
+
 export const getUserInfo = async (email) => {
     let userInfo = {};
     let passedWeeks = [];
@@ -39,16 +41,16 @@ export const getUserInfo = async (email) => {
             isVip: data.isTarget,
             seenRules: data.seenRules,
             isTgConnected: data.isTgConnected,
-            weekStars: data.weekStars.replace(' ', '').split(',').map((l) => +l.trim()),
+            weekStars: data.weekStars.length > 0 ? data.weekStars.replace(' ', '').split(',').map((l) => +l.trim()) : [],
             seenWeekInfo:  data.seenWeekInfo,
             registerWeek: data.registerWeek,
         };
 
-        passedWeeks = data.passedWeeks.replace(' ', '').split(',').map((l) => +l.trim());
-        cardsSeen = data.cardsSeen.replace(' ', '').split(',').map((l) => +l.trim());
-        points = data.points;
-        weekPoints = data.weekPoints;
-        vipPoints = data.targetPoints;
+        passedWeeks = data.passedWeeks.length > 0 ? data.passedWeeks.replace(' ', '').split(',').map((l) => +l.trim()) : [];
+        cardsSeen = data.cardsSeen.length > 0 ? data.cardsSeen.replace(' ', '').split(',').map((l) => +l.trim()) : [];
+        points = data.points ?? 0;
+        weekPoints = data[`week${CURRENT_WEEK}Points`] ?? data.weekPoints ?? 0;
+        vipPoints = data.targetPoints ?? 0;
 
         return { userInfo, passedWeeks, cardsSeen, points, weekPoints, vipPoints };
     }
