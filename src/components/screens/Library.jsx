@@ -302,7 +302,7 @@ export const Library = () => {
                     <OpenedWrapper>
                         <CloseIcon $ratio={ratio} onClick={() => setOpenedCards([])}>
                         <svg width="100%" height="100%" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20.3125 20.3125L4.6875 4.6875M4.6875 20.3125L20.3125 4.6875" stroke="white" stroke-width="3.125" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M20.3125 20.3125L4.6875 4.6875M4.6875 20.3125L20.3125 4.6875" stroke="white" strokeWidth="3.125" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                         </CloseIcon>
                         <Slider

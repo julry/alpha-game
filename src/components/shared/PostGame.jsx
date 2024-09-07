@@ -112,7 +112,7 @@ const CARDS_BY_LEVEL = {
 export const PostGame = ({finishText, level }) => {
     const { 
         setModal, modal, next, addGamePoint, gamePoints, setGamePoints, user, 
-        setPoints, setWeekPoints, setCardsSeen, cardsSeen, updateUser,
+        setPoints, setWeekPoints, setCardsSeen, cardsSeen, updateUser, currentWeek,
         points, weekPoints,
     } = useProgress();
     const [isFlip, setFlip] = useState(false);
@@ -175,6 +175,7 @@ export const PostGame = ({finishText, level }) => {
 
         if (level !== CURRENT_WEEK && user?.isVip) {
             setGamePoints(0);
+            setWeekPoints(0);
             setModal({type: 'refreshStars', visible: true});
             updateUser(data);
 
@@ -185,7 +186,7 @@ export const PostGame = ({finishText, level }) => {
             data.points = points + gamePoints;
             setPoints(prev => prev + gamePoints);
         } else {
-            data.weekPoints = weekPoints + gamePoints;
+            data[`week${currentWeek}Points`] = weekPoints + gamePoints;
             setWeekPoints(prev =>  prev + gamePoints);
         }
 

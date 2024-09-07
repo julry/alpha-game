@@ -99,14 +99,15 @@ export function ProgressProvider(props) {
         if (user.isVip) {
             if (isAddWeek) data[`week${currentWeek}Points`] = weekPoints + 10;
 
+            setWeekPoints(prev => prev + 10);
             data.targetPoints = vipPoints + additionalPoints;
             setVipPoints(prev => prev = prev + additionalPoints);
         } else {
             data.points = points + 10;
             setPoints(prev => prev + 10);
-            setGamePoints(0);
         }
 
+        setGamePoints(0);
         updateUser(data);
     };
 
@@ -248,6 +249,7 @@ export function ProgressProvider(props) {
         updateUser,
         getUserInfo,
         registrateUser,
+        currentWeek
     }
 
     return (
