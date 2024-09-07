@@ -8,7 +8,6 @@ import picture from "../../assets/images/login-pic.png";
 import { useState } from "react";
 import { useSizeRatio } from "../../hooks/useSizeRatio";
 import { emailRegExp } from "../../constants/regexp";
-import { getUserInfo } from "../../utils/getUserInfo";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -58,31 +57,30 @@ const WrongText = styled.p`
 
 export const Login = () => {
     const [isWrongEmail, setWrongEmail] = useState(false);
+    const [isSending, setIsSending] = useState(false);
     const [email, setEmail] = useState('');
 
     const ratio = useSizeRatio();
-    const { next, setUserInfo, setPassedWeeks, setPoints, setWeekPoints, setVipPoints, setCardsSeen } = useProgress();
+    const { next, getUserInfo } = useProgress();
 
     const handleClick = async () => {
+        if (isSending) return;
         if (!!email && !email.match(emailRegExp)) {
             setWrongEmail(true);
             return;
         }
-        
+
+        setIsSending(true);
+
         const info = await getUserInfo(email);
 
         if (info.isError) {
             setWrongEmail(true);
             return;
         }
-        const { userInfo, passedWeeks, cardsSeen, points, weekPoints, vipPoints } = info;
+        
+        setIsSending(false);
 
-        setUserInfo({...userInfo});
-        setPassedWeeks(passedWeeks);
-        setPoints(points);
-        setWeekPoints(weekPoints);
-        setVipPoints(vipPoints);
-        setCardsSeen(cardsSeen);
         next();
     }
     return (

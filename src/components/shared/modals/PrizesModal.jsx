@@ -7,7 +7,6 @@ import { Button } from "../Button";
 import { WhiteStarPart } from "./WhiteStarPart";
 import { RedStarPart } from "./RedStarPart";
 import { useEffect, useState } from "react";
-import { getUserInfo } from "../../../utils/getUserInfo";
 
 const Content = styled(Block)`
     position: absolute;
@@ -56,7 +55,7 @@ export const PrizesModal = () => {
     const ratio = useSizeRatio();
     const [part, setPart] = useState(0);
     const [checkTg, setCheckTg] = useState(false);
-    const { user, setModal, setUserInfo, setVipPoints, setPoints } = useProgress();
+    const { user, setModal, setUserInfo, setVipPoints, setPoints, getUserInfo } = useProgress();
     const amount = 2;
     const progress = Array.from({length: amount}, (v, i) => i);
 
@@ -74,13 +73,7 @@ export const PrizesModal = () => {
 
             setCheckTg(true);
             
-            getUserInfo(user.email).then((res) => {
-                if (!res || !res.userInfo) return;
-                setUserInfo({isTgConnected: res?.userInfo?.isTgConnected});
-                if (user.isVip) {
-                    setVipPoints(prev => res?.vipPoints ?? prev);
-                } else setPoints(prev => res?.points ?? prev);
-            }).finally(() => {
+            getUserInfo(user.email, true).finally(() => {
                 setCheckTg(false);
             });
         }

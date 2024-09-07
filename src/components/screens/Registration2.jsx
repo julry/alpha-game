@@ -33,6 +33,10 @@ const Label = styled.p`
 
 const ButtonStyled = styled(Button)`
     margin-top: var(--spacing_x8);
+
+    & + & {
+        margin-top: var(--spacing_x4);
+    }
 `;
 
 const InputRadioButton = styled.input`
@@ -90,18 +94,21 @@ const RadioButtonLabel = styled.label`
   }
 `;
 
-const Link = styled.a`
-  color: inherit;
+const WrongText = styled.p`
+    margin-top: var(--spacing_x2);
+    color: var(--color-green);
+    font-size: var(--font_xs);
 `;
 
 export const Registration2 = () => {
-    const { next, setUserInfo, user } = useProgress();
+    const { next, setUserInfo, user, currentWeek, registrateUser, getUserInfo } = useProgress();
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
     const [isSending, setIsSending] = useState(false);
     const [isAgreed, setIsAgreed] = useState('');
     const [isCorrect, setIsCorrect] = useState(true);
+    const [isAlreadyHas, setIsAlreadyHas] = useState(false);
     
     const handleBlur = () => {
         if (email.match(emailRegExp) || !email) {
@@ -114,6 +121,7 @@ export const Registration2 = () => {
     const handleChange = (e) => {
         if (isSending) return;
         setIsCorrect(true);
+        setIsAlreadyHas(false);
         setEmail(e.target.value);
     };
 
@@ -121,20 +129,19 @@ export const Registration2 = () => {
 
     const handleClick = async () => {
         if (isSending) return;
+        const res = await getUserInfo(email);
 
-        const { isVip, ...userProps } = user;
+        if (!res.isError) {
+            setIsAlreadyHas(true);
+
+            return;
+        }
         const id = uid(7);
 
         setIsSending(true);
-        //const recordId = await ftClient.addRecord({
-            // ...userProps, isTarget: isVip, name: `${name} ${surname}`, email, registerWeek: CURRENT_WEEK,
-            // id, weekStars: '', points: 0, weekPoints: 0, targetPoints: 0, passedWeeks: '', cardsSeen: ''
-        // });
-        // setUserInfo({recordId, name: `${name} ${surname}`, email, registerWeek: CURRENT_WEEK, id});
+        setUserInfo({name: `${name} ${surname}`, email, registerWeek: currentWeek, id});
+        await registrateUser({name: `${name} ${surname}`, email, id});
         setIsSending(false);
-        setUserInfo({name: `${name} ${surname}`, email, registerWeek: CURRENT_WEEK, id});
-
-        //send data to serv => user + name, email
         next();
     }
 
@@ -180,6 +187,9 @@ export const Registration2 = () => {
                         onBlur={handleBlur}
                     />
                 </InputWrapper>
+                {isAlreadyHas && (
+                    <WrongText>Ой! Эта почта уже зарегистрирована. Попробуй ввести снова или войди, чтобы начать играть.</WrongText>
+                )}
                 <RadioButtonLabel>
                     <InputRadioButton
                         type="checkbox"
@@ -190,23 +200,24 @@ export const Registration2 = () => {
                     <RadioIconStyled/>
                     <span>
                         Я согласен(а) на{"\u00A0"}
-                        <Link
+                        <a
                             href={"https://doc.fut.ru/personal_data_policy.pdf"}
                             target="_blank"
                         >
                         обработку персональных данных
-                        </Link>{" "}
+                        </a>{" "}
                         и получение информационных сообщений, а также с{' '} 
-                        <Link
+                        <a
                             href={actionLink}
                             target="_blank"
                         >
                         правилами проведения акции
-                        </Link>.
+                        </a>.
                     </span>
                 </RadioButtonLabel>
             </Content>
-            <ButtonStyled color="red" onClick={handleClick} disabled={!name || !email || !surname || !isAgreed || !isCorrect}>Далее</ButtonStyled>
+            <ButtonStyled color="red" onClick={handleClick} disabled={!name || !email || !surname || !isAgreed || !isCorrect || isAlreadyHas}>Далее</ButtonStyled>
+            {isAlreadyHas && (<ButtonStyled color='pink' onClick={() => {next()}}>Вход</ButtonStyled>)}
         </Wrapper>
     )
 }

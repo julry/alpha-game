@@ -292,10 +292,10 @@ export function Game({ className, level, isPaused, customText }) {
             collidedStarRef.current = null;
         }
         if (stars.length === 0) {
+            const additionalPoints = MAX_LIVES - collidedSnakesAmount > 0 ? MAX_LIVES - collidedSnakesAmount : 0;
             endGame(level, additionalPoints);
             setPassedWeeks(prev => !prev.includes(level) ? [...prev, level] : prev);
             setHasPassedThisTry(level === CURRENT_WEEK);
-            const additionalPoints = MAX_LIVES - collidedSnakesAmount > 0 ? MAX_LIVES - collidedSnakesAmount : 0;
             setModal({
                 visible: true,
                 type: 'win', 

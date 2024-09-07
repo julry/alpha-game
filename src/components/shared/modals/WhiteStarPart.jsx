@@ -14,8 +14,8 @@ const Content = styled(Block)`
 
 const ButtonWrapper = styled.div`
     position: absolute;
-    top: ${({ top }) => top}px;
-    left: ${({ left }) => left}px;
+    top: ${({ $top }) => $top}px;
+    left: ${({ $left }) => $left}px;
 `;
 
 export const WhiteStarPart = (props) => {
@@ -36,8 +36,8 @@ export const WhiteStarPart = (props) => {
     return (
         <>
             <ButtonWrapper 
-                top={starCoor.y}
-                left={starCoor.x}
+                $top={starCoor.y}
+                $left={starCoor.x}
             >
                 <StarButton color="white" />
             </ButtonWrapper>

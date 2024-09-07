@@ -3,7 +3,6 @@ import { CURRENT_WEEK, useProgress } from "../../../contexts/ProgressContext";
 import { Block } from "../Block";
 import { Modal } from "./Modal";
 import { Button } from "../Button";
-import { updateUser } from "../../../utils/updateUser";
 
 const Content = styled(Block)`
     position: absolute;
@@ -18,22 +17,19 @@ const ButtonStyled = styled(Button)`
 `;
 
 export const NewWeekModal = () => {
-    const { user, setVipPoints, setUserInfo, setModal } = useProgress();
+    const { user, setVipPoints, setUserInfo, setModal, updateUser, vipPoints } = useProgress();
 
     const handleClick = () => {
         if (!user.weekStars.includes(CURRENT_WEEK)) {
             const data = {
-                weekStars: [...user.weekStars, CURRENT_WEEK].join(',')
+                weekStars: [...user.weekStars, CURRENT_WEEK].join(','),
+                targetPoints: vipPoints + 1,
             };
 
-            setVipPoints(prev => {
-                data.targetPoints = prev + 1;
-
-                return prev + 1
-            });
-
+            setVipPoints(prev => prev + 1);
             setUserInfo({weekStars: [...user.weekStars, CURRENT_WEEK]});
-            updateUser(user.recordId, data);
+
+            updateUser(data);
         }
         if (!user.isTgConnected) setTimeout(() => setModal({visible: true, type: 'tg'}), 0);
 

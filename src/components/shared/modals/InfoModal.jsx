@@ -7,8 +7,6 @@ import { Button } from "../Button";
 import { WhiteStarPart } from "./WhiteStarPart";
 import { RedStarPart } from "./RedStarPart";
 import { useEffect, useState } from "react";
-import { updateUser } from "../../../utils/updateUser";
-import { getUserInfo } from "../../../utils/getUserInfo";
 
 const Content = styled(Block)`
     position: absolute;
@@ -56,7 +54,7 @@ export const InfoModal = () => {
     const ratio = useSizeRatio();
     const [part, setPart] = useState(0);
     const [checkTg, setCheckTg] = useState(false);
-    const { user, setVipPoints, setModal, setUserInfo, vipPoints, setPoints } = useProgress();
+    const { user, setVipPoints, setModal, setUserInfo, updateUser, getUserInfo } = useProgress();
     const amount = user?.isVip ? 4 : 3;
     const progress = Array.from({length: amount}, (v, i) => i);
 
@@ -69,15 +67,7 @@ export const InfoModal = () => {
     );
 
     const handleGoLobby = () => {
-        const info = {};
-        if (user.isVip) {
-            info.targetPoints = vipPoints;
-            info.weekStars = user.weekStars.join(',');
-        }
-
-        info.seenRules = true;
-
-        updateUser(user.recordId, info);
+        updateUser({seenRules: true});
         setUserInfo({seenRules: true});
         setModal({visible: true, type: 'tg'});
     }
@@ -108,13 +98,7 @@ export const InfoModal = () => {
 
             setCheckTg(true);
             
-            getUserInfo(user.email).then((res) => {
-                if (!res || !res.userInfo) return;
-                setUserInfo({isTgConnected: res?.userInfo?.isTgConnected});
-                if (user.isVip) {
-                    setVipPoints(prev => res?.vipPoints ?? prev);
-                } else setPoints(prev => res?.points ?? prev);
-            }).finally(() => {
+            getUserInfo(user.email, true).finally(() => {
                 setCheckTg(false);
             });
         }
