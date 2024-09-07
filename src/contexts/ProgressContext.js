@@ -27,7 +27,7 @@ const getCurrentWeek = () => {
     return 4;
 }
 
-export const CURRENT_WEEK = getCurrentWeek();
+export const CURRENT_WEEK = 3;
 
 const INITIAL_STATE = {
     screen: SCREENS.INTRO,
@@ -71,7 +71,7 @@ export function ProgressProvider(props) {
             'https://ft-admin-api.sjuksin.ru/',
             'alfa'
         )
-        getDbCurrentWeek();
+        // getDbCurrentWeek();
     }, []);
 
     const next = (customScreen) => {
