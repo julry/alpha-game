@@ -15,6 +15,10 @@ const INITIAL_USER = {
     weekStars: [],
     seenWeekInfo: false,
     registerWeek: 1,
+    week1Points: 0,
+    week2Points: 0,
+    week3Points: 0,
+    week4Points: 0,
 };
 
 const getCurrentWeek = () => {
@@ -114,7 +118,7 @@ export function ProgressProvider(props) {
     const updateUser = async (changed) => {
         const { 
             isVip, recordId, weekStars, id, name, email, registerWeek,
-            university, isTgConnected, seenRules,
+            university, isTgConnected, seenRules, week1Points, week2Points, week3Points, week4Points,
         } = user;
 
         const data = {
@@ -127,6 +131,10 @@ export function ProgressProvider(props) {
             weekStars: weekStars.join(','),
             points,
             targetPoints: vipPoints,
+            week1Points, 
+            week2Points, 
+            week3Points, 
+            week4Points,
             [`week${currentWeek}Points`]: weekPoints,
             seenRules, 
             registerWeek,
@@ -168,6 +176,10 @@ export function ProgressProvider(props) {
             seenRules: false,
             registerWeek: currentWeek,
             weekStars: [],
+            week1Points: 0,
+            week2Points: 0,
+            week3Points: 0,
+            week4Points: 0,
         };
 
         const record = await client?.current.createRecord(data);
@@ -198,6 +210,10 @@ export function ProgressProvider(props) {
             isTgConnected: data.isTgConnected,
             weekStars: data.weekStars.length > 0 ? data.weekStars.replace(' ', '').split(',').map((l) => +l.trim()) : [],
             registerWeek: data.registerWeek,
+            week1Points: data.week1Points, 
+            week2Points: data.week2Points,  
+            week3Points: data.week3Points, 
+            week4Points: data.week4Points, 
         };
 
         if (isAfterTg) {

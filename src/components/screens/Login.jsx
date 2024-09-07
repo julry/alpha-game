@@ -65,20 +65,20 @@ export const Login = () => {
 
     const handleClick = async () => {
         if (isSending) return;
-        if (!!email && !email.match(emailRegExp)) {
+        if (!!email && !email.trim().match(emailRegExp)) {
             setWrongEmail(true);
             return;
         }
 
         setIsSending(true);
 
-        const info = await getUserInfo(email);
+        const info = await getUserInfo(email.trim());
 
         if (info.isError) {
             setWrongEmail(true);
             return;
         }
-        
+
         setIsSending(false);
 
         next();
