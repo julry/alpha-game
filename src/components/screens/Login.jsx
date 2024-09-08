@@ -8,6 +8,7 @@ import picture from "../../assets/images/login-pic.png";
 import { useState } from "react";
 import { useSizeRatio } from "../../hooks/useSizeRatio";
 import { emailRegExp } from "../../constants/regexp";
+import { reachMetrikaGoal } from "../../utils/reachMetrikaGoal";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -55,13 +56,18 @@ const WrongText = styled.p`
     font-size: var(--font_xs);
 `;
 
+const weekToMetrikaName = {
+    2: 'second',
+    3: 'third',
+    4: 'fourth',
+}
 export const Login = () => {
     const [isWrongEmail, setWrongEmail] = useState(false);
     const [isSending, setIsSending] = useState(false);
     const [email, setEmail] = useState('');
 
     const ratio = useSizeRatio();
-    const { next, getUserInfo } = useProgress();
+    const { next, getUserInfo, currentWeek } = useProgress();
 
     const handleClick = async () => {
         if (isSending) return;
@@ -80,6 +86,12 @@ export const Login = () => {
         }
 
         setIsSending(false);
+        
+        if (currentWeek === 1) {
+            reachMetrikaGoal(`${info?.userInfo?.isVip ? '' : 'non'}target_lobby`);
+        } else {
+            reachMetrikaGoal(`${info?.userInfo?.isVip ? '' : 'non'}target_${weekToMetrikaName[currentWeek]}_week_start`);
+        }
 
         next();
     }

@@ -71,6 +71,7 @@ export const InfoModal = () => {
         setUserInfo({seenRules: true});
         setModal({visible: true, type: 'tg'});
     }
+
     const LastPart = (
         <Content>
             <p>
@@ -86,6 +87,7 @@ export const InfoModal = () => {
 
     const handleSetRedStarPart = () => {
         if (user.isVip && !user.weekStars.includes(1)) {
+            updateUser({vipPoints: 1});
             setVipPoints(prev => prev + 1);
             setUserInfo({weekStars: [...user.weekStars, 1]})
         }

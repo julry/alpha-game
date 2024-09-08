@@ -45,6 +45,9 @@ const INITIAL_STATE = {
 
 const ProgressContext = createContext(INITIAL_STATE);
 
+// const API_LINK = 'https://games-admin.fut.ru/api/';
+const API_LINK = 'https://ft-admin-api.sjuksin.ru/';
+
 export function ProgressProvider(props) {
     const {children} = props
     const [currentScreen, setCurrentScreen] = useState(getUrlParam('screen') || INITIAL_STATE.screen);
@@ -72,10 +75,14 @@ export function ProgressProvider(props) {
 
     useEffect(() => {
         client.current = new FTClient(
-            'https://ft-admin-api.sjuksin.ru/',
+            API_LINK,
             'alfa'
         )
-        getDbCurrentWeek();
+        try {
+            getDbCurrentWeek();
+        } catch (e) {
+            console.log(e);
+        }
     }, []);
 
     const next = (customScreen) => {
@@ -143,9 +150,15 @@ export function ProgressProvider(props) {
             ...changed,
         };
 
-        const result = await client.current.updateRecord(recordId, data);
+        try {
+            const result = await client.current.updateRecord(recordId, data);
 
-        return result;
+            return result;
+        } catch (e) {
+            console.log(e);
+
+            return {...data, isEror: true};
+        }
     }
 
     const registrateUser = async ({id, name, email}) => {
@@ -182,58 +195,67 @@ export function ProgressProvider(props) {
             week4Points: 0,
         };
 
-        const record = await client?.current.createRecord(data);
-        setUser({...userInfo, recordId: record.id});
-        setPoints(INITIAL_STATE.points);
-        setVipPoints(INITIAL_STATE.vipPoints);
-        setWeekPoints(INITIAL_STATE.weekPoints);
-        setCardsSeen(INITIAL_STATE.cardsSeen);
-        setPassedWeeks(INITIAL_STATE.passedWeeks);
+       try {
+            const record = await client?.current.createRecord(data);
+            setUser({...userInfo, recordId: record.id});
+            setPoints(INITIAL_STATE.points);
+            setVipPoints(INITIAL_STATE.vipPoints);
+            setWeekPoints(INITIAL_STATE.weekPoints);
+            setCardsSeen(INITIAL_STATE.cardsSeen);
+            setPassedWeeks(INITIAL_STATE.passedWeeks);
+       } catch (e) {
+            return {isError: true}
+       }
     };
 
     const getUserInfo = async (email, isAfterTg) => {
-        const record = await client?.current.findRecord('email', email);
-        if (!record) return {isError: true}; 
-        const {data, id} = record;
-        let userInfo = {};
+       try {
+            const record = await client?.current.findRecord('email', email);
+            if (!record) return {isError: true}; 
+            const {data, id} = record;
+            let userInfo = {};
 
-        userInfo = {
-            recordId: id,
-            id: data.id,
-            name: data.name,
-            email,
-            university: data.university,
-            fac: data.fac,
-            isVip: data.isTarget,
-            seenRules: data.seenRules,
-            seenInfo: data.seenInfo,
-            isTgConnected: data.isTgConnected,
-            weekStars: data.weekStars.length > 0 ? data.weekStars.replace(' ', '').split(',').map((l) => +l.trim()) : [],
-            registerWeek: data.registerWeek,
-            week1Points: data.week1Points, 
-            week2Points: data.week2Points,  
-            week3Points: data.week3Points, 
-            week4Points: data.week4Points, 
-        };
+            userInfo = {
+                recordId: id,
+                id: data.id,
+                name: data.name,
+                email,
+                university: data.university,
+                fac: data.fac,
+                isVip: data.isTarget,
+                seenRules: data.seenRules,
+                seenInfo: data.seenInfo,
+                isTgConnected: data.isTgConnected,
+                weekStars: data.weekStars.length > 0 ? data.weekStars.replace(' ', '').split(',').map((l) => +l.trim()) : [],
+                registerWeek: data.registerWeek,
+                week1Points: data.week1Points, 
+                week2Points: data.week2Points,  
+                week3Points: data.week3Points, 
+                week4Points: data.week4Points, 
+            };
 
-        if (isAfterTg) {
-            setUser(prev=> ({...prev, isTgConnected: data.isTgConnected}));
+            if (isAfterTg) {
+                setUser(prev=> ({...prev, isTgConnected: data.isTgConnected}));
+                setPoints(data?.points ?? 0);
+                setVipPoints(data?.targetPoints ?? 0);
+
+                return;
+            }
+
+            setUser(userInfo);
+            const passed = data?.passedWeeks?.length > 0 ? data.passedWeeks.replace(' ', '').split(',').map((l) => +l.trim()) : [];
+            const cardsSeen = data?.cardsSeen?.length > 0 ? data.cardsSeen.replace(' ', '').split(',').map((l) => +l.trim()) : [];
+            setPassedWeeks(passed);
+            setCardsSeen(cardsSeen);
             setPoints(data?.points ?? 0);
             setVipPoints(data?.targetPoints ?? 0);
+            setWeekPoints(data?.[`week${currentWeek}Points`] ?? 0);
 
-            return;
-        }
-
-        setUser(userInfo);
-        const passed = data?.passedWeeks?.length > 0 ? data.passedWeeks.replace(' ', '').split(',').map((l) => +l.trim()) : [];
-        const cardsSeen = data?.cardsSeen?.length > 0 ? data.cardsSeen.replace(' ', '').split(',').map((l) => +l.trim()) : [];
-        setPassedWeeks(passed);
-        setCardsSeen(cardsSeen);
-        setPoints(data?.points ?? 0);
-        setVipPoints(data?.targetPoints ?? 0);
-        setWeekPoints(data?.[`week${currentWeek}Points`] ?? 0);
-
-        return {userInfo, passed};
+            return {userInfo, passed};
+       } catch (e) {
+            console.log(e);
+            return {isError: true}
+       }
     }
 
     const state = {

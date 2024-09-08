@@ -100,7 +100,7 @@ const Darken = styled(motion.div)`
 
 export function Game({ className, level, isPaused, customText }) {
     const sizeRatio = useSizeRatio();
-    const { addGamePoint, setModal, modal, setPassedWeeks, setHasPassedThisTry, endGame } = useProgress();
+    const { addGamePoint, setModal, modal, setPassedWeeks, setHasPassedThisTry, endGame, user } = useProgress();
     const wrapperRef = useRef();
     const [wrapperRect, setWrapperRect] = useState(null);
     const [starsCollected, setStarsCollected] = useState(0);
@@ -301,6 +301,7 @@ export function Game({ className, level, isPaused, customText }) {
                 type: 'win', 
                 customText, 
                 isDarken: true,
+                level,
                 additionalPoints: MAX_LIVES - collidedSnakesAmount > 0 ? MAX_LIVES - collidedSnakesAmount : 0
             })
         }

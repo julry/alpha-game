@@ -7,6 +7,7 @@ import { IntroHeader } from "../shared/IntroHeader";
 import { CURRENT_WEEK, useProgress } from "../../contexts/ProgressContext";
 import {emailRegExp} from '../../constants/regexp';
 import { useState } from "react";
+import { reachMetrikaGoal } from "../../utils/reachMetrikaGoal";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -100,6 +101,12 @@ const WrongText = styled.p`
     font-size: var(--font_xs);
 `;
 
+const weekToMetrikaName = {
+    2: 'second',
+    3: 'third',
+    4: 'fourth',
+}
+
 export const Registration2 = () => {
     const { next, setUserInfo, user, currentWeek, registrateUser, getUserInfo } = useProgress();
     const [name, setName] = useState('');
@@ -142,6 +149,13 @@ export const Registration2 = () => {
         setUserInfo({name: `${name} ${surname}`, email, registerWeek: currentWeek, id});
         await registrateUser({name: `${name} ${surname}`, email, id});
         setIsSending(false);
+
+        if (currentWeek === 1) {
+            reachMetrikaGoal(`${user?.isVip ? '' : 'non'}target_lobby`);
+        } else {
+            reachMetrikaGoal(`${user.isVip ? '' : 'non'}target_${weekToMetrikaName[currentWeek]}_week_start`);
+        }
+
         next();
     }
 

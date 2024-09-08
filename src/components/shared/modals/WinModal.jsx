@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useProgress } from "../../../contexts/ProgressContext";
+import { reachMetrikaGoal } from "../../../utils/reachMetrikaGoal";
 import { Button } from "../Button";
 import { StarButton } from "../StarButton";
 import { WhiteStarModalWrapper } from "./WhiteStarModalWrapper";
@@ -53,6 +54,7 @@ export const WinModal = (props) => {
     };
 
     const handleClick = () => {
+        reachMetrikaGoal(`${user.isVip ? '' : 'non'}target${modal.level > 2 ? 's' : ''}_cards${modal.level}`)
         next();
         props.onClose();
     }

@@ -11,6 +11,7 @@ import { Button } from "./Button";
 import { CURRENT_WEEK, useProgress } from "../../contexts/ProgressContext";
 import { SCREENS } from "../../constants/screens";
 import { cardsLevel1, cardsLevel2, cardsLevel3, cardsLevel4 } from "../../constants/cards";
+import { reachMetrikaGoal } from "../../utils/reachMetrikaGoal";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -192,6 +193,13 @@ export const PostGame = ({finishText, level }) => {
 
         updateUser(data);
         setGamePoints(0);
+
+        if (currentWeek === 1) {
+            reachMetrikaGoal(`${user?.isVip ? '' : 'non'}target_library`);
+        } else {
+            reachMetrikaGoal(`${user.isVip ? '' : 'non'}target_library${currentWeek}`);
+        }
+
         next(SCREENS.LIBRARY);
     };
     
