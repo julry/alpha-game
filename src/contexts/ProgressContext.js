@@ -45,7 +45,6 @@ const INITIAL_STATE = {
 
 const ProgressContext = createContext(INITIAL_STATE);
 
-// const API_LINK = 'https://games-admin.fut.ru/api/';
 const API_LINK = 'https://ft-admin-api.sjuksin.ru/';
 
 export function ProgressProvider(props) {

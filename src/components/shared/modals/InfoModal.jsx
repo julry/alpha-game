@@ -75,7 +75,7 @@ export const InfoModal = () => {
     const LastPart = (
         <Content>
             <p>
-                Изучи опушку Альфа-леса: на ней есть твой профиль и правила игры.
+                Изучи опушку леса: на ней есть твой профиль и правила игры.
             </p>
             <ButtonsWrapper>
                 <Button color="pink" onClick={() => setPart(prev => prev - 1)}>Назад</Button>
