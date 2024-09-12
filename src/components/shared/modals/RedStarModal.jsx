@@ -24,7 +24,7 @@ const ButtonWrapper = styled.div`
 
 const ListWrapper = styled.div`
     margin-top: var(--spacing_x2);
-    padding-left: var(--spacing_x1);
+    padding-left: var(--spacing_x3);
 `;
 
 export const RedStarModal = (props) => {

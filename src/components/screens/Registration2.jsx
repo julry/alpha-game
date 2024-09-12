@@ -217,6 +217,7 @@ export const Registration2 = () => {
                         <a
                             href={"https://doc.fut.ru/personal_data_policy.pdf"}
                             target="_blank"
+                            rel="noreferrer"
                         >
                         обработку персональных данных
                         </a>{" "}
@@ -224,6 +225,7 @@ export const Registration2 = () => {
                         <a
                             href={actionLink}
                             target="_blank"
+                            rel="noreferrer"
                         >
                         правилами проведения акции
                         </a>.

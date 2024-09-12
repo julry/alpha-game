@@ -55,7 +55,7 @@ export const PrizesModal = () => {
     const ratio = useSizeRatio();
     const [part, setPart] = useState(0);
     const [checkTg, setCheckTg] = useState(false);
-    const { user, setModal, setUserInfo, setVipPoints, setPoints, getUserInfo } = useProgress();
+    const { user, setModal, getUserInfo } = useProgress();
     const amount = 2;
     const progress = Array.from({length: amount}, (v, i) => i);
 
@@ -98,10 +98,7 @@ export const PrizesModal = () => {
                             ты получаешь <b>белые звёзды</b>. Собирай каждую неделю больше 15 звёзд и участвуй{' '}
                             в <b>еженедельном розыгрыше</b>.
                             {'\n\n'}
-                            Жди каждый понедельник письмо на почту или следи за уведомлениями от <a>tg-бота</a>. 
-                            {'\n\n'}
-                            Призы можно будет забрать на стойке Альфа-Банка в твоём вузе{' '}
-                            до пятницы следующей недели. Не забудь студенческий.
+                            Жди каждый понедельник письмо на почту или следи за уведомлениями от <a href={"https://t.me/Alfajourney_bot"} target={"_blank"} rel="noreferrer">tg-бота</a>. 
                         </p>
                         <ButtonStyled color="red" onClick={handleSetRedStarPart}>Далее</ButtonStyled>
                         <Progress />
@@ -127,11 +124,9 @@ export const PrizesModal = () => {
                 <Content hasCloseIcon onClose={() => setModal({visible: false})}>
                     <p>
                         За прохождение уровней и за правильные ответы на вопросы после них ты получаешь белые{' '}
-                        звёзды.{'\n'}Собирай каждую неделю больше <b>15 звёзд</b> и участвуй в розыгрыше.{' '}
+                        звёзды.{'\n'}Собери больше <b>60 звёзд</b> и участвуй в розыгрыше.{' '}
                         В конце всех недель игры мы направим письма на почты победителей, а также пришлём{' '}
-                        список ID счастливчиков в <a><b>tg-бот</b></a>!{'\n\n'}
-                        Призы можно будет забрать на стойке Альфа-Банка в твоём вузе до <b>10 октября</b>.{' '}
-                        Главное — показать студенческий.
+                        список ID счастливчиков в <a href={"https://t.me/Alfajourney_bot"} target={"_blank"} rel="noreferrer"><b>tg-бот</b></a>!
                     </p>
                     <ButtonStyled color="red" onClick={() => setModal({visible: false})}>Далее</ButtonStyled>
                 </Content>
