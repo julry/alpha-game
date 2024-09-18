@@ -8,7 +8,7 @@ import dialogR from '../../assets/images/library-right.svg';
 import closeIcon from '../../assets/images/close.svg';
 import { cardsLevel1, cardsLevel2, cardsLevel3, cardsLevel4 } from "../../constants/cards";
 import { SCREENS } from "../../constants/screens";
-import { CURRENT_WEEK, useProgress } from "../../contexts/ProgressContext";
+import { useProgress } from "../../contexts/ProgressContext";
 import { useSizeRatio } from "../../hooks/useSizeRatio";
 import { BackButton, Button } from "../shared/Button";
 import { Arrow, TreeIcon } from "../shared/icons";
@@ -216,7 +216,7 @@ const ButtonStyled = styled(Button)`
 
 export const Library = () => {
     const ratio = useSizeRatio();
-    const { next, passedWeeks, cardsSeen } = useProgress();
+    const { next, passedWeeks, cardsSeen, currentWeek } = useProgress();
     const [openedCards, setOpenedCards] = useState([]);
     const [isModal, setIsModal] = useState(false); 
 
@@ -272,7 +272,7 @@ export const Library = () => {
 
         return (
             <Component $ratio={ratio}>
-                <p>У тебя остались неоткрытые звёзды с {id === CURRENT_WEEK ? 'этой' : 'прошлой'} недели, кликни, чтобы посмотреть их.</p>
+                <p>У тебя остались неоткрытые звёзды с {id === currentWeek ? 'этой' : 'прошлой'} недели, кликни, чтобы посмотреть их.</p>
                 <button onClick={handleDialogClose}/>
             </Component>
         )

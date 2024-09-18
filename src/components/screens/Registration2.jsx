@@ -4,7 +4,7 @@ import { SCREENS } from "../../constants/screens";
 import { Button } from "../shared/Button";
 import { Input } from "../shared/Input";
 import { IntroHeader } from "../shared/IntroHeader";
-import { CURRENT_WEEK, useProgress } from "../../contexts/ProgressContext";
+import { useProgress } from "../../contexts/ProgressContext";
 import {emailRegExp} from '../../constants/regexp';
 import { useState } from "react";
 import { reachMetrikaGoal } from "../../utils/reachMetrikaGoal";

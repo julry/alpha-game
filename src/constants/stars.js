@@ -126,3 +126,46 @@ export const stars3 = [
         position: [1285, 1186],
     },
 ]
+
+export const stars4 = [
+    {
+        id: 'picked-star-4-1',
+        position: [85, 229],
+    },
+    {
+        id: 'picked-star-4-2',
+        position: [820, 146],
+    },
+    {
+        id: 'picked-star-4-3',
+        position: [1359, 281],
+    },
+    {
+        id: 'picked-star-4-4',
+        position: [284, 511],
+    },
+    {
+        id: 'picked-star-4-5',
+        position: [928, 493],
+    },
+    {
+        id: 'picked-star-4-6',
+        position: [569, 900],
+    },
+    {
+        id: 'picked-star-4-7',
+        position: [1359, 800],
+    },
+    {
+        id: 'picked-star-4-8',
+        position: [212, 1160],
+    },
+    {
+        id: 'picked-star-4-9',
+        position: [995, 1044],
+    },
+    {
+        id: 'picked-star-4-10',
+        position: [1303, 1192],
+    },
+]

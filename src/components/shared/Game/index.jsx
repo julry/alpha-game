@@ -9,11 +9,11 @@ import { useSizeRatio } from "../../../hooks/useSizeRatio";
 import { Board, WIDTH, HEIGHT} from "./Board";
 import { Control } from "./Control";
 import {Character, CHARACTER_SIZE} from "../Character";
-import { stars1, stars2, stars3 } from "../../../constants/stars";
+import { stars1, stars2, stars3, stars4 } from "../../../constants/stars";
 import { Star } from "./Star";
 import { StarBoard } from "./StarBoard";
-import { CURRENT_WEEK, useProgress } from "../../../contexts/ProgressContext";
-import { snakes1, snakes2, snakes3 } from "../../../constants/snakes";
+import { useProgress } from "../../../contexts/ProgressContext";
+import { snakes1, snakes2, snakes3, snakes4 } from "../../../constants/snakes";
 import { Snake, SNAKE_SIZE_BY_LEVEL } from "./Snake";
 
 const MAX_LIVES = 3;
@@ -23,12 +23,14 @@ const STARS_BY_LEVEL = {
     1: stars1,
     2: stars2,
     3: stars3,
+    4: stars4,
 }
 
 const SNAKES_BY_LEVEL = {
     1: snakes1,
     2: snakes2,
     3: snakes3,
+    4: snakes4
 }
 
 const STAR_WIDTH = 44;
@@ -100,7 +102,7 @@ const Darken = styled(motion.div)`
 
 export function Game({ className, level, isPaused, customText }) {
     const sizeRatio = useSizeRatio();
-    const { addGamePoint, setModal, modal, setPassedWeeks, setHasPassedThisTry, endGame, user } = useProgress();
+    const { addGamePoint, setModal, modal, setPassedWeeks, setHasPassedThisTry, endGame, currentWeek } = useProgress();
     const wrapperRef = useRef();
     const [wrapperRect, setWrapperRect] = useState(null);
     const [starsCollected, setStarsCollected] = useState(0);
@@ -295,7 +297,7 @@ export function Game({ className, level, isPaused, customText }) {
             const additionalPoints = MAX_LIVES - collidedSnakesAmount > 0 ? MAX_LIVES - collidedSnakesAmount : 0;
             endGame(level, additionalPoints);
             setPassedWeeks(prev => !prev.includes(level) ? [...prev, level] : prev);
-            setHasPassedThisTry(level === CURRENT_WEEK);
+            setHasPassedThisTry(level === currentWeek);
             setModal({
                 visible: true,
                 type: 'win', 

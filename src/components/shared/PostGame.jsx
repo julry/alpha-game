@@ -8,7 +8,7 @@ import { StarCard } from "./StarCard";
 import { motion } from "framer-motion";
 import { Block } from "./Block";
 import { Button } from "./Button";
-import { CURRENT_WEEK, useProgress } from "../../contexts/ProgressContext";
+import { useProgress } from "../../contexts/ProgressContext";
 import { SCREENS } from "../../constants/screens";
 import { cardsLevel1, cardsLevel2, cardsLevel3, cardsLevel4 } from "../../constants/cards";
 import { reachMetrikaGoal } from "../../utils/reachMetrikaGoal";
@@ -174,7 +174,7 @@ export const PostGame = ({finishText, level }) => {
         setCardsSeen(prev => [...prev, level]);
 
 
-        if (level !== CURRENT_WEEK && user?.isVip) {
+        if (level !== currentWeek && user?.isVip) {
             setGamePoints(0);
             setWeekPoints(0);
             setModal({type: 'refreshStars', visible: true});

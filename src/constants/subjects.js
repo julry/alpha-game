@@ -10,7 +10,6 @@ import notebook from '../assets/images/notebook.png';
 import pencil from '../assets/images/pencil.png';
 import sofa from '../assets/images/sofa.png';
 import stone from '../assets/images/stone.png';
-import star from '../assets/images/starGray.png';
 import shirt from '../assets/images/shirt.png';
 import text1 from '../assets/images/text1.svg';
 import text2 from '../assets/images/text2.svg';
@@ -21,11 +20,9 @@ import text6 from '../assets/images/text6.svg';
 import text7 from '../assets/images/text7.svg';
 import text8 from '../assets/images/text8.svg';
 import text9 from '../assets/images/text9.svg';
-import text10 from '../assets/images/text10.svg';
 import tree1 from '../assets/images/tree1.png';
 import tree from '../assets/images/tree.png';
 import tree2 from '../assets/images/tree2.png';
-import tree3 from '../assets/images/tree3.png';
 import tree4 from '../assets/images/tree4.png';
 
 //ID OF START Left -> right; top => bottom; 1 2 3 4
@@ -261,77 +258,6 @@ export const subjects1 = [
         height: 101,
         position: [1342, 1112],
     },
-
-    // {
-    //     id: 'picked-star-1--1',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [201, 240],
-    // },
-    // {
-    //     id: 'picked-star-1--2',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [799, 238],
-    // },
-    // {
-    //     id: 'picked-star-1--3',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [1293, 157],
-    // },
-    // {
-    //     id: 'picked-star-1--4',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [412, 446],
-    // },
-    // {
-    //     id: 'picked-star-1--5',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [1042, 371],
-    // },
-    // {
-    //     id: 'picked-star-1--6',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [434, 696],
-    // },
-    // {
-    //     id: 'picked-star-1--7',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [1099, 631],
-    // },
-    // {
-    //     id: 'picked-star-1--8',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [783, 916],
-    // },
-    // {
-    //     id: 'picked-star-1--9',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [410, 1099],
-    // },
-    // {
-    //     id: 'picked-star-1--10',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [1181, 1171],
-    // },
 ];
 
 export const subjects2 = [
@@ -546,76 +472,6 @@ export const subjects2 = [
         height: 101,
         position: [861, 1230],
     },
-    // {
-    //     id: 'picked-star-2--1',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [144, 208],
-    // },
-    // {
-    //     id: 'picked-star-2--2',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [728, 36],
-    // },
-    // {
-    //     id: 'picked-star-2--3',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [485, 352],
-    // },
-    // {
-    //     id: 'picked-star-2--4',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [888, 306],
-    // },
-    // {
-    //     id: 'picked-star-2--5',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [68, 641],
-    // },
-    // {
-    //     id: 'picked-star-2--6',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [906, 661],
-    // },
-    // {
-    //     id: 'picked-star-2--7',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [1259, 641],
-    // },
-    // {
-    //     id: 'picked-star-2--8',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [46, 1170],
-    // },
-    // {
-    //     id: 'picked-star-2--9',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [852, 1147],
-    // },
-    // {
-    //     id: 'picked-star-2--10',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [1281, 1171],
-    // },
 ];
 
 export const subjects3 = [
@@ -830,74 +686,203 @@ export const subjects3 = [
         height: 118,
         position: [1354, 1095],
     },
-    // {
-    //     id: 'picked-star-3--1',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [200, 77],
-    // },
-    // {
-    //     id: 'picked-star-3--2',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [1285, 77],
-    // },
-    // {
-    //     id: 'picked-star-3--3',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [325, 416],
-    // },
-    // {
-    //     id: 'picked-star-3--4',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [1028, 353],
-    // },
-    // {
-    //     id: 'picked-star-3--5',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [1193, 603],
-    // },
-    // {
-    //     id: 'picked-star-3--6',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [64, 825],
-    // },
-    // {
-    //     id: 'picked-star-3--7',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [466, 983],
-    // },
-    // {
-    //     id: 'picked-star-3--8',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [1137, 943],
-    // },
-    // {
-    //     id: 'picked-star-3--9',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [817, 1213],
-    // },
-    // {
-    //     id: 'picked-star-3--10',
-    //     image: star,
-    //     width: 44,
-    //     height: 47,
-    //     position: [1285, 1186],
-    // },
+]
+
+export const subjects4 = [
+    {
+        id: '4-1',
+        image: laptop,
+        width: 196,
+        height: 153,
+        position: [230, 47],
+    },
+    {
+        id: '4-2',
+        image: pencil,
+        width: 38,
+        height: 157,
+        position: [948, -33],
+    },
+    {
+        id: '4-3',
+        image: clock,
+        width: 95,
+        height: 110,
+        position: [1269, 107],
+    },
+    {
+        id: '4-4',
+        image: tree4,
+        width: 131,
+        height: 197,
+        position: [378, 207],
+    },
+    {
+        id: '4-5',
+        image: pencil,
+        width: 38,
+        height: 157,
+        position: [572, 312],
+    },
+    {
+        id: '4-6',
+        image: cup,
+        width: 96,
+        height: 174,
+        position: [628, 164],
+    },
+    {
+        id: '4-7',
+        image: stone,
+        width: 125,
+        height: 101,
+        position: [799, 226],
+    },
+    {
+        id: '4-8',
+        image: cup,
+        width: 96,
+        height: 174,
+        position: [1028, 181],
+    },
+    {
+        id: '4-9',
+        image: cup,
+        width: 96,
+        height: 174,
+        position: [49, 571],
+    },
+    {
+        id: '4-10',
+        image: laptop,
+        width: 196,
+        height: 153,
+        position: [247, 591],
+    },
+    {
+        id: '4-11',
+        image: stone,
+        width: 125,
+        height: 101,
+        position: [510, 490],
+    },
+    {
+        id: '4-12',
+        image: stone,
+        width: 125,
+        height: 101,
+        position: [519, 665],
+    },
+    {
+        id: '4-13',
+        image: tree2,
+        width: 148,
+        height: 195,
+        position: [748, 413],
+    },
+    {
+        id: '4-14',
+        image: tree4,
+        width: 131,
+        height: 197,
+        position: [1003, 560],
+    },
+    {
+        id: '4-15',
+        image: tree,
+        width: 123,
+        height: 195,
+        position: [1391, 522],
+    },
+    {
+        id: '4-16',
+        image: clock,
+        width: 95,
+        height: 110,
+        position: [68, 865],
+    },
+    {
+        id: '4-17',
+        image: tree2,
+        width: 148,
+        height: 195,
+        position: [362, 800],
+    },
+    {
+        id: '4-18',
+        image: cup,
+        width: 96,
+        height: 174,
+        position: [799, 692],
+    },
+    {
+        id: '4-19',
+        image: tree4,
+        width: 131,
+        height: 197,
+        position: [1003, 560],
+    },
+    {
+        id: '4-20',
+        image: clock,
+        width: 95,
+        height: 110,
+        position: [1157, 824],
+    },
+    {
+        id: '4-21',
+        image: stone,
+        width: 125,
+        height: 101,
+        position: [31, 1200],
+    },
+    {
+        id: '4-22',
+        image: cup,
+        width: 96,
+        height: 174,
+        position: [443, 1036],
+    },
+    {
+        id: '4-23',
+        image: tree1,
+        width: 124,
+        height: 206,
+        position: [690, 1082],
+    },
+    {
+        id: '4-24',
+        image: pencil,
+        width: 38,
+        height: 157,
+        position: [819, 947],
+    },
+    {
+        id: '4-25',
+        image: stone,
+        width: 125,
+        height: 101,
+        position: [923, 1208],
+    },
+    {
+        id: '4-26',
+        image: laptop,
+        width: 196,
+        height: 153,
+        position: [1061, 1073],
+    },
+    {
+        id: '4-27',
+        image: stone,
+        width: 125,
+        height: 101,
+        position: [1365, 974],
+    },
+    {
+        id: '4-28',
+        image: laptop,
+        width: 196,
+        height: 153,
+        position: [1107, 392],
+    },
 ]

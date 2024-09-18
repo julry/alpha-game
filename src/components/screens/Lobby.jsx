@@ -6,10 +6,11 @@ import alex from '../../assets/images/alex.png';
 import dialog from '../../assets/images/dialog3.svg';
 import close from '../../assets/images/close.svg';
 import { SCREENS } from "../../constants/screens";
-import { CURRENT_WEEK, useProgress } from "../../contexts/ProgressContext";
+import { useProgress } from "../../contexts/ProgressContext";
 import { HeaderComponent } from "../shared/HeaderComponent";
 import { useSizeRatio } from "../../hooks/useSizeRatio";
 import { Button, IconButton } from "../shared/Button";
+import { reachMetrikaGoal } from "../../utils/reachMetrikaGoal";
 
 const Wrapper = styled.div`
     position: relative;
@@ -107,6 +108,10 @@ const NextWeekInfo = styled.div`
     border-radius: var(--border-radius-sm);
     opacity: ${({$hidden}) => $hidden ? 0 : 1};
     text-align: center;
+    
+    & button {
+        margin-top: var(--spacing_x2);
+    }
 `;
 
 const TgButton = styled(IconButton)`
@@ -165,10 +170,14 @@ const WEEK_TO_POSITION = {
 
 export const Lobby = () => {
     const ratio = useSizeRatio();
-    const { passedWeeks, next, points, vipPoints, user, hasPassedThisTry, setModal, modal, setUserInfo } = useProgress();
-    const shownWeek = (passedWeeks[passedWeeks.length - 1] ?? 0) + 1;
-    const [week, setWeek] = useState(shownWeek > CURRENT_WEEK ? CURRENT_WEEK : shownWeek);
-    const [isAvailableFirst, setIsAvailableFirst] = useState(passedWeeks.length < CURRENT_WEEK - 1);
+    const { 
+        // passedWeeks,
+         next, points, vipPoints, user, setModal, modal, setUserInfo, currentWeek } = useProgress();
+    const passedWeeks = [1,2,3,4];
+    const shownWeek = (passedWeeks[passedWeeks.length - 1] ?? 0) + 1 > 4  ? 4 : (passedWeeks[passedWeeks.length - 1] ?? 0) + 1;
+    // const week = 4;
+    const week = 4;
+    const [isAvailableFirst, setIsAvailableFirst] = useState(passedWeeks.length < currentWeek - 1);
     const { registerWeek, isVip, weekStars } = user;
     const weeks = Array.from({length: 4}, (v, i) => i + 1);
 
@@ -178,7 +187,7 @@ export const Lobby = () => {
         if (!user.seenRules && !weekStars.includes(1)) {
             setModal({type: 'info', visible: true, isDisabledAnimation: true, isDarken: true})
         }
-        if (CURRENT_WEEK !== registerWeek && isVip && !weekStars.includes(CURRENT_WEEK)) {
+        if (currentWeek !== registerWeek && isVip && !weekStars.includes(currentWeek)) {
             setModal({type: 'newWeek', visible: true})
         }
     }, []);
@@ -193,8 +202,13 @@ export const Lobby = () => {
         next(WEEK_TO_NEXT_SCREEN[week]);
     }
 
+    const handleFinish = () => {
+        next(SCREENS.FINISH);
+        reachMetrikaGoal(`${user.isVip ? '' : 'non'}target_final`);
+    }
+
     return (
-        <HeaderComponent isFirstTime={isFirstTime && !modal.visible} isNoGames={passedWeeks.length === CURRENT_WEEK}>
+        <HeaderComponent isFirstTime={isFirstTime && !modal.visible} isNoGames={passedWeeks.length === currentWeek}>
             <Wrapper $ratio={ratio}>
                 <Path $ratio={ratio}>
                     <Character $ratio={ratio} $left={WEEK_TO_POSITION[week]}/>
@@ -203,8 +217,8 @@ export const Lobby = () => {
                             <WeekCircle 
                                 $ratio={ratio} 
                                 $ind={w} 
-                                $notClickable={passedWeeks.includes(w) || w === CURRENT_WEEK}
-                                $unavailable={(w !== 1 && !passedWeeks.includes(w - 1)) || w > CURRENT_WEEK}
+                                $notClickable={passedWeeks.includes(w) || w === currentWeek}
+                                $unavailable={(w !== 1 && !passedWeeks.includes(w - 1)) || w > currentWeek}
                             >
                                <p>{w}</p>
                               { w === 1 && isAvailableFirst && !user.seenWeekInfo && (
@@ -215,15 +229,18 @@ export const Lobby = () => {
                               )}
                             </WeekCircle>
                             {w > 1 && (
-                                <Divider $ratio={ratio} $unavailable={(w !== 1 && !passedWeeks.includes(w - 1)) || w > CURRENT_WEEK} $left={w - 1}/>
+                                <Divider $ratio={ratio} $unavailable={(w !== 1 && !passedWeeks.includes(w - 1)) || w > currentWeek} $left={w - 1}/>
                             )}
                         </React.Fragment>
                     )}
                 </Path>
                 {
-                    passedWeeks.includes(week) && week === CURRENT_WEEK ? (
-                        <NextWeekInfo $ratio={ratio} $hidden={!hasPassedThisTry}>
-                            Увидимся на следующей неделе!
+                   true ? (
+                        <NextWeekInfo $ratio={ratio}>
+                            {week !== 4 ? 'Увидимся на следующей неделе!' : 'Все уровни пройдены,\nпоздравляем!'}
+                            {week === 4 && (
+                                <Button color="red" onClick={handleFinish}>Далее</Button>
+                            )}
                         </NextWeekInfo>
                     ) : (
                         <Button color="red" onClick={handleNext}>В лес!</Button>

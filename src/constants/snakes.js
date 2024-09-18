@@ -69,4 +69,27 @@ export const snakes3 = [
         id: 'snake-3-5',
         position: [1379, 968],
     },
-]
+];
+
+export const snakes4 = [
+    {
+        id: 'snake-4-1',
+        position: [644, 45],
+    },
+    {
+        id: 'snake-4-2',
+        position: [127, 330],
+    },
+    {
+        id: 'snake-4-3',
+        position: [1360, 426],
+    },
+    {
+        id: 'snake-4-4',
+        position: [31, 1040],
+    },
+    {
+        id: 'snake-4-5',
+        position: [1360, 1214],
+    },
+];

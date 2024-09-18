@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { CURRENT_WEEK, useProgress } from "../../../contexts/ProgressContext";
+import { useProgress } from "../../../contexts/ProgressContext";
 import { Block } from "../Block";
 import { Modal } from "./Modal";
 import { Button } from "../Button";
@@ -17,17 +17,17 @@ const ButtonStyled = styled(Button)`
 `;
 
 export const NewWeekModal = () => {
-    const { user, setVipPoints, setUserInfo, setModal, updateUser, vipPoints } = useProgress();
+    const { user, setVipPoints, setUserInfo, setModal, updateUser, vipPoints, currentWeek } = useProgress();
 
     const handleClick = () => {
-        if (!user.weekStars.includes(CURRENT_WEEK)) {
+        if (!user.weekStars.includes(currentWeek)) {
             const data = {
-                weekStars: [...user.weekStars, CURRENT_WEEK].join(','),
+                weekStars: [...user.weekStars, currentWeek].join(','),
                 targetPoints: vipPoints + 1,
             };
 
             setVipPoints(prev => prev + 1);
-            setUserInfo({weekStars: [...user.weekStars, CURRENT_WEEK]});
+            setUserInfo({weekStars: [...user.weekStars, currentWeek]});
 
             updateUser(data);
         }
