@@ -39,8 +39,8 @@ const INITIAL_STATE = {
     vipPoints: 0,
     weekPoints: 0,
     user: INITIAL_USER,
-    passedWeeks: [],
-    cardsSeen: [],
+    passedWeeks: [1,2,3],
+    cardsSeen: [1,2,3],
 }
 
 const ProgressContext = createContext(INITIAL_STATE);
