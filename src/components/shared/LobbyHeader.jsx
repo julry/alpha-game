@@ -103,6 +103,10 @@ const TipButtonWrapper = styled.div`
     button + & {
         margin-left: var(--spacing_x2);
     }
+
+    & + & {
+        margin-left: var(--spacing_x2);
+    }
 `;
 
 const CloseIconStyled = styled(CloseIcon)`
