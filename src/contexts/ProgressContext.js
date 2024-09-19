@@ -54,6 +54,7 @@ export function ProgressProvider(props) {
     const [vipPoints, setVipPoints] = useState(INITIAL_STATE.vipPoints);
     const [modal, setModal] = useState({visible: false});
     const [weekPoints, setWeekPoints] = useState(INITIAL_STATE.weekPoints);
+    const [currentWeekPoints, setCurrentWeekPoints] = useState(INITIAL_STATE.weekPoints);
     const [gamePoints, setGamePoints] = useState(0);
     const [cardsSeen, setCardsSeen] = useState(INITIAL_STATE.cardsSeen);
     const [user, setUser] = useState(INITIAL_STATE.user);
@@ -106,8 +107,12 @@ export function ProgressProvider(props) {
         };
         
         const isAddWeek = level === currentWeek;
+
         if (user.isVip) {
-            if (isAddWeek) data[`week${currentWeek}Points`] = weekPoints + 10;
+            if (isAddWeek) {
+                data[`week${currentWeek}Points`] = weekPoints + 10;
+                setCurrentWeekPoints(prev => prev + 10);
+            }
 
             setWeekPoints(prev => prev + 10);
             data.targetPoints = vipPoints + additionalPoints;
@@ -141,7 +146,7 @@ export function ProgressProvider(props) {
             week2Points, 
             week3Points, 
             week4Points,
-            [`week${currentWeek}Points`]: weekPoints,
+            [`week${currentWeek}Points`]: currentWeekPoints,
             seenRules, 
             registerWeek,
             passedWeeks: passedWeeks.join(','),
@@ -200,6 +205,7 @@ export function ProgressProvider(props) {
             setPoints(INITIAL_STATE.points);
             setVipPoints(INITIAL_STATE.vipPoints);
             setWeekPoints(INITIAL_STATE.weekPoints);
+            setCurrentWeekPoints(INITIAL_STATE.weekPoints);
             setCardsSeen(INITIAL_STATE.cardsSeen);
             setPassedWeeks(INITIAL_STATE.passedWeeks);
        } catch (e) {
@@ -249,6 +255,7 @@ export function ProgressProvider(props) {
             setPoints(data?.points ?? 0);
             setVipPoints(data?.targetPoints ?? 0);
             setWeekPoints(data?.[`week${currentWeek}Points`] ?? 0);
+            setCurrentWeekPoints(data?.[`week${currentWeek}Points`] ?? 0);
 
             return {userInfo, passed};
        } catch (e) {
@@ -286,7 +293,9 @@ export function ProgressProvider(props) {
         updateUser,
         getUserInfo,
         registrateUser,
-        currentWeek
+        currentWeek,
+        currentWeekPoints, 
+        setCurrentWeekPoints,
     }
 
     return (

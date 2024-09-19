@@ -114,7 +114,7 @@ export const PostGame = ({finishText, level }) => {
     const { 
         setModal, modal, next, addGamePoint, gamePoints, setGamePoints, user, 
         setPoints, setWeekPoints, setCardsSeen, cardsSeen, updateUser, currentWeek,
-        points, weekPoints,
+        points, currentWeekPoints, setCurrentWeekPoints,
     } = useProgress();
     const [isFlip, setFlip] = useState(false);
     const [isFlipped, setFlipped] = useState(false);
@@ -187,8 +187,9 @@ export const PostGame = ({finishText, level }) => {
             data.points = points + gamePoints;
             setPoints(prev => prev + gamePoints);
         } else {
-            data[`week${currentWeek}Points`] = weekPoints + gamePoints;
+            data[`week${currentWeek}Points`] = currentWeekPoints + gamePoints;
             setWeekPoints(prev =>  prev + gamePoints);
+            setCurrentWeekPoints(prev => prev + gamePoints)
         }
 
         updateUser(data);

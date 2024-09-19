@@ -113,6 +113,7 @@ export const Registration2 = () => {
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
     const [isSending, setIsSending] = useState(false);
+    const [isNetworkError, setIsNetworkError] = useState(false);
     const [isAgreed, setIsAgreed] = useState('');
     const [isCorrect, setIsCorrect] = useState(true);
     const [isAlreadyHas, setIsAlreadyHas] = useState(false);
@@ -135,6 +136,8 @@ export const Registration2 = () => {
     const actionLink = user?.isVip ? 'https://alfajourney.fut.ru/agreement_ff.pdf ' : 'https://alfajourney.fut.ru/agreement.pdf'; 
 
     const handleClick = async () => {
+        setIsNetworkError(false);
+
         if (isSending) return;
         const res = await getUserInfo(email);
 
@@ -147,9 +150,14 @@ export const Registration2 = () => {
 
         setIsSending(true);
         setUserInfo({name: `${name} ${surname}`, email, registerWeek: currentWeek, id});
-        await registrateUser({name: `${name} ${surname}`, email, id});
+        const regRes = await registrateUser({name: `${name} ${surname}`, email, id});
         setIsSending(false);
 
+        if (regRes.isError) {
+            setIsNetworkError(true);
+            return;
+        }
+        
         if (currentWeek === 1) {
             reachMetrikaGoal(`${user?.isVip ? '' : 'non'}target_lobby`);
         } else {
@@ -232,6 +240,9 @@ export const Registration2 = () => {
                     </span>
                 </RadioButtonLabel>
             </Content>
+            {isNetworkError && (
+                <WrongText>Ой! Что-то пошло не так, попробуй позже.</WrongText>
+            )}
             <ButtonStyled color="red" onClick={handleClick} disabled={!name || !email || !surname || !isAgreed || !isCorrect || isAlreadyHas}>Далее</ButtonStyled>
             {isAlreadyHas && (<ButtonStyled color='pink' onClick={() => {next()}}>Вход</ButtonStyled>)}
         </Wrapper>
