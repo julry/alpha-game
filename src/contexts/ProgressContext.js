@@ -67,10 +67,11 @@ export function ProgressProvider(props) {
     const client = useRef();
 
     const getDbCurrentWeek = async () => {
-        const { week } = await client.current.loadProjectState();
-        if (week && !isNaN(+week)) {
-            setCurrentWeek(+week);
-        }
+        setCurrentWeek(4);
+        // const { week } = await client.current.loadProjectState();
+        // if (week && !isNaN(+week)) {
+        //     setCurrentWeek(+week);
+        // }
     }
 
     useEffect(() => {
@@ -127,6 +128,7 @@ export function ProgressProvider(props) {
     };
 
     const updateUser = async (changed) => {
+        return user;
         const { 
             isVip, recordId, weekStars, id, name, email, registerWeek,
             university, isTgConnected, seenRules, week1Points, week2Points, week3Points, week4Points,
@@ -154,6 +156,8 @@ export function ProgressProvider(props) {
             ...changed,
         };
 
+        if (!recordId) return {...data, isEror: true};
+
         try {
             const result = await client.current.updateRecord(recordId, data);
 
@@ -166,6 +170,7 @@ export function ProgressProvider(props) {
     }
 
     const registrateUser = async ({id, name, email}) => {
+        return user;
         const data = {
             id,
             name,
@@ -214,6 +219,7 @@ export function ProgressProvider(props) {
     };
 
     const getUserInfo = async (email, isAfterTg) => {
+        return {userInfo: user, passed: passedWeeks};
        try {
             const record = await client?.current.findRecord('email', email);
             if (!record) return {isError: true}; 
