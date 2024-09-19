@@ -235,7 +235,7 @@ export const Lobby = () => {
                     )}
                 </Path>
                 {
-                   true ? (
+                    passedWeeks.includes(week) && week === currentWeek ? (
                         <NextWeekInfo $ratio={ratio}>
                             {week !== 4 ? 'Увидимся на следующей неделе!' : 'Все уровни пройдены,\nпоздравляем!'}
                             {week === 4 && (
