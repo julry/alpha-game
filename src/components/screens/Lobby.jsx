@@ -170,13 +170,9 @@ const WEEK_TO_POSITION = {
 
 export const Lobby = () => {
     const ratio = useSizeRatio();
-    const { 
-        // passedWeeks,
-         next, points, vipPoints, user, setModal, modal, setUserInfo, currentWeek } = useProgress();
-    const passedWeeks = [1,2,3,4];
-    const shownWeek = (passedWeeks[passedWeeks.length - 1] ?? 0) + 1 > 4  ? 4 : (passedWeeks[passedWeeks.length - 1] ?? 0) + 1;
-    // const week = 4;
-    const week = 4;
+    const { passedWeeks, next, points, vipPoints, user, setModal, modal, setUserInfo, currentWeek } = useProgress();
+    const shownWeek = (passedWeeks[passedWeeks.length - 1] ?? 0) + 1;
+    const week = shownWeek > currentWeek ? currentWeek : shownWeek;
     const [isAvailableFirst, setIsAvailableFirst] = useState(passedWeeks.length < currentWeek - 1);
     const { registerWeek, isVip, weekStars } = user;
     const weeks = Array.from({length: 4}, (v, i) => i + 1);
