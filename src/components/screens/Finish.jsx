@@ -74,7 +74,7 @@ const ButtonWrapper = styled.div`
 `;
 
 export const Finish = () => {
-    const {next} = useProgress();
+    const {next, user} = useProgress();
     const ratio = useSizeRatio();
     return (
         <Wrapper>
@@ -89,7 +89,7 @@ export const Finish = () => {
                     </p>
                     <br />
                     <p>
-                        Проверяй почту и <a href={"https://t.me/Alfajourney_bot"} target={"_blank"} rel="noreferrer">tg-бота</a> — возможно, ты станешь обладателем{' '}
+                        Проверяй почту и <a href={`https://t.me/Alfajourney_bot?start=${user.email}`} target={"_blank"} rel="noreferrer">tg-бота</a> — возможно, ты станешь обладателем{' '}
                         главного приза. 
                         С результатами мы вернёмся на следующей неделе. 
                         А пока можешь перечитать собранные факты про Альфа-Банк.

@@ -5,15 +5,15 @@ import {screens} from "../constants/screensComponents";
 import {getUrlParam} from "../utils/getUrlParam";
 
 const INITIAL_USER = {
-    id: '13526413',
-    name: 'Иванов Иван Иванович',
-    email: 'ivan2001@mail.ru',
-    university: 'НИУ ВШЭ Московский Институт Электроники и Математики',
+    id: '',
+    name: '',
+    email: '',
+    university: '',
     isVip: true,
-    seenRules: true,
-    isTgConnected: true,
+    seenRules: false,
+    isTgConnected: false,
     weekStars: [],
-    seenWeekInfo: true,
+    seenWeekInfo: false,
     registerWeek: 1,
     week1Points: 0,
     week2Points: 0,
@@ -39,8 +39,8 @@ const INITIAL_STATE = {
     vipPoints: 0,
     weekPoints: 0,
     user: INITIAL_USER,
-    passedWeeks: [1,2,3],
-    cardsSeen: [1,2,3],
+    passedWeeks: [],
+    cardsSeen: [],
 }
 
 const ProgressContext = createContext(INITIAL_STATE);
@@ -67,11 +67,10 @@ export function ProgressProvider(props) {
     const client = useRef();
 
     const getDbCurrentWeek = async () => {
-        setCurrentWeek(4);
-        // const { week } = await client.current.loadProjectState();
-        // if (week && !isNaN(+week)) {
-        //     setCurrentWeek(+week);
-        // }
+        const { week } = await client.current.loadProjectState();
+        if (week && !isNaN(+week)) {
+            setCurrentWeek(+week);
+        }
     }
 
     useEffect(() => {
@@ -128,7 +127,6 @@ export function ProgressProvider(props) {
     };
 
     const updateUser = async (changed) => {
-        return user;
         const { 
             isVip, recordId, weekStars, id, name, email, registerWeek,
             university, isTgConnected, seenRules, week1Points, week2Points, week3Points, week4Points,
@@ -170,7 +168,6 @@ export function ProgressProvider(props) {
     }
 
     const registrateUser = async ({id, name, email}) => {
-        return user;
         const data = {
             id,
             name,
@@ -219,7 +216,6 @@ export function ProgressProvider(props) {
     };
 
     const getUserInfo = async (email, isAfterTg) => {
-        return {userInfo: user, passed: passedWeeks};
        try {
             const record = await client?.current.findRecord('email', email);
             if (!record) return {isError: true}; 

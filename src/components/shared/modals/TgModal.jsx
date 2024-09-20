@@ -23,7 +23,7 @@ export const TgModal = () => {
 
     const handleClick = () => {
         if (checkTg) return;
-        window.open('https://t.me/Alfajourney_bot', '_blank');
+        window.open(`https://t.me/Alfajourney_bot?start=${user.email}`, '_blank');
     }
 
     useEffect(() => {
