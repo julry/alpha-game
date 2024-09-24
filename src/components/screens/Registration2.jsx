@@ -153,7 +153,7 @@ export const Registration2 = () => {
         const regRes = await registrateUser({name: `${name} ${surname}`, email, id});
         setIsSending(false);
 
-        if (regRes.isError) {
+        if (regRes?.isError) {
             setIsNetworkError(true);
             return;
         }

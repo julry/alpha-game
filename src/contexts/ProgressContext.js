@@ -210,6 +210,8 @@ export function ProgressProvider(props) {
             setCurrentWeekPoints(INITIAL_STATE.weekPoints);
             setCardsSeen(INITIAL_STATE.cardsSeen);
             setPassedWeeks(INITIAL_STATE.passedWeeks);
+            
+            return record; 
        } catch (e) {
             return {isError: true}
        }
