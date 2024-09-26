@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "./static/css/main.5b112b13.css",
-    "main.js": "./static/js/main.d5e9fc8e.js",
+    "main.js": "./static/js/main.7f5b8da5.js",
     "static/media/StyreneALC-Bold.otf": "./static/media/StyreneALC-Bold.e0bfa5ee6e6532117573.otf",
     "static/media/StyreneALC-Black.otf": "./static/media/StyreneALC-Black.15eb00502b0f9bd64ba8.otf",
     "static/media/StyreneALC-Regular.otf": "./static/media/StyreneALC-Regular.7a999447d564875a5680.otf",
@@ -60,10 +60,10 @@
     "static/media/close.svg": "./static/media/close.ebf199d9d5a716c551388c7cc05b2aa4.svg",
     "static/media/icon-arrow.svg": "./static/media/icon-arrow.82cc7e86a1954c8826f5d5a99fbeaecf.svg",
     "main.5b112b13.css.map": "./static/css/main.5b112b13.css.map",
-    "main.d5e9fc8e.js.map": "./static/js/main.d5e9fc8e.js.map"
+    "main.7f5b8da5.js.map": "./static/js/main.7f5b8da5.js.map"
   },
   "entrypoints": [
     "static/css/main.5b112b13.css",
-    "static/js/main.d5e9fc8e.js"
+    "static/js/main.7f5b8da5.js"
   ]
 }

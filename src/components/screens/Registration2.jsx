@@ -101,6 +101,11 @@ const WrongText = styled.p`
     font-size: var(--font_xs);
 `;
 
+const InfoText = styled(WrongText)`
+    color: var(--color-white);
+    margin-bottom: var(--spacing_x4);
+`;
+
 const weekToMetrikaName = {
     2: 'second',
     3: 'third',
@@ -117,6 +122,7 @@ export const Registration2 = () => {
     const [isAgreed, setIsAgreed] = useState('');
     const [isCorrect, setIsCorrect] = useState(true);
     const [isAlreadyHas, setIsAlreadyHas] = useState(false);
+    const [refId, setRefId] = useState('');
     
     const handleBlur = () => {
         if (email.match(emailRegExp) || !email) {
@@ -150,7 +156,7 @@ export const Registration2 = () => {
 
         setIsSending(true);
         setUserInfo({name: `${name} ${surname}`, email, registerWeek: currentWeek, id});
-        const regRes = await registrateUser({name: `${name} ${surname}`, email, id});
+        const regRes = await registrateUser({name: `${name} ${surname}`, email, id, refId});
         setIsSending(false);
 
         if (regRes?.isError) {
@@ -212,6 +218,23 @@ export const Registration2 = () => {
                 {isAlreadyHas && (
                     <WrongText>Ой! Эта почта уже зарегистрирована. Попробуй ввести снова или войди, чтобы начать играть.</WrongText>
                 )}
+                {user.isVip && (
+                    <InputWrapper>
+                        <Label>
+                            Введи ID друга,{'\n'}который тебя пригласил 
+                        </Label>
+                        <Input 
+                            type="text" 
+                            value={refId} 
+                            onChange={(e) => setRefId(e.target.value)} 
+                            placeholder="5е32uik"
+                        />
+                        <InfoText>
+                            После регистрации ты тоже сможешь{'\n'}пригласить друзей в игру
+                        </InfoText>
+                    </InputWrapper>
+                )}
+                
                 <RadioButtonLabel>
                     <InputRadioButton
                         type="checkbox"

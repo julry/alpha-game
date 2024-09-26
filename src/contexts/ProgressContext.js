@@ -128,7 +128,7 @@ export function ProgressProvider(props) {
 
     const updateUser = async (changed) => {
         const { 
-            isVip, recordId, weekStars, id, name, email, registerWeek,
+            isVip, recordId, weekStars, id, name, email, registerWeek, refId,
             university, isTgConnected, seenRules, week1Points, week2Points, week3Points, week4Points,
         } = user;
 
@@ -149,6 +149,7 @@ export function ProgressProvider(props) {
             [`week${currentWeek}Points`]: currentWeekPoints,
             seenRules, 
             registerWeek,
+            refId,
             passedWeeks: passedWeeks.join(','),
             cardsSeen: cardsSeen.join(','),
             ...changed,
@@ -167,7 +168,7 @@ export function ProgressProvider(props) {
         }
     }
 
-    const registrateUser = async ({id, name, email}) => {
+    const registrateUser = async ({id, name, email, refId}) => {
         const data = {
             id,
             name,
@@ -183,6 +184,7 @@ export function ProgressProvider(props) {
             weekStars: '',
             passedWeeks: '',
             cardsSeen: '',
+            refId,
         };
 
         const userInfo = {
@@ -199,6 +201,7 @@ export function ProgressProvider(props) {
             week2Points: 0,
             week3Points: 0,
             week4Points: 0,
+            refId,
         };
 
        try {
@@ -241,6 +244,7 @@ export function ProgressProvider(props) {
                 week2Points: data.week2Points,  
                 week3Points: data.week3Points, 
                 week4Points: data.week4Points, 
+                refId: data.refId,
             };
 
             if (isAfterTg) {

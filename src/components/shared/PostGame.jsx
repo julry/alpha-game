@@ -110,7 +110,7 @@ const CARDS_BY_LEVEL = {
     4: cardsLevel4,
 };
 
-export const PostGame = ({finishText, level }) => {
+export const PostGame = ({finishText, level, nextScreen}) => {
     const { 
         setModal, modal, next, addGamePoint, gamePoints, setGamePoints, user, 
         setPoints, setWeekPoints, setCardsSeen, cardsSeen, updateUser, currentWeek,
@@ -201,7 +201,7 @@ export const PostGame = ({finishText, level }) => {
             reachMetrikaGoal(`${user.isVip ? '' : 'non'}target_library${currentWeek}`);
         }
 
-        next(SCREENS.LIBRARY);
+        next(nextScreen ?? SCREENS.LIBRARY);
     };
     
     const getText = (p) => {
