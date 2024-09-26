@@ -34,7 +34,7 @@ export const StarButton = ({color, text, ...props}) => {
     const getAmount = () => {
         if (user.isVip) {
             if (color === 'white') return `${weekPoints + gamePoints}/20`;
-            else return `${vipPoints}/17`;
+            else return `${vipPoints}/18`;
         }
         return `${points + gamePoints}/81`;
     }
