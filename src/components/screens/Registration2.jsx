@@ -145,16 +145,18 @@ export const Registration2 = () => {
         setIsNetworkError(false);
 
         if (isSending) return;
+        setIsSending(true);
+        
         const res = await getUserInfo(email);
 
         if (!res.isError) {
             setIsAlreadyHas(true);
+            setIsSending(false);
 
             return;
         }
         const id = uid(7);
 
-        setIsSending(true);
         setUserInfo({name: `${name} ${surname}`, email, registerWeek: currentWeek, id});
         const regRes = await registrateUser({name: `${name} ${surname}`, email, id, refId});
         setIsSending(false);
@@ -266,7 +268,7 @@ export const Registration2 = () => {
             {isNetworkError && (
                 <WrongText>Ой! Что-то пошло не так, попробуй позже.</WrongText>
             )}
-            <ButtonStyled color="red" onClick={handleClick} disabled={!name || !email || !surname || !isAgreed || !isCorrect || isAlreadyHas}>Далее</ButtonStyled>
+            <ButtonStyled color="red" onClick={handleClick} disabled={!name || !email || !surname || !isAgreed || !isCorrect || isAlreadyHas || isSending}>Далее</ButtonStyled>
             {isAlreadyHas && (<ButtonStyled color='pink' onClick={() => {next()}}>Вход</ButtonStyled>)}
         </Wrapper>
     )
