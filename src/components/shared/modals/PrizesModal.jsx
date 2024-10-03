@@ -98,7 +98,7 @@ export const PrizesModal = () => {
                             ты получаешь <b>белые звёзды</b>. Собирай каждую неделю больше 15 звёзд и участвуй{' '}
                             в <b>еженедельном розыгрыше</b>.
                             {'\n\n'}
-                            Жди каждый понедельник письмо на почту или следи за уведомлениями от <a href={`https://t.me/Alfajourney_bot?start=${user.email}`} target={"_blank"} rel="noreferrer">tg-бота</a>. 
+                            Жди каждый понедельник письмо на почту или следи за уведомлениями от <a href={`https://t.me/Alfajourney_bot?start=email_${btoa(user.email)}`} target={"_blank"} rel="noreferrer">tg-бота</a>. 
                         </p>
                         <ButtonStyled color="red" onClick={handleSetRedStarPart}>Далее</ButtonStyled>
                         <Progress />
@@ -126,7 +126,7 @@ export const PrizesModal = () => {
                         За прохождение уровней и за правильные ответы на вопросы после них ты получаешь белые{' '}
                         звёзды.{'\n'}Собери больше <b>60 звёзд</b> и участвуй в розыгрыше.{' '}
                         В конце всех недель игры мы направим письма на почты победителей, а также пришлём{' '}
-                        список ID счастливчиков в <a href={`https://t.me/Alfajourney_bot?start=${user.email}`} target={"_blank"} rel="noreferrer"><b>tg-бот</b></a>!
+                        список ID счастливчиков в <a href={`https://t.me/Alfajourney_bot?start=email_${btoa(user.email)}`} target={"_blank"} rel="noreferrer"><b>tg-бот</b></a>!
                     </p>
                     <ButtonStyled color="red" onClick={() => setModal({visible: false})}>Далее</ButtonStyled>
                 </Content>

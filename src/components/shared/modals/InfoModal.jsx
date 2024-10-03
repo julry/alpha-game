@@ -136,14 +136,14 @@ export const InfoModal = () => {
                                     ты получаешь белые звёзды. Собирай каждую неделю больше <b>15 звёзд</b> и участвуй{' '}
                                     в <b>еженедельном розыгрыше</b>.
                                     {'\n\n'}
-                                    Жди каждый понедельник письмо на почту или следи за уведомлениями от <a href={`https://t.me/Alfajourney_bot?start=${user.email}`} target={"_blank"} rel="noreferrer">tg-бота</a>. 
+                                    Жди каждый понедельник письмо на почту или следи за уведомлениями от <a href={`https://t.me/Alfajourney_bot?start=email_${btoa(user.email)}`} target={"_blank"} rel="noreferrer">tg-бота</a>. 
                                 </p>
                             ) : (
                                 <p>
                                     За прохождение уровней и за правильные ответы на вопросы после них ты получаешь белые{' '}
                                     звёзды.{'\n'}Собери больше <b>60 звёзд</b> и участвуй в розыгрыше.{' '}
                                     В конце всех недель игры мы направим письма на почты победителей, а также пришлём{' '}
-                                    список ID счастливчиков в <a href={`https://t.me/Alfajourney_bot?start=${user.email}`} target={"_blank"} rel="noreferrer"><b>tg-бот</b></a>!
+                                    список ID счастливчиков в <a href={`https://t.me/Alfajourney_bot?start=email_${btoa(user.email)}`} target={"_blank"} rel="noreferrer"><b>tg-бот</b></a>!
                                 </p>
                             )
                         }

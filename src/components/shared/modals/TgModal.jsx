@@ -45,11 +45,20 @@ export const TgModal = () => {
     return (
         <Modal isDarken isDisabledAnimation={modal.isDisabledAnimation}>
             <Content hasCloseIcon onClose={() => setModal({visible: false})}>
-                <p>
-                    У нас есть полезный <b>tg-канал</b> про карьерные возможности.{'\n'}
-                    Переходи в <b>бот</b>, чтобы получить ссылку, и заработай ещё одну{' '}
-                    <b>{user?.isVip ? 'красную ' : 'белую '}звезду</b> — так ты будешь на шаг ближе к главному призу.
-                </p>
+                {
+                    user.isTgConnected ? (
+                        <p>
+                            В нашем <b>телеграм-боте</b> ты можешь следить за <b>обновлениями</b> игры 
+                            и находить <b>ответы</b> на возможные вопросы. Там же мы огласим ID <b>победителей</b> розыгрыша!
+                        </p>
+                    ) : (
+                        <p>
+                            У нас есть полезный <b>tg-канал</b> про карьерные возможности.{'\n'}
+                            Переходи в <b>бот</b>, чтобы получить ссылку, и заработай ещё одну{' '}
+                            <b>{user?.isVip ? 'красную ' : 'белую '}звезду</b> — так ты будешь на шаг ближе к главному призу.
+                        </p>
+                    )
+                }
                 <ButtonStyled color="red" onClick={handleClick} disabled={checkTg}>Перейти</ButtonStyled>
             </Content>
         </Modal>
