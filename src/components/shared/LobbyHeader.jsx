@@ -115,11 +115,12 @@ const CloseIconStyled = styled(CloseIcon)`
 `;
 
 export const LobbyHeader = ({ isGame, isCards, onClickModalButton, isFirstTime, isNoGames }) => {
-    const [isRulesTip, setIsRulesTip] = useState(isFirstTime);
+    const { user, currentScreen, currentWeek, next, $whiteStarRef, $redStarRef } = useProgress();
+    const isFinalWeek = currentWeek >= 5;
+    const [isRulesTip, setIsRulesTip] = useState(!isFinalWeek && isFirstTime);
     const [isLibTip, setIsLibTip] = useState(isNoGames);
 
     const ratio = useSizeRatio();
-    const { user, currentScreen, next, $whiteStarRef, $redStarRef } = useProgress();
 
     const handleClickLib = () => {
         if (currentScreen === SCREENS.LOBBY) {

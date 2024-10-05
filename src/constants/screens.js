@@ -14,6 +14,7 @@ export const SCREENS = {
     POST_GAME4: 'POST_GAME4',
     LIBRARY: 'LIBRARY',
     FINISH: 'FINISH',
+    PLUG: 'PLUG',
 }
 
 export const NEXT_SCREENS = {

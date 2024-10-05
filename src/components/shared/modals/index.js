@@ -11,3 +11,4 @@ export * from './CardRulesModal';
 export * from './TgModal';
 export * from './MovementModal';
 export * from './NewWeekModal';
+export * from './EndGameModal';

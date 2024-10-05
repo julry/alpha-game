@@ -197,8 +197,10 @@ export const PostGame = ({finishText, level, nextScreen}) => {
 
         if (currentWeek === 1) {
             reachMetrikaGoal(`${user?.isVip ? '' : 'non'}target_library`);
-        } else {
+        } else if (currentWeek < 4) {
             reachMetrikaGoal(`${user.isVip ? '' : 'non'}target_library${currentWeek}`);
+        } else if (currentWeek === 4) {
+            reachMetrikaGoal(`${user.isVip ? '' : 'non'}target_final`);
         }
 
         next(nextScreen ?? SCREENS.LIBRARY);

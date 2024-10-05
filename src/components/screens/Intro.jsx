@@ -84,8 +84,19 @@ const ButtonWrapper = styled.div`
 `;
 
 export const Intro = () => {
-    const {next} = useProgress();
+    const {next, currentWeek} = useProgress();
     const ratio = useSizeRatio();
+
+    const handleReg = () => {
+        if (currentWeek >= 5) {
+            next(SCREENS.PLUG);
+
+            return;
+        }
+
+        next(SCREENS.REG_1);
+    };
+
     return (
         <Wrapper>
             <Logo $ratio={ratio}/>
@@ -101,7 +112,7 @@ export const Intro = () => {
                     </p>
                 </TextBlock>
                 <ButtonWrapper>
-                    <Button color="pink" onClick={() => next(SCREENS.REG_1)}>Регистрация</Button>
+                    <Button color="pink" onClick={handleReg}>Регистрация</Button>
                     <Button color="green" onClick={() => next(SCREENS.LOGIN)}>Вход</Button>
                 </ButtonWrapper>
             </Content>

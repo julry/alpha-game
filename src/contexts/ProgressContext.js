@@ -27,8 +27,9 @@ const getCurrentWeek = () => {
     if (today < new Date(2024, 8, 23)) return 1;
     if (today < new Date(2024, 8, 30)) return 2;
     if (today < new Date(2024, 9, 7)) return 3;
+    if (today < new Date(2024, 9, 14)) return 4;
 
-    return 4;
+    return 5;
 }
 
 export const CURRENT_WEEK = getCurrentWeek();
@@ -146,7 +147,7 @@ export function ProgressProvider(props) {
             week2Points, 
             week3Points, 
             week4Points,
-            [`week${currentWeek}Points`]: currentWeekPoints,
+            [`week${currentWeek > 4 ? 4 : currentWeek}Points`]: currentWeekPoints,
             seenRules, 
             registerWeek,
             refId,
@@ -262,8 +263,8 @@ export function ProgressProvider(props) {
             setCardsSeen(cardsSeen);
             setPoints(data?.points ?? 0);
             setVipPoints(data?.targetPoints ?? 0);
-            setWeekPoints(data?.[`week${currentWeek}Points`] ?? 0);
-            setCurrentWeekPoints(data?.[`week${currentWeek}Points`] ?? 0);
+            setWeekPoints(data?.[`week${currentWeek > 4 ? 4 : currentWeek}Points`] ?? 0);
+            setCurrentWeekPoints(data?.[`week${currentWeek > 4 ? 4 : currentWeek}Points`] ?? 0);
 
             return {userInfo, passed};
        } catch (e) {

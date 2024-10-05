@@ -2,7 +2,8 @@ import {
     WhiteStarModal, ProfileModal, RedStarModal, ExitModal, 
     WinModal, InfoModal, RefreshStarsModal, PreRulesModal,
     CardRulesModal, PrizesModal, TgModal, MovementModal,
-    NewWeekModal
+    NewWeekModal,
+    EndGameModal
 } from "../components/shared/modals";
 
 export const getModalByType = (type, props) => {
@@ -47,6 +48,9 @@ export const getModalByType = (type, props) => {
             break;
         case 'newWeek':
             Component = NewWeekModal;
+            break;
+        case 'endGame':
+            Component = EndGameModal;
             break;
         default:
             return;

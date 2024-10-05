@@ -13,6 +13,7 @@ import { PostGame3 } from "../components/screens/PostGame3";
 import { Game4 } from "../components/screens/Game4";
 import { PostGame4 } from "../components/screens/PostGame4";
 import { Finish } from "../components/screens/Finish";
+import { Plug } from "../components/screens/Plug";
 
 import { SCREENS } from "./screens";
 
@@ -77,7 +78,8 @@ export const screens = {
     [SCREENS.POST_GAME3]: PostGame3,
     [SCREENS.GAME4]: Game4,
     [SCREENS.POST_GAME4]: PostGame4,
-    [SCREENS.FINISH]: Finish
+    [SCREENS.FINISH]: Finish,
+    [SCREENS.PLUG]: Plug,
 };
 
 export const preloadImages = [

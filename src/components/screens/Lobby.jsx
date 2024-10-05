@@ -171,6 +171,7 @@ const WEEK_TO_POSITION = {
 export const Lobby = () => {
     const ratio = useSizeRatio();
     const { passedWeeks, next, points, vipPoints, user, setModal, modal, setUserInfo, currentWeek } = useProgress();
+    const isFinalWeek = currentWeek >= 5;
     const shownWeek = (passedWeeks[passedWeeks.length - 1] ?? 0) + 1;
     const week = shownWeek > currentWeek ? currentWeek : shownWeek;
     const [isAvailableFirst, setIsAvailableFirst] = useState(passedWeeks.length < currentWeek - 1);
@@ -180,6 +181,12 @@ export const Lobby = () => {
     const isFirstTime = (!passedWeeks.length && ((!user.isVip && points === 0) || (user.isVip && vipPoints === 0)));
 
     useLayoutEffect(() => {
+        if (isFinalWeek) {
+            setModal({type: 'endGame', visible: true});
+
+            return;
+        }
+
         if (!user.seenRules && !weekStars.includes(1)) {
             setModal({type: 'info', visible: true, isDisabledAnimation: true, isDarken: true})
         }
@@ -206,6 +213,7 @@ export const Lobby = () => {
     return (
         <HeaderComponent isFirstTime={isFirstTime && !modal.visible} isNoGames={passedWeeks.length === currentWeek}>
             <Wrapper $ratio={ratio}>
+                {!isFinalWeek && (
                 <Path $ratio={ratio}>
                     <Character $ratio={ratio} $left={WEEK_TO_POSITION[week]}/>
                     {weeks.map((w) => 
@@ -230,8 +238,9 @@ export const Lobby = () => {
                         </React.Fragment>
                     )}
                 </Path>
+                )}
                 {
-                    passedWeeks.includes(week) && week === currentWeek ? (
+                    !isFinalWeek && passedWeeks.includes(week) && week === currentWeek ? (
                         <NextWeekInfo $ratio={ratio}>
                             {week !== 4 ? 'Увидимся на следующей неделе!' : 'Все уровни пройдены,\nпоздравляем!'}
                             {week === 4 && (

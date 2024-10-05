@@ -89,7 +89,7 @@ export const Login = () => {
         
         if (currentWeek === 1) {
             reachMetrikaGoal(`${info?.userInfo?.isVip ? '' : 'non'}target_lobby`);
-        } else {
+        } else if (currentWeek < 5) {
             reachMetrikaGoal(`${info?.userInfo?.isVip ? '' : 'non'}target_${weekToMetrikaName[currentWeek]}_week_start`);
         }
 
