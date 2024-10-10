@@ -110,7 +110,9 @@ export const Login = () => {
                     <WrongText>Ой! Такой почты нет. Попробуй ввести снова или зарегистрируйся, чтобы начать играть.</WrongText>
                 )}
                 <ButtonStyled $isWrongEmail={isWrongEmail} color="red" onClick={handleClick}>Далее</ButtonStyled>
-                <ButtonStyled $isHidden={!isWrongEmail} color="pink" onClick={() => next(SCREENS.REG_1)}>Регистрация</ButtonStyled>
+                {currentWeek < 5 && (
+                    <ButtonStyled disabled={!isWrongEmail} $isHidden={!isWrongEmail} color="pink" onClick={() => next(SCREENS.REG_1)}>Регистрация</ButtonStyled>
+                )}
             </Content>
             <Picture $ratio={ratio} />
         </Wrapper>
