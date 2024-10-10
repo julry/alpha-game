@@ -75,7 +75,7 @@ export const Plug = () => {
                     </p>
                 </TextBlock>
                 <ButtonWrapper>
-                    <Button color="red" onClick={() => window.open('', '_blank')}>Перейти</Button>
+                    <Button color="red" onClick={() => window.open('https://t.me/alfastudents/1100', '_blank')}>Перейти</Button>
                 </ButtonWrapper>
             </Content>
         </Wrapper>

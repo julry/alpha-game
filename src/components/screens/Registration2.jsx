@@ -24,7 +24,7 @@ const InputStyled = styled(Input)`
 `;
 
 const InputWrapper = styled.div`
-    margin-top: var(--spacing_x4);
+    margin-top: var(--spacing_x${({$isAlreadyHas}) => $isAlreadyHas ? 2 : 4});
 `;
 
 const Label = styled.p`
@@ -33,7 +33,7 @@ const Label = styled.p`
 `;
 
 const ButtonStyled = styled(Button)`
-    margin-top: var(--spacing_x8);
+    margin-top: var(--spacing_x${({$isAlreadyHas}) => $isAlreadyHas ? 4 : 8});
 
     & + & {
         margin-top: var(--spacing_x4);
@@ -192,7 +192,7 @@ export const Registration2 = () => {
                     placeholder="Иван"
                 />
 
-                <InputWrapper>
+                <InputWrapper $isAlreadyHas={isAlreadyHas}>
                     <Label>
                         Укажи свою фамилию
                     </Label>
@@ -204,7 +204,7 @@ export const Registration2 = () => {
                     />
                 </InputWrapper>
 
-                <InputWrapper>
+                <InputWrapper $isAlreadyHas={isAlreadyHas}>
                     <Label>
                         Укажи свою почту
                     </Label>
@@ -221,7 +221,7 @@ export const Registration2 = () => {
                     <WrongText>Ой! Эта почта уже зарегистрирована. Попробуй ввести снова или войди, чтобы начать играть.</WrongText>
                 )}
                 {user.isVip && (
-                    <InputWrapper>
+                    <InputWrapper $isAlreadyHas={isAlreadyHas}>
                         <Label>
                             Введи ID друга,{'\n'}который тебя пригласил 
                         </Label>
@@ -268,7 +268,7 @@ export const Registration2 = () => {
             {isNetworkError && (
                 <WrongText>Ой! Что-то пошло не так, попробуй позже.</WrongText>
             )}
-            <ButtonStyled color="red" onClick={handleClick} disabled={!name || !email || !surname || !isAgreed || !isCorrect || isAlreadyHas || isSending}>Далее</ButtonStyled>
+            <ButtonStyled $isAlreadyHas={isAlreadyHas} color="red" onClick={handleClick} disabled={!name || !email || !surname || !isAgreed || !isCorrect || isAlreadyHas || isSending}>Далее</ButtonStyled>
             {isAlreadyHas && (<ButtonStyled color='pink' onClick={() => {next()}}>Вход</ButtonStyled>)}
         </Wrapper>
     )

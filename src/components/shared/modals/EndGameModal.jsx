@@ -21,20 +21,21 @@ export const EndGameModal = () => {
     const { user, setModal } = useProgress();
 
     const handleClick = () => {
-        setModal({type: 'profile', visible: true});
+        setModal({visible: false});
     }
 
     return (
         <Modal isDarken>
-            <Content>
+            <Content hasCloseIcon onClose={handleClick}>
                 <p>
-                    <b>Игра подошла к концу!</b>{'\n\n'}
+                    Игра подошла к концу!{'\n\n'}
                     Здесь ты можешь посмотреть накопленные баллы и данные профиля.
                     Следи за <b>оповещениями{' '}
                     <a href={`https://t.me/sbercryptography_bot?start=email_${btoa(user.email)}`} rel="noreferrer" target="_blank">в боте</a></b>,{' '} 
-                    чтобы не упустить результаты розыгрыша.
+                    чтобы не упустить результаты розыгрыша.{'\n\n'}
+                    Следи за карьерными возможностями и мероприятиями Альфа-Банка в ТГ-канале:
                 </p>
-                <ButtonStyled color="red" onClick={handleClick}>Посмотреть прогресс</ButtonStyled>
+                <ButtonStyled color="red" onClick={() => window.open('https://t.me/alfastudents/1100', '_blank')}>Перейти</ButtonStyled>
             </Content>
         </Modal>
     )

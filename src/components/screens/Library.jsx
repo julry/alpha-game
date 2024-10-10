@@ -219,6 +219,7 @@ export const Library = () => {
     const { next, passedWeeks, cardsSeen, currentWeek } = useProgress();
     const [openedCards, setOpenedCards] = useState([]);
     const [isModal, setIsModal] = useState(false); 
+    const isFinalWeek = currentWeek >= 5;
 
     const weeks = [
         {
@@ -248,12 +249,13 @@ export const Library = () => {
     const [shownDialogs, setShownDialogs] = useState(dialogs);
 
     const handleClick = (id, cards) => {
-        if (!passedWeeks.includes(id)) {
+        if (!passedWeeks.includes(id) && !isFinalWeek) {
             setIsModal(true);
             return;
         }
 
         if (!cardsSeen.includes(id)) {
+            if (isFinalWeek) return;
             next(SCREENS[`POST_GAME${id}`]);
         }
     
@@ -261,7 +263,7 @@ export const Library = () => {
     };
 
     const getDialog = (id) => {
-        if (!shownDialogs[id - 1]) return;
+        if (!shownDialogs[id - 1] || isFinalWeek) return;
 
         const Component = id % 2 === 0 ? RightDialog : LeftDialog;
 

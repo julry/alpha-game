@@ -202,6 +202,7 @@ export const Lobby = () => {
 
     const handleNext = () => {
         setUserInfo({seenWeekInfo: true});
+        window?._tmr?.push({ type: 'reachGoal', id: 3564008, goal: 'start-aa'});
         next(WEEK_TO_NEXT_SCREEN[week]);
     }
 
@@ -213,7 +214,6 @@ export const Lobby = () => {
     return (
         <HeaderComponent isFirstTime={isFirstTime && !modal.visible} isNoGames={passedWeeks.length === currentWeek}>
             <Wrapper $ratio={ratio}>
-                {!isFinalWeek && (
                 <Path $ratio={ratio}>
                     <Character $ratio={ratio} $left={WEEK_TO_POSITION[week]}/>
                     {weeks.map((w) => 
@@ -225,7 +225,7 @@ export const Lobby = () => {
                                 $unavailable={(w !== 1 && !passedWeeks.includes(w - 1)) || w > currentWeek}
                             >
                                <p>{w}</p>
-                              { w === 1 && isAvailableFirst && !user.seenWeekInfo && (
+                              {!isFinalWeek && w === 1 && isAvailableFirst && !user.seenWeekInfo && (
                                 <TipStyled $ratio={ratio}>
                                     <p>Проходи недели{'\n'}по порядку, чтобы открыть{'\n'}текущую</p>
                                     <CloseIcon $ratio={ratio} onClick={handleCloseTip}/>
@@ -238,7 +238,6 @@ export const Lobby = () => {
                         </React.Fragment>
                     )}
                 </Path>
-                )}
                 {
                     !isFinalWeek && passedWeeks.includes(week) && week === currentWeek ? (
                         <NextWeekInfo $ratio={ratio}>
@@ -247,7 +246,7 @@ export const Lobby = () => {
                                 <Button color="red" onClick={handleFinish}>Далее</Button>
                             )}
                         </NextWeekInfo>
-                    ) : (
+                    ) : !isFinalWeek && (
                         <Button color="red" onClick={handleNext}>В лес!</Button>
                     )
                 }
