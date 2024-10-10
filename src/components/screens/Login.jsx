@@ -107,7 +107,7 @@ export const Login = () => {
                 </Text>
                 <Input placeholder="user@mail.com" value={email} onChange={(e) => setEmail(e.target.value)}/>
                 {isWrongEmail && (
-                    <WrongText>Ой! Такой почты нет. Попробуй ввести снова или зарегистрируйся, чтобы начать играть.</WrongText>
+                    <WrongText>Ой! Такой почты нет. Попробуй ввести снова{currentWeek < 5 ? ' или зарегистрируйся, чтобы начать играть.' : ''}</WrongText>
                 )}
                 <ButtonStyled $isWrongEmail={isWrongEmail} color="red" onClick={handleClick}>Далее</ButtonStyled>
                 {currentWeek < 5 && (
